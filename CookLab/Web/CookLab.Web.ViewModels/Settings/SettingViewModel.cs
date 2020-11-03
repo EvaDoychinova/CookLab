@@ -1,9 +1,9 @@
 ﻿namespace CookLab.Web.ViewModels.Settings
 {
+    using AutoMapper;
+
     using CookLab.Data.Models;
     using CookLab.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
