@@ -26,6 +26,24 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<CategoryRecipe> CategoryRecipes { get; set; }
+
+        public DbSet<CookingVessel> CookingVessels { get; set; }
+
+        public DbSet<FormDimension> FormDimensions { get; set; }
+
+        public DbSet<Ingredient> Ingredients { get; set; }
+
+        public DbSet<Nutrition> Nutritions { get; set; }
+
+        public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<RecipeImage> RecipeImages { get; set; }
+
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

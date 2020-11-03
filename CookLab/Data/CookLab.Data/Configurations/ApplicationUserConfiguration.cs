@@ -1,6 +1,7 @@
 ﻿namespace CookLab.Data.Configurations
 {
     using CookLab.Data.Models;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
