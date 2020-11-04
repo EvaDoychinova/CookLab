@@ -65,6 +65,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IIngredientsService, IngredientsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IRecipesService, RecipesService>();
             services.AddTransient<INutritionsService, NutritionsService>();
             services.AddTransient<ICookingVesselsService, CookingVesselsService>();
