@@ -216,55 +216,25 @@ namespace CookLab.Data.Migrations
                     b.Property<int>("Form")
                         .HasColumnType("int");
 
-                    b.Property<int>("FormDimensionId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("VesselDimensionId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Volume")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FormDimensionId");
-
                     b.HasIndex("IsDeleted");
 
+                    b.HasIndex("VesselDimensionId");
+
                     b.ToTable("CookingVessels");
-                });
-
-            modelBuilder.Entity("CookLab.Data.Models.FormDimension", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Diameter")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Height")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("SideA")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SideB")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FormDimensions");
                 });
 
             modelBuilder.Entity("CookLab.Data.Models.Ingredient", b =>
@@ -536,6 +506,36 @@ namespace CookLab.Data.Migrations
                     b.ToTable("UserRecipe");
                 });
 
+            modelBuilder.Entity("CookLab.Data.Models.VesselDimension", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Diameter")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Height")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("SideA")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SideB")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FormDimensions");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -657,9 +657,9 @@ namespace CookLab.Data.Migrations
 
             modelBuilder.Entity("CookLab.Data.Models.CookingVessel", b =>
                 {
-                    b.HasOne("CookLab.Data.Models.FormDimension", "FormDimensions")
+                    b.HasOne("CookLab.Data.Models.VesselDimension", "VesselDimension")
                         .WithMany()
-                        .HasForeignKey("FormDimensionId")
+                        .HasForeignKey("VesselDimensionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookLab.Data.Common.Models;
     using CookLab.Data.Common.Repositories;
 
     using Microsoft.EntityFrameworkCore;

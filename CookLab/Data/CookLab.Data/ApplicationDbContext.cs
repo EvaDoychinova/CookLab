@@ -32,7 +32,7 @@
 
         public DbSet<CookingVessel> CookingVessels { get; set; }
 
-        public DbSet<FormDimension> FormDimensions { get; set; }
+        public DbSet<VesselDimension> VesselDimensions { get; set; }
 
         public DbSet<Ingredient> Ingredients { get; set; }
 
