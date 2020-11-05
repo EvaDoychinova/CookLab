@@ -34,6 +34,6 @@
     <ProjectReference Include="..\..\Services\CookLab.Services.Messaging\CookLab.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services\CookLab.Services.csproj" />
     <ProjectReference Include="..\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
-    <ProjectReference Include="..\CookLab.Web.ViewModels\CookLab.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\CookLab.Web.ViewModels\CookLab.Models.ViewModels.csproj" />
   </ItemGroup>
 </Project>

@@ -8,10 +8,10 @@
     using CookLab.Data.Models;
     using CookLab.Data.Repositories;
     using CookLab.Data.Seeding;
+    using CookLab.Models.ViewModels;
     using CookLab.Services.Data;
     using CookLab.Services.Mapping;
     using CookLab.Services.Messaging;
-    using CookLab.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;

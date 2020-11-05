@@ -5,8 +5,8 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
+    using CookLab.Models.ViewModels.Settings;
     using CookLab.Services.Data;
-    using CookLab.Web.ViewModels.Settings;
 
     using Microsoft.AspNetCore.Mvc;
 
