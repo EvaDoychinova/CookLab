@@ -1,4 +1,4 @@
-﻿namespace CookLab.Web.ViewModels
+﻿namespace CookLab.Models.ViewModels
 {
     public class ErrorViewModel
     {

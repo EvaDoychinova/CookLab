@@ -1,4 +1,4 @@
-﻿namespace CookLab.Web.ViewModels.Settings
+﻿namespace CookLab.Models.ViewModels.Settings
 {
     using System.Collections.Generic;
 

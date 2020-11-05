@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
 
-    using CookLab.Web.ViewModels;
+    using CookLab.Models.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 

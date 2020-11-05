@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -19,10 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\CookLab.Data.Common\CookLab.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Web\CookLab.Web.ServiceModels\CookLab.Models.ServiceModels.csproj" />
-    <ProjectReference Include="..\CookLab.Services.Mapping\CookLab.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\CookLab.Services.Mapping\CookLab.Services.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Recipes\" />
   </ItemGroup>
 
 </Project>
