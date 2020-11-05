@@ -37,13 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Services.Data.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Web.Tests", "Tests\CookLab.Web.Tests\CookLab.Web.Tests.csproj", "{3EE06C6E-C8F3-418A-A309-8AC81976A074}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.ViewModels", "Web\CookLab.Web.ViewModels\CookLab.Models.ViewModels.csproj", "{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.InputModels", "Web\CookLab.Web.InputModels\CookLab.Models.InputModels.csproj", "{7B31F189-B8A9-4C6D-BC4A-C4BF1A79376D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.ServiceModels", "Web\CookLab.Web.ServiceModels\CookLab.Models.ServiceModels.csproj", "{E736D320-E1E6-4B84-BA4D-FF5CCD63376B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{629C8DEA-6B48-4088-B2A9-DCF690BE1074}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.ViewModels", "Models\CookLab.Models.ViewModels\CookLab.Models.ViewModels.csproj", "{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.InputModels", "Models\CookLab.Models.InputModels\CookLab.Models.InputModels.csproj", "{7B31F189-B8A9-4C6D-BC4A-C4BF1A79376D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.ServiceModels", "Models\CookLab.Models.ServiceModels\CookLab.Models.ServiceModels.csproj", "{E736D320-E1E6-4B84-BA4D-FF5CCD63376B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
