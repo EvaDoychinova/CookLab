@@ -34,9 +34,11 @@
         public ICollection<T> GetAll<T>()
         {
             var ingredients = this.ingredientRepository.All()
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.Name)
+                .To<T>()
+                .ToList();
 
-            return ingredients.To<T>().ToList();
+            return ingredients;
         }
 
         public T GetById<T>(string id)
