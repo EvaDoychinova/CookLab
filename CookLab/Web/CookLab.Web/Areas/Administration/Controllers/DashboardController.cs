@@ -1,7 +1,7 @@
 ﻿namespace CookLab.Web.Areas.Administration.Controllers
 {
+    using CookLab.Models.ViewModels.Administration.Dashboard;
     using CookLab.Services.Data;
-    using CookLab.Web.ViewModels.Administration.Dashboard;
 
     using Microsoft.AspNetCore.Mvc;
 

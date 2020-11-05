@@ -29,11 +29,12 @@
     <ProjectReference Include="..\..\CookLab.Common\CookLab.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\CookLab.Data\CookLab.Data.csproj" />
+    <ProjectReference Include="..\..\Models\CookLab.Models.InputModels\CookLab.Models.InputModels.csproj" />
+    <ProjectReference Include="..\..\Models\CookLab.Models.ViewModels\CookLab.Models.ViewModels.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services.Data\CookLab.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services.Mapping\CookLab.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services.Messaging\CookLab.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services\CookLab.Services.csproj" />
     <ProjectReference Include="..\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
-    <ProjectReference Include="..\CookLab.Web.ViewModels\CookLab.Models.ViewModels.csproj" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace CookLab.Web.ViewModels.Administration.Dashboard
+﻿namespace CookLab.Models.ViewModels.Administration.Dashboard
 {
     public class IndexViewModel
     {
