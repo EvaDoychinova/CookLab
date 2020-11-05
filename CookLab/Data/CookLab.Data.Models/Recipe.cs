@@ -12,6 +12,7 @@
         public Recipe()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Images = new HashSet<RecipeImage>();
             this.Ingredients = new HashSet<RecipeIngredient>();
             this.Categories = new HashSet<CategoryRecipe>();
             this.Users = new HashSet<UserRecipe>();
