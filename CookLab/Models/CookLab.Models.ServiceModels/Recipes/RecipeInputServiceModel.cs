@@ -1,14 +1,11 @@
 ﻿namespace CookLab.Models.ServiceModels.Recipes
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using CookLab.Data.Models;
     using CookLab.Models.ServiceModels.CategoryRecipies;
     using CookLab.Models.ServiceModels.CookingVessels;
     using CookLab.Models.ServiceModels.Ingredients;
-    using CookLab.Models.ServiceModels.Nutritions;
     using CookLab.Models.ServiceModels.RecipeImages;
     using CookLab.Services.Mapping;
 
