@@ -50,28 +50,34 @@
 
     @if ((string)this.ViewData["Title"] == GlobalConstants.HomePageTitle)
     {
-        <div class="masthead">
-            <div class="container h-100">
-                <partial name="_CookieConsentPartial" />
+        <div class="masthead h-100">
+            <div class="container">
                 <main role="main" class="pb-3">
                     @this.RenderBody()
                 </main>
-            </div>
+                <div class="fixed-bottom">
+                    <partial name="_CookieConsentPartial" />
+                </div>
+            </div>        
         </div>
     }
     else
     {
         <div class="container h-100">
-            <partial name="_CookieConsentPartial" />
             <main role="main" class="pb-3">
                 @this.RenderBody()
             </main>
+            <div class="fixed-bottom">
+                <partial name="_CookieConsentPartial" />
+            </div>
         </div>
     }
 
-    <footer footer class="bg-light py-5">
+    <footer footer class="bg-light py-3">
         <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="small text-center text-muted">
+                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
         </div>
     </footer>
 
@@ -90,7 +96,6 @@
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <!-- Core theme JS-->
     <script src="~/js/scripts.js" asp-append-version="true"></script>
-
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

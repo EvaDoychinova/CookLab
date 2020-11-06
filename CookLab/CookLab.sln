@@ -45,6 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.InputModels"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookLab.Models.ServiceModels", "Models\CookLab.Models.ServiceModels\CookLab.Models.ServiceModels.csproj", "{E736D320-E1E6-4B84-BA4D-FF5CCD63376B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{602F8235-DE5C-40DC-A6B5-1D2291A54109}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
