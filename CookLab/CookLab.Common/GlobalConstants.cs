@@ -5,5 +5,7 @@
         public const string SystemName = "CookLab";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string HomePageTitle = "Home Page";
     }
 }
