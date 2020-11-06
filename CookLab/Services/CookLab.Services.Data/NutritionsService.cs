@@ -21,7 +21,7 @@
             this.recipeRepository = recipeRepository;
         }
 
-        public async Task AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel)
+        public async Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel)
         {
             var nutrition = new Nutrition
             {
@@ -35,9 +35,11 @@
 
             await this.nutritionRepository.AddAsync(nutrition);
             await this.nutritionRepository.SaveChangesAsync();
+
+            return nutrition.Id;
         }
 
-        public async Task CalculateNutritionForRecipeAsync(string recipeId)
+        public async Task<string> CalculateNutritionForRecipeAsync(string recipeId)
         {
             var recipe = this.recipeRepository.All()
                 .Where(x => x.Id == recipeId)
@@ -55,6 +57,8 @@
 
             await this.nutritionRepository.AddAsync(nutrition);
             await this.nutritionRepository.SaveChangesAsync();
+
+            return nutrition.Id;
         }
 
         private double CalculateNutritionElementPer100GramsForRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)

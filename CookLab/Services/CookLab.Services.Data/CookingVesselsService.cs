@@ -7,7 +7,7 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-    using CookLab.Models.ServiceModels.CookingVessel;
+    using CookLab.Models.ServiceModels.CookingVessels;
     using CookLab.Services.Mapping;
 
     public class CookingVesselsService : ICookingVesselsService

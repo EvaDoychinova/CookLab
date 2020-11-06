@@ -1,9 +1,9 @@
-﻿namespace CookLab.Models.ServiceModels.CookingVessel
+﻿namespace CookLab.Models.ServiceModels.VesselDimensions
 {
     using CookLab.Data.Models;
     using CookLab.Services.Mapping;
 
-    public class VesselDimensionInputServiceModel : IMapTo<VesselDimension>
+    public class VesselDimensionPerRecipeServiceModel : IMapFrom<VesselDimension>
     {
         public double Diameter { get; set; }
 
