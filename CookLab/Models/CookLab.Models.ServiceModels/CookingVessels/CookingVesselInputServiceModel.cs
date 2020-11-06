@@ -1,7 +1,8 @@
-﻿namespace CookLab.Models.ServiceModels.CookingVessel
+﻿namespace CookLab.Models.ServiceModels.CookingVessels
 {
     using CookLab.Data.Models;
     using CookLab.Data.Models.Enums;
+    using CookLab.Models.ServiceModels.VesselDimensions;
     using CookLab.Services.Mapping;
 
     public class CookingVesselInputServiceModel : IMapTo<CookingVessel>

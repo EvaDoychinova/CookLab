@@ -7,8 +7,8 @@
     {
         Task<string> CreateAsync(string name, double volumeInMlPer100Grams);
 
-        T GetById<T>(string id);
-
         ICollection<T> GetAll<T>();
+
+        T GetById<T>(string id);
     }
 }

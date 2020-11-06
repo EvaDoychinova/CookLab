@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookLab.Models.ServiceModels.CookingVessel;
+    using CookLab.Models.ServiceModels.CookingVessels;
 
     public interface ICookingVesselsService
     {

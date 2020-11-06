@@ -6,8 +6,8 @@
 
     public interface INutritionsService
     {
-        Task AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel);
+        Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel);
 
-        Task CalculateNutritionForRecipeAsync(string recipeId);
+        Task<string> CalculateNutritionForRecipeAsync(string recipeId);
     }
 }
