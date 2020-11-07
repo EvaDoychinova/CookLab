@@ -1,3 +1,28 @@
 ﻿#cookieConsent {
     background-color: #FFF;
 }
+
+#mainNav .navbar-nav .nav-item:last-child .nav-link {
+    padding-right: 1rem;
+}
+
+.container-main-masthead {
+    height: 100%;
+}
+
+.main-masthead {
+    height: 100%;
+}
+
+footer {
+    bottom: 3.2rem;
+}
+
+.footer-link {
+    color: #ffffffb3;
+}
+
+.footer-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
