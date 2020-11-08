@@ -43,4 +43,8 @@
     <ProjectReference Include="..\..\Services\CookLab.Services\CookLab.Services.csproj" />
     <ProjectReference Include="..\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Nutritions\" />
+  </ItemGroup>
 </Project>
