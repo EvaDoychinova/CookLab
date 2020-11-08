@@ -22,7 +22,28 @@ footer {
     color: #ffffffb3;
 }
 
-.footer-link:hover {
+    .footer-link:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+body {
     color: #fff;
-    text-decoration: underline;
+}
+
+main a {
+    background-color: #fff9;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+
+.nav {
+    background-color: #fff9;
+    border-radius: 5px;
+}
+
+#email-verification.btn-link {
+    padding: 2px 6px;
+    background-color: #fff9;
+    margin-top: 5px;
 }
