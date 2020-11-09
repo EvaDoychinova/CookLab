@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Categories\" />
     <Folder Include="Views\Nutritions\" />
   </ItemGroup>
 </Project>

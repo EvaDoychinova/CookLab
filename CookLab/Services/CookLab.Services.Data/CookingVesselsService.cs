@@ -7,7 +7,7 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-    using CookLab.Models.ServiceModels.CookingVessels;
+    using CookLab.Models.InputModels.CookingVessel;
     using CookLab.Services.Mapping;
 
     public class CookingVesselsService : ICookingVesselsService
@@ -19,7 +19,7 @@
             this.cookingVesselRepository = cookingVesselRepository;
         }
 
-        public async Task<int> CreateAsync(CookingVesselInputServiceModel inputModel)
+        public async Task<int> CreateAsync(CookingVesselInputModel inputModel)
         {
             double volume = (int)inputModel.Form switch
             {

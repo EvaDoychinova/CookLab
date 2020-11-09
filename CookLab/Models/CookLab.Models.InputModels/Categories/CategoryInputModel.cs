@@ -2,15 +2,20 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class CategoryInputModel
+    using CookLab.Data.Models;
+    using CookLab.Services.Mapping;
+
+    using Microsoft.AspNetCore.Http;
+
+    public class CategoryInputModel : IMapTo<Category>
     {
-        [Required]
-        [StringLength(30, MinimumLength = 6)]
+        [Required(ErrorMessage ="Category name cannot be empty string!")]
+        [StringLength(30, MinimumLength = 4)]
         [Display(Name = "Category Name")]
         public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Image Url")]
-        public string ImageUrl { get; set; }
+        [Required(ErrorMessage ="Image file has not been chosen!")]
+        [Display(Name = "Choose image")]
+        public IFormFile Image { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 {
     using System.Threading.Tasks;
 
-    using CookLab.Models.ServiceModels.Nutritions;
+    using CookLab.Models.InputModels.Nutritions;
 
     public interface INutritionsService
     {
-        Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel);
+        Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputModel inputModel);
 
         Task<string> CalculateNutritionForRecipeAsync(string recipeId);
     }

@@ -6,7 +6,7 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-    using CookLab.Models.ServiceModels.Recipes;
+    using CookLab.Models.InputModels.Recipes;
     using CookLab.Services.Mapping;
 
     public class RecipesService : IRecipesService
@@ -36,7 +36,7 @@
 
         public INutritionsService NutritionsService { get; }
 
-        public async Task<string> CreateAsync(string userId, RecipeInputServiceModel inputModel)
+        public async Task<string> CreateAsync(string userId, RecipeInputModel inputModel)
         {
             var recipe = new Recipe
             {
