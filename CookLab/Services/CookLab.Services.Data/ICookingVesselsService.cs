@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookLab.Models.ServiceModels.CookingVessels;
+    using CookLab.Models.InputModels.CookingVessel;
 
     public interface ICookingVesselsService
     {
-        Task<int> CreateAsync(CookingVesselInputServiceModel inputModel);
+        Task<int> CreateAsync(CookingVesselInputModel inputModel);
 
         ICollection<T> GetAll<T>();
     }

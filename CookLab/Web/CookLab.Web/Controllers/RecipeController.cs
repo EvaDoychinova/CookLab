@@ -15,6 +15,11 @@
             return this.View();
         }
 
+        public IActionResult AllByCategory(string categoryId)
+        {
+            return this.View();
+        }
+
         [Authorize]
         public IActionResult GetMy()
         {

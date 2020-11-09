@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using CookLab.Models.ServiceModels.Recipes;
+    using CookLab.Models.InputModels.Recipes;
 
     public interface IRecipesService
     {
-        Task<string> CreateAsync(string userId, RecipeInputServiceModel inputModel);
+        Task<string> CreateAsync(string userId, RecipeInputModel inputModel);
 
         ICollection<T> GetAll<T>();
 

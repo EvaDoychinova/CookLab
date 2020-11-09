@@ -6,7 +6,7 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-    using CookLab.Models.ServiceModels.Nutritions;
+    using CookLab.Models.InputModels.Nutritions;
 
     public class NutritionsService : INutritionsService
     {
@@ -21,7 +21,7 @@
             this.recipeRepository = recipeRepository;
         }
 
-        public async Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputServiceModel inputModel)
+        public async Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputModel inputModel)
         {
             var nutrition = new Nutrition
             {

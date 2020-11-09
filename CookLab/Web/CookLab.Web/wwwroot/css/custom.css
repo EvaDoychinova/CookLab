@@ -48,3 +48,49 @@ main a {
     background-color: #fff9;
     margin-top: 5px;
 }
+
+.btn-outline-primary {
+    background-color: #fff;
+}
+
+.portfolio-box {
+    border-radius: 50%;
+    width: inherit;
+    height: 300px;
+    overflow: hidden;
+    display: block;
+}
+
+.portfolio-image {
+    height: auto;
+    width: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.portfolio-box-caption {
+    color: #fffc;
+    padding: 3px 5px;
+    margin:0;
+    border-radius: 5px;
+    background-color: #B2BEB5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+    .portfolio-box-caption .project-name {
+        transition: all 0.3s ease-out;
+        margin:0;
+    }
+
+        .portfolio-box-caption .project-name:hover {
+            color: #fff;
+            font-size: 1.5rem;
+            transform: scale(1.1);
+            cursor: pointer;
+        }

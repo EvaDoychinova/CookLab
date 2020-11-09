@@ -1,20 +1,26 @@
 ﻿namespace CookLab.Web.Controllers
 {
+    using System.IO;
     using System.Threading.Tasks;
 
     using CookLab.Models.InputModels.Categories;
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Services.Data;
 
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     public class CategoriesController : BaseController
     {
         private readonly ICategoriesService categoriesService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public CategoriesController(ICategoriesService categoriesService)
+        public CategoriesController(
+            ICategoriesService categoriesService,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.categoriesService = categoriesService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Create()
@@ -25,7 +31,16 @@
         [HttpPost]
         public async Task<IActionResult> Create(CategoryInputModel inputModel)
         {
-            await this.categoriesService.CreateAsync(inputModel.Name, inputModel.ImageUrl);
+            string imagePath = this.webHostEnvironment.WebRootPath + $"/assets/img/categories/{inputModel.Name}.jpg";
+
+            using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await inputModel.Image.CopyToAsync(stream);
+            }
+
+            var imageUrl = $"{inputModel.Name}.jpg";
+
+            await this.categoriesService.CreateAsync(inputModel.Name, imageUrl);
 
             return this.Redirect("/Categories/All");
         }

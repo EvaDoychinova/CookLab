@@ -6,13 +6,7 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const string HomePageTitle = "Home Page";
-
-        public const string LoginPageTitle = "Login Page";
-
-        public const string RegisterPageTitle = "Register Page";
-
-        public const string AboutPageTitle = "About Page";
+        public const string HomePageTitle = "Home";
 
         public const string PrivacyPageTitle = "Privacy Policy";
 
@@ -21,5 +15,7 @@
         public const string CategoriesAllPageTitle = "Categories";
 
         public const string CategoriesCreatePageTitle = "Create Category";
+
+        public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg", ".gif" };
     }
 }
