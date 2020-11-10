@@ -4,7 +4,7 @@
 @model CategoryInputModel
 
 @{
-    ViewData["Title"] = GlobalConstants.CategoriesCreatePageTitle;
+    ViewData["Title"] = PageTitles.CategoriesCreatePageTitle;
 }
 
 <div class="container d-flex flex-column align-items-center">
@@ -22,7 +22,7 @@
 
         <div class="form-group input-group">
             <label asp-for="Image" class="custom-file-label"></label>
-            <input asp-for="Image" class="custom-file-input" />
+            <input asp-for="Image" class="custom-file-input"/>
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
 

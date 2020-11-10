@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,6 +8,8 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Services.Mapping;
+
+    using static CookLab.Common.ExceptionMessages;
 
     public class CategoriesService : ICategoriesService
     {
@@ -19,6 +22,11 @@
 
         public async Task<int> CreateAsync(string name, string imageUrl)
         {
+            if (this.categoriesRepository.All().Any(x => x.Name == name))
+            {
+                throw new ArgumentException(CategoryAlreadyExists, name);
+            }
+
             var category = new Category
             {
                 Name = name,
