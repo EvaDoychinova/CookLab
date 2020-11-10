@@ -1,4 +1,4 @@
-﻿namespace CookLab.Models.InputModels.AdministratorInputModels.Ingredients
+﻿namespace CookLab.Models.InputModels.Ingredients
 {
     using CookLab.Data.Models;
     using CookLab.Services.Mapping;

@@ -38,7 +38,7 @@
                 await inputModel.Image.CopyToAsync(stream);
             }
 
-            var imageUrl = $"{inputModel.Name}.jpg";
+            var imageUrl = $"{inputModel.Name.ToLower()}.jpg";
 
             await this.categoriesService.CreateAsync(inputModel.Name, imageUrl);
 

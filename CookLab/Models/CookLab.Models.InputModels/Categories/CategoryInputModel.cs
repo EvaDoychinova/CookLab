@@ -4,18 +4,26 @@
 
     using CookLab.Data.Models;
     using CookLab.Services.Mapping;
+    using CookLab.Web.Infrastructure.Attributes;
 
     using Microsoft.AspNetCore.Http;
 
+    using static CookLab.Common.DisplayNames.CategoriesDisplayNames;
+    using static CookLab.Common.ErrorMessages;
+    using static CookLab.Common.ModelsValidations.CategoriesValidations;
+
     public class CategoryInputModel : IMapTo<Category>
     {
-        [Required(ErrorMessage ="Category name cannot be empty string!")]
-        [StringLength(30, MinimumLength = 4)]
-        [Display(Name = "Category Name")]
+        [Required(ErrorMessage = RequiredFieldError)]
+        [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = NameLengthError)]
+        [Display(Name = CategoryName)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Image file has not been chosen!")]
-        [Display(Name = "Choose image")]
+        [Required(ErrorMessage = RequiredFieldError)]
+        [DataType(DataType.Upload)]
+        [AllowedImageExtensions]
+        [ImageMaxSize(ImageFileMaxSize)]
+        [Display(Name = CategoryImage)]
         public IFormFile Image { get; set; }
     }
 }
