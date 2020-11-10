@@ -24,9 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Ingredients\" />
     <Folder Include="Recipes\" />
-    <Folder Include="Nutritions\" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class RecipeController : BaseController
+    public class RecipesController : BaseController
     {
         public IActionResult Create()
         {

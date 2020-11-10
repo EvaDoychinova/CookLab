@@ -6,6 +6,12 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg", ".gif" };
+        public const string AdministrationAreaName = "Administration";
+
+        public const string AdministratorUsername = "Admin123";
+
+        public const string AdinistratorEmail = "admin123@abv.bg";
+
+        public const string AdministratorPassword = "Admin123";
     }
 }

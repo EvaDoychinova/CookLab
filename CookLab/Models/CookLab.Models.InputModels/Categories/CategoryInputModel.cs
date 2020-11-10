@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using CookLab.Data.Models;
-    using CookLab.Services.Mapping;
     using CookLab.Web.Infrastructure.Attributes;
 
     using Microsoft.AspNetCore.Http;
@@ -12,10 +10,10 @@
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.CategoriesValidations;
 
-    public class CategoryInputModel : IMapTo<Category>
+    public class CategoryInputModel
     {
         [Required(ErrorMessage = RequiredFieldError)]
-        [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = NameLengthError)]
+        [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = StringLengthError)]
         [Display(Name = CategoryName)]
         public string Name { get; set; }
 
