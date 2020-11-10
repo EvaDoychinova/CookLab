@@ -3,11 +3,12 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using CookLab.Models.InputModels.Ingredients;
     using CookLab.Models.ViewModels.Ingredients;
 
     public interface IIngredientsService
     {
-        Task<string> CreateAsync(string name, double volumeInMlPer100Grams);
+        Task<string> CreateAsync(IngredientInputModel inputModel);
 
         Task<ICollection<T>> GetAllAsync<T>();
 

@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using CookLab.Common;
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
+    using CookLab.Models.InputModels.Categories;
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Services.Mapping;
 
@@ -22,16 +24,25 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public async Task<int> CreateAsync(string name, string imageUrl)
+        public async Task<int> CreateAsync(CategoryInputModel inputModel, string rootPath)
         {
-            if (this.categoriesRepository.All().Any(x => x.Name == name))
+            if (this.categoriesRepository.All().Any(x => x.Name == inputModel.Name))
             {
-                throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, name);
+                throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, inputModel.Name);
             }
+            var imageName = inputModel.Name.ToLower().Replace(" ", "-");
+            string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
+
+            using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await inputModel.Image.CopyToAsync(stream);
+            }
+
+            var imageUrl = $"assets/img/categories/{imageName}.jpg";
 
             var category = new Category
             {
-                Name = name,
+                Name = inputModel.Name,
                 ImageUrl = imageUrl,
             };
 

@@ -1,6 +1,7 @@
 ﻿namespace CookLab.Web.Infrastructure.Attributes
 {
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
 
     using Microsoft.AspNetCore.Http;
@@ -19,7 +20,9 @@
 
             if (file != null)
             {
-                if (!this.allowedExtensions.Any(x => file.Name.EndsWith(x)))
+                var extension = Path.GetExtension(file.FileName).ToLower();
+
+                if (!this.allowedExtensions.Contains(extension))
                 {
                     return new ValidationResult(this.errorMessage);
                 }

@@ -10,7 +10,7 @@
 <div class="container d-flex flex-column align-items-center">
     <h2 class="my-lg-5 mb-5">@this.ViewData["Title"]</h2>
 
-    <form asp-controller="Categories" asp-action="Create" class="form col-md-6 d-flex flex-column">
+    <form asp-controller="Ingredients" asp-action="Create" class="form col-md-6 d-flex flex-column">
 
         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label asp-for="VolumeInMlPer100Grams" ></label>
-            <input asp-for="VolumeInMlPer100Grams" class="form-control" />
+            <input type="number" step="any" asp-for="VolumeInMlPer100Grams" class="form-control" />
             <span asp-validation-for="VolumeInMlPer100Grams" class="text-danger"></span>
         </div>
 

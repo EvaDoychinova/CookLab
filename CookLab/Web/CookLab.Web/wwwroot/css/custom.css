@@ -11,6 +11,11 @@
     height: 100%;
 }
 
+.masthead {
+    min-height: 100vh !important;
+    height: auto !important;
+}
+
 .main-masthead {
     height: 100%;
 }

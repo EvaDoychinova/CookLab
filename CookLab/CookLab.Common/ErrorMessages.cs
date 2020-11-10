@@ -9,6 +9,6 @@
         public const string InvalidRangeError = "Value for {0} must be between {1} and {2}.";
 
         public const string ImageAllowedExtensionsError = "This photo extension is not allowed!";
-        public const string ImageMaxSizeError = "Image allowed size is {1} MB.";
+        public const string ImageMaxSizeError = "Image allowed size is {0} MB.";
     }
 }

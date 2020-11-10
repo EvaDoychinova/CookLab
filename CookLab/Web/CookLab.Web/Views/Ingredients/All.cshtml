@@ -5,22 +5,47 @@
 
 @{
     this.ViewData["Title"] = PageTitles.IngredientsAllPagetitle;
- }
+}
 
 <div class="container-fluid p-0">
     <div class="text-center my-lg-5 mb-5">
         <h2 class="section-heading">@ViewData["Title"]</h2>
         <h5 class="section-subheading">What recipe are you looking for?</h5>
     </div>
-    <ul class="list-group">
-        @foreach (var ingredient in Model.Ingredients)
-        {
-        <li class="list-group-item">
-            <a class="list-group-item-info" asp-controller="Ingredients" asp-action="Details">@ingredient.Name</a>
-            <a class="btn bg-primary" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
-            <a class="btn btn-info" asp-controller="Ingredients" asp-action="Edit" asp-route-id="@ingredient.Id">Edit</a>
-            <a class="btn btn-danger" asp-controller="Ingredients" asp-action="Delete" asp-route-id="@ingredient.Id">Delete</a>
-        </li>
-        }
-    </ul>
+    <table class="table table-striped table-light table-hover text-center">
+        <thead>
+            <tr>
+                <th scope="col">Ingredient</th>
+                <th scope="col">Nutrition</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <tr>
+                    <th scope="row">
+                        <a class="btn btn-outline-secondary" asp-controller="Ingredients" asp-action="Details">@ingredient.Name</a>
+                    </th>
+                    <td>
+                        @if (ingredient.Nutrition == null)
+                        {
+                            <a class="btn btn-primary" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" asp-controller="Nutritions" asp-action="Show" asp-route-id="@ingredient.Id">See Nutrition Info</a>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-controller="Ingredients" asp-action="Edit" asp-route-id="@ingredient.Id">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Ingredients" asp-action="Delete" asp-route-id="@ingredient.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
