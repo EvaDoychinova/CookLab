@@ -1,8 +1,10 @@
 ﻿namespace CookLab.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookLab.Models.InputModels.Ingredients;
+    using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Data;
     using Microsoft.AspNetCore.Mvc;
 
@@ -28,28 +30,39 @@
                 return this.View(inputModel);
             }
 
-            await this.ingredientsService.CreateAsync(inputModel.Name, inputModel.VolumeInMlPer100Grams);
+            await this.ingredientsService.CreateAsync(inputModel);
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
+        {
+            var ingredients = await this.ingredientsService.GetAllAsync<IngredientViewModel>();
+
+            var viewModel = new IngredinetsListViewModel
+            {
+                Ingredients = ingredients,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(string id)
         {
             return this.View();
         }
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return this.View();
+            var ingredient = await this.ingredientsService.GetByIdAsync<IngredientEditViewModel>(id);
+
+            return this.View(ingredient);
         }
 
-        public IActionResult Edit(string id)
+        [HttpPost]
+        public async Task<IActionResult> Edit(IngredientEditViewModel viewModel)
         {
-            return this.View();
-        }
 
-        [HttpPost("Edit")]
-        public IActionResult DoEdit(string id)
-        {
+
             return this.RedirectToAction(nameof(this.Details));
         }
     }

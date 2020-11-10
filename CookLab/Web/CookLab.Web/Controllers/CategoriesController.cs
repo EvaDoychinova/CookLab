@@ -31,21 +31,14 @@
         [HttpPost]
         public async Task<IActionResult> Create(CategoryInputModel inputModel)
         {
-            string imagePath = this.webHostEnvironment.WebRootPath + $"/assets/img/categories/{inputModel.Name}.jpg";
-
-            using (FileStream stream = new FileStream(imagePath, FileMode.Create))
-            {
-                await inputModel.Image.CopyToAsync(stream);
-            }
-
-            var imageUrl = $"{inputModel.Name.ToLower()}.jpg";
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(inputModel);
             }
 
-            await this.categoriesService.CreateAsync(inputModel.Name, imageUrl);
+            var rootPath = this.webHostEnvironment.WebRootPath;
+
+            await this.categoriesService.CreateAsync(inputModel, rootPath);
 
             return this.RedirectToAction(nameof(this.All));
         }

@@ -13,14 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.AdWords" Version="24.12.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CookLab.Common\CookLab.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services.Mapping\CookLab.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Web\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,6 +8,7 @@
     using CookLab.Common;
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
+    using CookLab.Models.InputModels.Ingredients;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Mapping;
 
@@ -29,17 +30,17 @@
             this.nutritionsService = nutritionsService;
         }
 
-        public async Task<string> CreateAsync(string name, double volumeInMlPer100Grams)
+        public async Task<string> CreateAsync(IngredientInputModel inputModel)
         {
-            if (this.ingredientRepository.All().Any(x => x.Name == name))
+            if (this.ingredientRepository.All().Any(x => x.Name == inputModel.Name))
             {
-                throw new ArgumentException(ExceptionMessages.IngredientAlreadyExists, name);
+                throw new ArgumentException(ExceptionMessages.IngredientAlreadyExists, inputModel.Name);
             }
 
             var ingredient = new Ingredient
             {
-                Name = name,
-                VolumeInMlPer100Grams = volumeInMlPer100Grams,
+                Name = inputModel.Name,
+                VolumeInMlPer100Grams = inputModel.VolumeInMlPer100Grams,
             };
 
             await this.ingredientRepository.AddAsync(ingredient);

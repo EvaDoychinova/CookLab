@@ -1,4 +1,6 @@
-﻿
+﻿@using CookLab.Models.ViewModels.Categories
+
+@model CategoryViewModel
 
 <div class="container d-flex flex-column align-items-center">
     <h2 class="my-lg-5 mb-5">@this.ViewData["Title"]</h2>
@@ -14,9 +16,9 @@
         </div>
 
         <div class="form-group input-group">
-            <label asp-for="Image" class="custom-file-label"></label>
-            <input asp-for="Image" class="custom-file-input" />
-            <span asp-validation-for="Image" class="text-danger"></span>
+            <label asp-for="ImageUrl" class="custom-file-label"></label>
+            <input asp-for="ImageUrl" class="custom-file-input" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
 
         <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />

@@ -48,7 +48,7 @@
         </nav>
     </header>
 
-    @if ((string)this.ViewData["Title"] == GlobalConstants.DefaultPageTitle)
+    @if ((string)this.ViewData["Title"] == PageTitles.DefaultPageTitle)
     {
         <div class="container">
             <main role="main">
@@ -61,7 +61,7 @@
     }
     else
     {
-        <div class="masthead h-100">
+        <div class="masthead">
             <div class="container container-main-masthead">
                 <main role="main" class="main-masthead">
                     @this.RenderBody()
