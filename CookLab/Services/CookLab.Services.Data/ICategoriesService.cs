@@ -3,12 +3,18 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using CookLab.Models.ViewModels.Categories;
+
     public interface ICategoriesService
     {
         Task<int> CreateAsync(string name, string imageUrl);
 
-        ICollection<T> GetAll<T>();
+        Task<ICollection<T>> GetAllAsync<T>();
 
-        T GetById<T>(int id);
+        Task<T> GetByIdAsync<T>(int id);
+
+        Task EditAsync(CategoryViewModel viewModel);
+
+        Task DeleteAsync(int id);
     }
 }

@@ -5,11 +5,13 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookLab.Common;
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
+    using CookLab.Models.ViewModels.Categories;
     using CookLab.Services.Mapping;
 
-    using static CookLab.Common.ExceptionMessages;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoriesService : ICategoriesService
     {
@@ -24,7 +26,7 @@
         {
             if (this.categoriesRepository.All().Any(x => x.Name == name))
             {
-                throw new ArgumentException(CategoryAlreadyExists, name);
+                throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, name);
             }
 
             var category = new Category
@@ -39,24 +41,56 @@
             return category.Id;
         }
 
-        public ICollection<T> GetAll<T>()
+        public async Task<ICollection<T>> GetAllAsync<T>()
         {
-            var categories = this.categoriesRepository.All()
+            var categories = await this.categoriesRepository.All()
                 .OrderByDescending(x => x.Recipes.Count)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
 
             return categories;
         }
 
-        public T GetById<T>(int id)
+        public async Task<T> GetByIdAsync<T>(int id)
         {
-            var category = this.categoriesRepository.All()
+            var category = await this.categoriesRepository.All()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return category;
+        }
+
+        public async Task EditAsync(CategoryViewModel viewModel)
+        {
+            var category = await this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+
+            if (category == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, viewModel.Id));
+            }
+
+            category.Name = viewModel.Name;
+            category.ImageUrl = viewModel.ImageUrl;
+            category.ModifiedOn = DateTime.UtcNow;
+            this.categoriesRepository.Update(category);
+            await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var category = await this.GetByIdAsync<Category>(id);
+
+            if (category == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, id));
+            }
+
+            category.IsDeleted = true;
+            category.DeletedOn = DateTime.UtcNow;
+            this.categoriesRepository.Update(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
     }
 }

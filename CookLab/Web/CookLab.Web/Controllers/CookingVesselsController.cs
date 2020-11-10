@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class CookingVesselController : BaseController
+    public class CookingVesselsController : BaseController
     {
         public IActionResult Create()
         {

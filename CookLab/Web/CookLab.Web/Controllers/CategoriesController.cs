@@ -40,14 +40,19 @@
 
             var imageUrl = $"{inputModel.Name.ToLower()}.jpg";
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.categoriesService.CreateAsync(inputModel.Name, imageUrl);
 
-            return this.Redirect("/Categories/All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var categories = this.categoriesService.GetAll<CategoryViewModel>();
+            var categories = await this.categoriesService.GetAllAsync<CategoryViewModel>();
 
             var viewModel = new CategoriesListViewModel
             {
@@ -55,6 +60,36 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
+
+            return this.View(category);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
+
+            return this.View(category);
+        }
+
+        [HttpPost(nameof(Edit))]
+        public async Task<IActionResult> Edit(CategoryViewModel viewModel)
+        {
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(viewModel.Id);
+            await this.categoriesService.EditAsync(category);
+
+            return this.RedirectToAction(nameof(this.Details), viewModel.Id);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.categoriesService.DeleteAsync(id);
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

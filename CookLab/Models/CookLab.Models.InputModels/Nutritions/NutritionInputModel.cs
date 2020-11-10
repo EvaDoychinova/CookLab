@@ -1,18 +1,25 @@
 ﻿namespace CookLab.Models.InputModels.Nutritions
 {
-    using CookLab.Data.Models;
-    using CookLab.Services.Mapping;
+    using System.ComponentModel.DataAnnotations;
 
-    public class NutritionInputModel : IMapTo<Nutrition>
+    using static CookLab.Common.ErrorMessages;
+    using static CookLab.Common.ModelsValidations.NutritionsValidations;
+
+    public class NutritionInputModel
     {
+        [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         public double Calories { get; set; }
 
+        [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         public double Carbohydrates { get; set; }
 
+        [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         public double Fats { get; set; }
 
+        [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         public double Proteins { get; set; }
 
+        [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         public double Fibres { get; set; }
     }
 }

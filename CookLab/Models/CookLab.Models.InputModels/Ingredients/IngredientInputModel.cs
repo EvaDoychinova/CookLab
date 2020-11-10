@@ -1,12 +1,21 @@
 ﻿namespace CookLab.Models.InputModels.Ingredients
 {
-    using CookLab.Data.Models;
-    using CookLab.Services.Mapping;
+    using System.ComponentModel.DataAnnotations;
 
-    public class IngredientInputModel : IMapTo<Ingredient>
+    using static CookLab.Common.DisplayNames.IngredientsDisplayNames;
+    using static CookLab.Common.ErrorMessages;
+    using static CookLab.Common.ModelsValidations.IngredientsValidations;
+
+    public class IngredientInputModel
     {
+        [Required(ErrorMessage = RequiredFieldError)]
+        [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = StringLengthError)]
+        [Display(Name = IngredientName)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = RequiredFieldError)]
+        [Range(VolumeMinValue, VolumeMaxValue, ErrorMessage = InvalidRangeError)]
+        [Display(Name = IngredientVolume)]
         public double VolumeInMlPer100Grams { get; set; }
     }
 }

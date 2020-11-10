@@ -1,0 +1,26 @@
+﻿@using CookLab.Common
+@using CookLab.Models.ViewModels.Ingredients
+
+@model IngredinetsListViewModel
+
+@{
+    this.ViewData["Title"] = PageTitles.IngredientsAllPagetitle;
+ }
+
+<div class="container-fluid p-0">
+    <div class="text-center my-lg-5 mb-5">
+        <h2 class="section-heading">@ViewData["Title"]</h2>
+        <h5 class="section-subheading">What recipe are you looking for?</h5>
+    </div>
+    <ul class="list-group">
+        @foreach (var ingredient in Model.Ingredients)
+        {
+        <li class="list-group-item">
+            <a class="list-group-item-info" asp-controller="Ingredients" asp-action="Details">@ingredient.Name</a>
+            <a class="btn bg-primary" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
+            <a class="btn btn-info" asp-controller="Ingredients" asp-action="Edit" asp-route-id="@ingredient.Id">Edit</a>
+            <a class="btn btn-danger" asp-controller="Ingredients" asp-action="Delete" asp-route-id="@ingredient.Id">Delete</a>
+        </li>
+        }
+    </ul>
+</div>

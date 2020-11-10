@@ -3,15 +3,14 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
-    using CookLab.Common;
-
     using Microsoft.AspNetCore.Http;
 
     using static CookLab.Common.ErrorMessages;
+    using static CookLab.Common.ModelsValidations;
 
     public class AllowedImageExtensionsAttribute : ValidationAttribute
     {
-        private readonly string[] allowedExtensions = GlobalConstants.AllowedImageExtensions;
+        private readonly string[] allowedExtensions = AllowedImageExtensions;
         private string errorMessage = ImageAllowedExtensionsError;
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
