@@ -64,23 +64,37 @@
 
         public async Task<IActionResult> Edit(int id)
         {
-            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
+            var category = await this.categoriesService.GetByIdAsync<CategoryEditViewModel>(id);
 
             return this.View(category);
         }
 
-        [HttpPost(nameof(Edit))]
-        public async Task<IActionResult> Edit(CategoryViewModel viewModel)
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryEditViewModel viewModel)
         {
-            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(viewModel.Id);
-            await this.categoriesService.EditAsync(category);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(viewModel);
+            }
+
+            var rootPath = this.webHostEnvironment.WebRootPath;
+
+            await this.categoriesService.EditAsync(viewModel, rootPath);
 
             return this.RedirectToAction(nameof(this.Details), viewModel.Id);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.categoriesService.DeleteAsync(id);
+            var category = await this.categoriesService.GetByIdAsync<CategoryDeleteViewModel>(id);
+
+            return this.View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(CategoryDeleteViewModel viewModel)
+        {
+            await this.categoriesService.DeleteAsync(viewModel);
 
             return this.RedirectToAction(nameof(this.All));
         }

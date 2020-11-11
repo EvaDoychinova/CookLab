@@ -5,7 +5,7 @@
 
     using CookLab.Data.Common.Models;
 
-    public class CategoryRecipe : BaseModel<int>
+    public class CategoryRecipe : BaseDeletableModel<int>
     {
         [Required]
         [ForeignKey(nameof(Recipe))]

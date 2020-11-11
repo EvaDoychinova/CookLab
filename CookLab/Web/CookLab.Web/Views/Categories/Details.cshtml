@@ -1,27 +1,25 @@
-﻿@using CookLab.Models.ViewModels.Categories
+﻿@using CookLab.Common
+@using CookLab.Models.ViewModels.Categories
 
 @model CategoryViewModel
 
-<div class="container d-flex flex-column align-items-center">
-    <h2 class="my-lg-5 mb-5">@this.ViewData["Title"]</h2>
+@{
+    this.ViewData["Title"] = Model.Name;
+ }
 
-    <form asp-controller="Categories" asp-action="Create" class="form col-md-6 d-flex flex-column" enctype="multipart/form-data">
-
-        <div asp-validation-summary="All" class="text-danger"></div>
-
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+<div class="row h-100 align-items-center justify-content-center text-center">
+    <div class="col-lg-10 align-self-end">
+        <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
+        <hr class="divider my-4" />
+    </div>
+    <div class="col-lg-8 align-self-baseline">
+        <div class="mb-5 overflow-hidden img-container mx-auto">
+            <img src="~/@Model.ImageUrl" class="img-fluid image-category" />
         </div>
-
-        <div class="form-group input-group">
-            <label asp-for="ImageUrl" class="custom-file-label"></label>
-            <input asp-for="ImageUrl" class="custom-file-input" />
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <div class="row">
+            <a class="btn btn-primary col m-3" asp-area="" asp-controller="Categories" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-danger col m-3" asp-area="" asp-controller="Categories" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            <a class="btn btn-secondary col m-3" asp-area="" asp-controller="Categories" asp-action="All">Back to Categories</a>
         </div>
-
-        <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />
-
-    </form>
+    </div>
 </div>

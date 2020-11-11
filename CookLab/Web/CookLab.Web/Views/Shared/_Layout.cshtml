@@ -41,6 +41,15 @@
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Categories" asp-action="All">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Ingredients" asp-action="All">Ingredients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" asp-area="" asp-controller="Recipes" asp-action="All">Recipes</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -48,30 +57,16 @@
         </nav>
     </header>
 
-    @if ((string)this.ViewData["Title"] == PageTitles.DefaultPageTitle)
-    {
-        <div class="container">
-            <main role="main">
+    <div class="masthead d-flex">
+        <div class="container container-main-masthead my-auto">
+            <main role="main" class="main-masthead">
                 @this.RenderBody()
             </main>
             <div class="fixed-bottom">
                 <partial name="_CookieConsentPartial" />
             </div>
         </div>
-    }
-    else
-    {
-        <div class="masthead">
-            <div class="container container-main-masthead">
-                <main role="main" class="main-masthead">
-                    @this.RenderBody()
-                </main>
-                <div class="fixed-bottom">
-                    <partial name="_CookieConsentPartial" />
-                </div>
-            </div>
-        </div>
-    }
+    </div>
 
     <footer class="py-3 position-relative">
         <div class="container">
