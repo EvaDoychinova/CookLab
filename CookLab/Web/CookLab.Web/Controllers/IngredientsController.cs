@@ -48,6 +48,7 @@
 
         public async Task<IActionResult> Details(string id)
         {
+            var ingredient = await this.ingredientsService.GetByIdAsync<IngredientViewModel>(id);
 
             return this.View();
         }
@@ -62,9 +63,27 @@
         [HttpPost]
         public async Task<IActionResult> Edit(IngredientEditViewModel viewModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(viewModel);
+            }
 
-
+            await this.ingredientsService.EditAsync(viewModel);
             return this.RedirectToAction(nameof(this.Details));
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            var ingredient = await this.ingredientsService.GetByIdAsync<IngredientDeleteViewModel>(id);
+
+            return this.View(ingredient);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(IngredientDeleteViewModel viewModel)
+        {
+            await this.ingredientsService.DeleteAsync(viewModel);
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

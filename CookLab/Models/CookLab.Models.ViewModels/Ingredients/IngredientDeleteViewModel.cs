@@ -1,6 +1,9 @@
 ﻿namespace CookLab.Models.ViewModels.Ingredients
 {
-    public class IngredientDeleteViewModel
+    using CookLab.Data.Models;
+    using CookLab.Services.Mapping;
+
+    public class IngredientDeleteViewModel : IMapFrom<Ingredient>
     {
         public string Id { get; set; }
 
