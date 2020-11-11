@@ -14,8 +14,8 @@
 
         Task<T> GetByIdAsync<T>(string id);
 
-        Task EditAsync(IngredientViewModel viewModel);
+        Task EditAsync(IngredientEditViewModel viewModel);
 
-        Task DeleteAsync(string id);
+        Task DeleteAsync(IngredientDeleteViewModel viewModel);
     }
 }

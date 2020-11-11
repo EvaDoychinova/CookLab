@@ -26,7 +26,7 @@
             {
                 <tr>
                     <th scope="row">
-                        <a class="btn btn-outline-secondary" asp-controller="Ingredients" asp-action="Details">@ingredient.Name</a>
+                        <a class="btn btn-outline-secondary" asp-controller="Ingredients" asp-action="Details" asp-route-id="@ingredient.Id">@ingredient.Name</a>
                     </th>
                     <td>
                         @if (ingredient.Nutrition == null)

@@ -15,5 +15,18 @@
 
             public const string IngredientVolume = "Volume per 100 grams (in milliliters)";
         }
+
+        public static class NutritionsDisplayNames
+        {
+            public const string CaloriesDisplayName = "Calories per 100 grams";
+
+            public const string CarbohydratesDisplayName = "Carbohydrates per 100 grams";
+
+            public const string FatsDisplayName = "Fats per 100 grams";
+
+            public const string ProteinsDisplayName = "Proteins per 100 grams";
+
+            public const string FibresDisplayName = "Fibres per 100 grams";
+        }
     }
 }
