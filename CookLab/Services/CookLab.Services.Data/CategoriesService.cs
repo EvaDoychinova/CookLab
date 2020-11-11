@@ -18,10 +18,14 @@
     public class CategoriesService : ICategoriesService
     {
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly IDeletableEntityRepository<CategoryRecipe> recipeCategoriesRepository;
 
-        public CategoriesService(IDeletableEntityRepository<Category> categoriesRepository)
+        public CategoriesService(
+            IDeletableEntityRepository<Category> categoriesRepository,
+            IDeletableEntityRepository<CategoryRecipe> recipeCategoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
+            this.recipeCategoriesRepository = recipeCategoriesRepository;
         }
 
         public async Task<int> CreateAsync(CategoryInputModel inputModel, string rootPath)
@@ -30,6 +34,7 @@
             {
                 throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, inputModel.Name);
             }
+
             var imageName = inputModel.Name.ToLower().Replace(" ", "-");
             string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
 
@@ -55,7 +60,7 @@
         public async Task<ICollection<T>> GetAllAsync<T>()
         {
             var categories = await this.categoriesRepository.All()
-                .OrderByDescending(x => x.Recipes.Count)
+                .OrderBy(x => x.Name)
                 .To<T>()
                 .ToListAsync();
 
@@ -72,10 +77,24 @@
             return category;
         }
 
-        public async Task EditAsync(CategoryViewModel viewModel)
+        public async Task EditAsync(CategoryEditViewModel viewModel, string rootPath)
         {
-            var category = await this.categoriesRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            if (this.categoriesRepository.All().Any(x => x.Name == viewModel.Name && x.Id != viewModel.Id))
+            {
+                throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, viewModel.Name);
+            }
+
+            var imageName = viewModel.Name.ToLower().Replace(" ", "-");
+            string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
+
+            using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await viewModel.Image.CopyToAsync(stream);
+            }
+
+            var imageUrl = $"assets/img/categories/{imageName}.jpg";
+
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
 
             if (category == null)
             {
@@ -89,17 +108,28 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(CategoryDeleteViewModel viewModel)
         {
-            var category = await this.GetByIdAsync<Category>(id);
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
 
             if (category == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, viewModel.Id));
             }
 
             category.IsDeleted = true;
             category.DeletedOn = DateTime.UtcNow;
+
+            if (category.Recipes.Count > 0)
+            {
+                foreach (var recipe in category.Recipes)
+                {
+                    recipe.IsDeleted = true;
+                    recipe.DeletedOn = DateTime.UtcNow;
+                    this.recipeCategoriesRepository.Update(recipe);
+                }
+            }
+
             this.categoriesRepository.Update(category);
             await this.categoriesRepository.SaveChangesAsync();
         }

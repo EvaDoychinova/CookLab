@@ -10682,8 +10682,10 @@ div.masthead {
     background: linear-gradient(to bottom, rgba(92, 92, 92, 0.6) 0%, rgba(92, 92, 92, 0.6) 100%), url("../assets/img/home-backgrounds.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-size: cover;
+    height: auto;
+    min-height: 100vh;
 }
 
     div.masthead h1 {
@@ -10692,8 +10694,6 @@ div.masthead {
 
 @media (min-width: 992px) {
     div.masthead {
-        height: 100vh;
-        min-height: 40rem;
         padding-top: 4.5rem;
         padding-bottom: 3.2rem;
     }

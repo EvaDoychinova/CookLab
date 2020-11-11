@@ -14,8 +14,8 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        Task EditAsync(CategoryViewModel viewModel);
+        Task EditAsync(CategoryEditViewModel viewModel, string rootPath);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(CategoryDeleteViewModel viewModel);
     }
 }

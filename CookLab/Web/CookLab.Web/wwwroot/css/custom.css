@@ -7,13 +7,12 @@
     padding-right: 1rem;
 }
 
-.container-main-masthead {
-    height: 100%;
+div.masthead {
+    position: relative;
 }
 
-.masthead {
-    min-height: 100vh !important;
-    height: auto !important;
+.container-main-masthead {
+    height: 100%;
 }
 
 .main-masthead {
@@ -61,7 +60,7 @@ main a {
 .portfolio-box {
     border-radius: 50%;
     width: inherit;
-    height: 300px;
+    height: 250px;
     overflow: hidden;
     display: block;
 }
@@ -99,3 +98,24 @@ main a {
             transform: scale(1.1);
             cursor: pointer;
         }
+
+.category-admin-details {
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-container {
+    position:relative;
+    border-radius: 10px;
+    height: 250px;
+    width: 500px;
+}
+
+.image-category {
+    position: absolute;
+    width:inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

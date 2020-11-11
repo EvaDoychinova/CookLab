@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CookLab.Data.Models;
+    using CookLab.Services.Mapping;
     using CookLab.Web.Infrastructure.Attributes;
 
     using Microsoft.AspNetCore.Http;
@@ -10,7 +12,7 @@
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.CategoriesValidations;
 
-    public class CategoryEditViewModel
+    public class CategoryEditViewModel : IMapFrom<Category>
     {
         public int Id { get; set; }
 
