@@ -69,7 +69,7 @@
             return ingredient;
         }
 
-        public async Task EditAsync(IngredientViewModel viewModel)
+        public async Task EditAsync(IngredientEditViewModel viewModel)
         {
             var ingredient = await this.ingredientRepository.All()
                 .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
@@ -100,18 +100,29 @@
             await this.ingredientRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(IngredientDeleteViewModel viewModel)
         {
-            var ingredient = await this.GetByIdAsync<Ingredient>(id);
+            var ingredient = await this.ingredientRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
 
             if (ingredient == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, viewModel.Id));
             }
 
             ingredient.IsDeleted = true;
             ingredient.DeletedOn = DateTime.UtcNow;
+
+            var nutrition = ingredient.NutritionPer100Grams;
+
+            if (nutrition != null)
+            {
+                nutrition.IsDeleted = true;
+                nutrition.DeletedOn = DateTime.UtcNow;
+            }
+
             this.ingredientRepository.Update(ingredient);
+            this.nutritionsRepository.Update(nutrition);
             await this.ingredientRepository.SaveChangesAsync();
         }
     }

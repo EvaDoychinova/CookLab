@@ -1,4 +1,4 @@
-﻿namespace CookLab.Models.InputModels.Nutritions
+﻿namespace CookLab.Models.ViewModels.Nutritions
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -6,9 +6,11 @@
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.NutritionsValidations;
 
-    public class NutritionInputModel
+    public class NutritionEditViewModel
     {
-        [Required(ErrorMessage =RequiredFieldError)]
+        public string Id { get; set; }
+
+        [Required(ErrorMessage = RequiredFieldError)]
         [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = CaloriesDisplayName)]
         public double Calories { get; set; }
