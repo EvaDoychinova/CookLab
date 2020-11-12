@@ -52,7 +52,7 @@
         else
         {
             <h4>Volume per 100 Grams: @Model.VolumeInMlPer100Grams ml</h4>
-            <a class="btn btn-primary col m-3" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
+            <a class="btn btn-outline-primary m-3" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
         }
         <div class="row">
             <a class="btn btn-primary col m-3" asp-area="" asp-controller="Ingredients" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

@@ -7,6 +7,8 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Nutritions;
+    using CookLab.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class NutritionsService : INutritionsService
     {
@@ -59,6 +61,16 @@
             await this.nutritionRepository.SaveChangesAsync();
 
             return nutrition.Id;
+        }
+
+        public async Task<T> ShowNutritionAsync<T>(string ingredientId = null, string recipeId = null)
+        {
+            var nutrition = await this.nutritionRepository.All()
+                .Where(x => x.IngredientId == ingredientId && x.RecipeId == recipeId)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return nutrition;
         }
 
         private double CalculateNutritionElementPer100GramsForRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)

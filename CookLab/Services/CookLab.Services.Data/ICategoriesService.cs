@@ -16,6 +16,6 @@
 
         Task EditAsync(CategoryEditViewModel viewModel, string rootPath);
 
-        Task DeleteAsync(CategoryDeleteViewModel viewModel);
+        Task DeleteAsync(int id);
     }
 }

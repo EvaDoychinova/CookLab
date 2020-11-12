@@ -1,1 +1,66 @@
-﻿
+﻿@using CookLab.Common
+@using CookLab.Models.ViewModels.Ingredients
+
+@model IngredientEditViewModel
+
+@{
+    this.ViewData["Title"] = string.Format(PageTitles.EditIngredientPageTitle, Model.Name);
+}
+
+<div class="container d-flex flex-column align-items-center">
+    <h2 class="my-lg-3 mb-3">@this.ViewData["Title"]</h2>
+
+    <form asp-controller="Ingredients" asp-action="Edit" method="post" class="form col-md-6 d-flex flex-column" enctype="multipart/form-data">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="VolumeInMlPer100Grams"></label>
+            <input type="number" step="any" asp-for="VolumeInMlPer100Grams" class="form-control" />
+            <span asp-validation-for="VolumeInMlPer100Grams" class="text-danger"></span>
+        </div>
+
+        @if (Model.Nutrition != null)
+        {
+            <div class="form-group">
+                <label asp-for="Nutrition.Calories"></label>
+                <input asp-for="Nutrition.Calories" class="form-control" />
+                <span asp-validation-for="Nutrition.Calories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nutrition.Carbohydrates"></label>
+                <input asp-for="Nutrition.Carbohydrates" class="form-control" />
+                <span asp-validation-for="Nutrition.Carbohydrates" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nutrition.Fats"></label>
+                <input asp-for="Nutrition.Fats" class="form-control" />
+                <span asp-validation-for="Nutrition.Fats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nutrition.Proteins"></label>
+                <input asp-for="Nutrition.Proteins" class="form-control" />
+                <span asp-validation-for="Nutrition.Proteins" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nutrition.Fibres"></label>
+                <input asp-for="Nutrition.Fibres" class="form-control" />
+                <span asp-validation-for="Nutrition.Fibres" class="text-danger"></span>
+            </div>
+        }
+        else
+        {
+            <a class="btn btn-outline-primary m-3 mx-auto" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
+        }
+        <div class=" form-group row">
+            <input type="submit" value="Edit" class="btn btn-primary col m-3" />
+            <a class="btn btn-secondary col m-3" asp-controller="Ingredients" asp-action="Details" asp-route-id="@Model.Id">Back</a>
+        </div>
+    </form>
+</div>

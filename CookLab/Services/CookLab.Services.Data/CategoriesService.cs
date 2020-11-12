@@ -79,42 +79,47 @@
 
         public async Task EditAsync(CategoryEditViewModel viewModel, string rootPath)
         {
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+
+            if (category == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, viewModel.Id));
+            }
+
             if (this.categoriesRepository.All().Any(x => x.Name == viewModel.Name && x.Id != viewModel.Id))
             {
                 throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, viewModel.Name);
             }
 
-            var imageName = viewModel.Name.ToLower().Replace(" ", "-");
-            string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
+            var imageUrl = viewModel.ImageUrl;
 
-            using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+            if (viewModel.Image != null)
             {
-                await viewModel.Image.CopyToAsync(stream);
-            }
+                var imageName = viewModel.Name.ToLower().Replace(" ", "-");
+                string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
 
-            var imageUrl = $"assets/img/categories/{imageName}.jpg";
+                using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await viewModel.Image.CopyToAsync(stream);
+                }
 
-            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-
-            if (category == null)
-            {
-                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, viewModel.Id));
+                imageUrl = $"assets/img/categories/{imageName}.jpg";
             }
 
             category.Name = viewModel.Name;
-            category.ImageUrl = viewModel.ImageUrl;
+            category.ImageUrl = imageUrl;
             category.ModifiedOn = DateTime.UtcNow;
             this.categoriesRepository.Update(category);
             await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(CategoryDeleteViewModel viewModel)
+        public async Task DeleteAsync(int id)
         {
-            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
 
             if (category == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, viewModel.Id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, id));
             }
 
             category.IsDeleted = true;

@@ -79,6 +79,11 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, viewModel.Id));
             }
 
+            if (this.ingredientRepository.All().Any(x => x.Name == viewModel.Name && x.Id != viewModel.Id))
+            {
+                throw new ArgumentException(ExceptionMessages.IngredientAlreadyExists, viewModel.Name);
+            }
+
             ingredient.Name = viewModel.Name;
             ingredient.VolumeInMlPer100Grams = viewModel.VolumeInMlPer100Grams;
 
@@ -100,14 +105,14 @@
             await this.ingredientRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(IngredientDeleteViewModel viewModel)
+        public async Task DeleteAsync(string id)
         {
             var ingredient = await this.ingredientRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (ingredient == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, viewModel.Id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, id));
             }
 
             ingredient.IsDeleted = true;
@@ -119,10 +124,11 @@
             {
                 nutrition.IsDeleted = true;
                 nutrition.DeletedOn = DateTime.UtcNow;
+
+                this.nutritionsRepository.Update(nutrition);
             }
 
             this.ingredientRepository.Update(ingredient);
-            this.nutritionsRepository.Update(nutrition);
             await this.ingredientRepository.SaveChangesAsync();
         }
     }
