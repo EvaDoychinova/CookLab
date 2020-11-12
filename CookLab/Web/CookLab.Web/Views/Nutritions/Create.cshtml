@@ -1,1 +1,48 @@
-﻿
+﻿@using CookLab.Common
+@using CookLab.Models.InputModels.Nutritions
+
+@model NutritionInputModel
+
+@{
+    ViewData["Title"] =string.Format(PageTitles.NutritionsCreatePageTitles, Model.Ingredient.Name);
+}
+
+<div class="container d-flex flex-column align-items-center">
+    <h2 class="my-lg-3 mb-3">Add nutrition per 100 grams for @Model.Ingredient.Name</h2>
+
+    <form asp-controller="Nutritions" asp-action="Create" method="post" class="form col-md-6 d-flex flex-column">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Calories"></label>
+            <input type="number" step="any" asp-for="Calories" class="form-control" />
+            <span asp-validation-for="Calories" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Carbohydrates"></label>
+            <input type="number" step="any" asp-for="Carbohydrates" class="form-control" />
+            <span asp-validation-for="Carbohydrates" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fats"></label>
+            <input type="number" step="any" asp-for="Fats" class="form-control" />
+            <span asp-validation-for="Fats" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Proteins"></label>
+            <input type="number" step="any" asp-for="Proteins" class="form-control" />
+            <span asp-validation-for="Proteins" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fibres"></label>
+            <input type="number" step="any" asp-for="Fibres" class="form-control" />
+            <span asp-validation-for="Fibres" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Add nutrition" class="btn btn-primary align-self-stretch" />
+    </form>
+</div>

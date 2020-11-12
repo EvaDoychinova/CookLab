@@ -8,13 +8,14 @@
 
 <div class="row h-100 align-items-center justify-content-center text-center">
     <div class="col-lg-10 align-self-end">
-        <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
+        <h2 class="text-white font-weight-bold">@Model.Name</h2>
+        <h4>Volume per 100 Grams: @Model.VolumeToString ml</h4>
         <hr class="divider my-4" />
     </div>
     <div class="col-lg-8 align-self-baseline">
-        @if (Model.Nutrition != null)
+        @if (Model.NutritionPer100Grams!=null)
         {
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover table-light col-md-8 mx-auto">
                 <thead>
                     <tr>
                         <th scope="col">Nutrition per 100 Grams</th>
@@ -23,35 +24,30 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">Volume per 100 Grams (ml)</th>
-                        <td>@Model.VolumeInMlPer100Grams</td>
-                    </tr>
-                    <tr>
                         <th scope="row">Calories</th>
-                        <td>@Model.Nutrition.Calories</td>
+                        <td class="text-primary">@Model.NutritionPer100Grams.CaloriesToString</td>
                     </tr>
                     <tr>
                         <th scope="row">Carbohydrates</th>
-                        <td>@Model.Nutrition.Carbohydrates</td>
+                        <td class="text-primary">@Model.NutritionPer100Grams.CarbohydratesToString</td>
                     </tr>
                     <tr>
                         <th scope="row">Fats</th>
-                        <td>@Model.Nutrition.Fats</td>
+                        <td class="text-primary">@Model.NutritionPer100Grams.FatsToString</td>
                     </tr>
                     <tr>
                         <th scope="row">Proteins</th>
-                        <td>@Model.Nutrition.Proteins</td>
+                        <td class="text-primary">@Model.NutritionPer100Grams.ProteinsToString</td>
                     </tr>
                     <tr>
                         <th scope="row">Fibres</th>
-                        <td>@Model.Nutrition.Fibres</td>
+                        <td class="text-primary">@Model.NutritionPer100Grams.FibresToString</td>
                     </tr>
                 </tbody>
             </table>
         }
         else
         {
-            <h4>Volume per 100 Grams: @Model.VolumeInMlPer100Grams ml</h4>
             <a class="btn btn-outline-primary m-3" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
         }
         <div class="row">

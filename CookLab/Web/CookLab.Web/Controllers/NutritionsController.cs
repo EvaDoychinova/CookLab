@@ -1,10 +1,12 @@
 ﻿namespace CookLab.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using CookLab.Models.InputModels.Nutritions;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Services.Data;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class NutritionsController : BaseController
@@ -23,8 +25,11 @@
         public async Task<IActionResult> Create(string id)
         {
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientViewModel>(id);
+            var nutrition = new NutritionInputModel();
+            nutrition.IngredientId = id;
+            nutrition.Ingredient = ingredient;
 
-            return this.View(ingredient);
+            return this.View(nutrition);
         }
 
         [HttpPost]
@@ -37,7 +42,7 @@
 
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientViewModel>(id);
 
-            if (ingredient.Nutrition == null)
+            if (ingredient.NutritionPer100Grams == null)
             {
                 await this.nutritionsService.AddNutritionToIngredientAsync(ingredient.Id, inputModel);
             }
@@ -47,16 +52,16 @@
 
         public async Task<IActionResult> IngredientNutrition(string id)
         {
-            var nutrition = await this.nutritionsService.ShowNutritionAsync<NutritionViewModel>(id,null);
+            var nutrition = await this.nutritionsService.ShowNutritionAsync<NutritionViewModel>(id, null);
 
-            return this.View(nutrition);
+            return this.View("Details", nutrition);
         }
 
         public async Task<IActionResult> RecipeNutrition(string id)
         {
             var nutrition = await this.nutritionsService.ShowNutritionAsync<NutritionViewModel>(null, id);
 
-            return this.View(nutrition);
+            return this.View("Details", nutrition);
         }
     }
 }

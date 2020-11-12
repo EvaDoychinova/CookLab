@@ -54,10 +54,6 @@
                 <span asp-validation-for="Nutrition.Fibres" class="text-danger"></span>
             </div>
         }
-        else
-        {
-            <a class="btn btn-outline-primary m-3 mx-auto" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
-        }
         <div class=" form-group row">
             <input type="submit" value="Edit" class="btn btn-primary col m-3" />
             <a class="btn btn-secondary col m-3" asp-controller="Ingredients" asp-action="Details" asp-route-id="@Model.Id">Back</a>

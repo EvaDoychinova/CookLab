@@ -69,7 +69,7 @@
             }
 
             await this.ingredientsService.EditAsync(viewModel);
-            return this.RedirectToAction(nameof(this.Details), new { id=viewModel.Id});
+            return this.RedirectToAction(nameof(this.Details), new { id = viewModel.Id });
         }
 
         public async Task<IActionResult> Delete(string id)
