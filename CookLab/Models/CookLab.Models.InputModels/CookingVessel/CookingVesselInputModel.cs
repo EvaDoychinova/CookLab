@@ -4,7 +4,7 @@
     using CookLab.Data.Models.Enums;
     using CookLab.Services.Mapping;
 
-    public class CookingVesselInputModel : IMapTo<CookingVessel>
+    public class CookingVesselInputModel
     {
         public PanForm Form { get; set; }
 

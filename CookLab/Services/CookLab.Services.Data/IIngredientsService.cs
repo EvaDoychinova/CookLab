@@ -16,6 +16,6 @@
 
         Task EditAsync(IngredientEditViewModel viewModel);
 
-        Task DeleteAsync(IngredientDeleteViewModel viewModel);
+        Task DeleteAsync(string id);
     }
 }

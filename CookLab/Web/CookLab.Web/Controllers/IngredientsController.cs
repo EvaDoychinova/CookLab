@@ -50,7 +50,7 @@
         {
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientViewModel>(id);
 
-            return this.View();
+            return this.View(ingredient);
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -69,7 +69,7 @@
             }
 
             await this.ingredientsService.EditAsync(viewModel);
-            return this.RedirectToAction(nameof(this.Details));
+            return this.RedirectToAction(nameof(this.Details), new { id=viewModel.Id});
         }
 
         public async Task<IActionResult> Delete(string id)
@@ -82,7 +82,7 @@
         [HttpPost]
         public async Task<IActionResult> Delete(IngredientDeleteViewModel viewModel)
         {
-            await this.ingredientsService.DeleteAsync(viewModel);
+            await this.ingredientsService.DeleteAsync(viewModel.Id);
             return this.RedirectToAction(nameof(this.All));
         }
     }

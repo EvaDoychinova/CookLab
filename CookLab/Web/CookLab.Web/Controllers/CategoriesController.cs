@@ -81,7 +81,7 @@
 
             await this.categoriesService.EditAsync(viewModel, rootPath);
 
-            return this.RedirectToAction(nameof(this.Details), viewModel.Id);
+            return this.RedirectToAction(nameof(this.Details), new { id = viewModel.Id });
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -94,7 +94,7 @@
         [HttpPost]
         public async Task<IActionResult> Delete(CategoryDeleteViewModel viewModel)
         {
-            await this.categoriesService.DeleteAsync(viewModel);
+            await this.categoriesService.DeleteAsync(viewModel.Id);
 
             return this.RedirectToAction(nameof(this.All));
         }
