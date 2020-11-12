@@ -13,13 +13,16 @@
     public class NutritionsService : INutritionsService
     {
         private readonly IDeletableEntityRepository<Nutrition> nutritionRepository;
+        private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
 
         public NutritionsService(
             IDeletableEntityRepository<Nutrition> nutritionRepository,
+            IDeletableEntityRepository<Ingredient> ingredientRepository,
             IDeletableEntityRepository<Recipe> recipeRepository)
         {
             this.nutritionRepository = nutritionRepository;
+            this.ingredientRepository = ingredientRepository;
             this.recipeRepository = recipeRepository;
         }
 
@@ -36,8 +39,15 @@
             };
 
             await this.nutritionRepository.AddAsync(nutrition);
-            await this.nutritionRepository.SaveChangesAsync();
 
+            var ingredient = await this.ingredientRepository.All()
+                .Where(x => x.Id == ingredientId)
+                .FirstOrDefaultAsync();
+
+            ingredient.NutritionPer100Grams = nutrition;
+            this.ingredientRepository.Update(ingredient);
+            await this.nutritionRepository.SaveChangesAsync();
+            await this.ingredientRepository.SaveChangesAsync();
             return nutrition.Id;
         }
 
@@ -60,6 +70,9 @@
             await this.nutritionRepository.AddAsync(nutrition);
             await this.nutritionRepository.SaveChangesAsync();
 
+            recipe.NutritionPer100Grams = nutrition;
+            this.recipeRepository.Update(recipe);
+            await this.recipeRepository.SaveChangesAsync();
             return nutrition.Id;
         }
 

@@ -18,5 +18,8 @@
         public const string IngredientCreatePageTitle = "Create Ingredient";
         public const string DeleteIngredientPageTitle = "Delete Ingredient {0}";
         public const string EditIngredientPageTitle = "Edit Ingredient {0}";
+
+        // Nutritions Page Titles
+        public const string NutritionsCreatePageTitles = "Add nutrition to ingredient {0}";
     }
 }

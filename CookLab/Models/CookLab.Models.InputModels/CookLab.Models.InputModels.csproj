@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services.Mapping\CookLab.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Web\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CookLab.Models.ViewModels\CookLab.Models.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

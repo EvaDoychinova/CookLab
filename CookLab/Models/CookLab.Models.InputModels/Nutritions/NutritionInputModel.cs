@@ -2,13 +2,15 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CookLab.Models.ViewModels.Ingredients;
+
     using static CookLab.Common.DisplayNames.NutritionsDisplayNames;
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.NutritionsValidations;
 
     public class NutritionInputModel
     {
-        [Required(ErrorMessage =RequiredFieldError)]
+        [Required(ErrorMessage = RequiredFieldError)]
         [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = CaloriesDisplayName)]
         public double Calories { get; set; }
@@ -32,5 +34,9 @@
         [Range(CaloriesMinValue, CaloriesMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = FibresDisplayName)]
         public double Fibres { get; set; }
+
+        public string IngredientId { get; set; }
+
+        public IngredientViewModel Ingredient{ get; set; }
     }
 }

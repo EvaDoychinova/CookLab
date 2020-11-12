@@ -28,13 +28,9 @@
                         <a class="btn btn-outline-secondary" asp-controller="Ingredients" asp-action="Details" asp-route-id="@ingredient.Id">@ingredient.Name</a>
                     </th>
                     <td>
-                        @if (ingredient.Nutrition == null)
+                        @if (ingredient.NutritionPer100Grams == null)
                         {
                             <a class="btn btn-primary" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-primary" asp-controller="Nutritions" asp-action="Show" asp-route-id="@ingredient.Id">See Nutrition Info</a>
                         }
                     </td>
                 </tr>
