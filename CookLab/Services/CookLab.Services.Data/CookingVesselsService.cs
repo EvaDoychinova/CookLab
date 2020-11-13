@@ -22,12 +22,12 @@
 
         public async Task<int> CreateAsync(CookingVesselInputModel inputModel)
         {
-            double volume = (int)inputModel.Form switch
+            double area = (int)inputModel.Form switch
             {
-                1 => Math.PI * (inputModel.Diameter / 2) * (inputModel.Diameter / 2),
-                2 => inputModel.SideA * inputModel.SideA,
-                3 => inputModel.SideA * inputModel.SideB,
-                4 => inputModel.Volume,
+                1 => Math.PI * (inputModel.Diameter / 2) * (inputModel.Diameter / 2) ?? 0,
+                2 => inputModel.SideA * inputModel.SideA ?? 0,
+                3 => inputModel.SideA * inputModel.SideB ?? 0,
+                4 => inputModel.Area ?? 0,
                 _ => 0,
             };
 
@@ -35,10 +35,10 @@
             {
                 Name = (int)inputModel.Form switch
                 {
-                    1 => $"{inputModel.Form.ToString()} {inputModel.Diameter}cm",
-                    2 => $"{inputModel.Form.ToString()} {inputModel.SideA}x{inputModel.SideA} cm\xB2",
-                    3 => $"{inputModel.Form.ToString()} {inputModel.SideA}x{inputModel.SideB} cm\xB2",
-                    4 => $"{inputModel.Name} {inputModel.Volume}cm\xB3",
+                    1 => $"{inputModel.Form} {inputModel.Diameter}cm",
+                    2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA} cm\xB2",
+                    3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB} cm\xB2",
+                    4 => $"{inputModel.Name} {inputModel.Area}cm\xB2",
                     _ => null,
                 },
                 Form = inputModel.Form,
@@ -59,7 +59,8 @@
                     _ => null,
                 },
                 Height = inputModel.Height,
-                Volume = volume,
+                Area = area,
+                Volume = area * inputModel.Height,
             };
 
             await this.cookingVesselRepository.AddAsync(cookingVessel);
