@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CookLab.Common\CookLab.Common.csproj" />
     <ProjectReference Include="..\CookLab.Data.Common\CookLab.Data.Common.csproj" />
   </ItemGroup>
   

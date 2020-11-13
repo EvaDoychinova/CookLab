@@ -38,5 +38,20 @@
             public const double FibresMinValue = 0;
             public const double FibresMaxValue = 100;
         }
+
+        public static class CookingVesselValidations
+        {
+            public const double DiameterMinValue = 1;
+            public const double DiameterMaxValue = 100;
+
+            public const double SideMinValue = 1;
+            public const double SideMaxValue = 100;
+
+            public const double HeightMinValue = 1;
+            public const double HeightMaxValue = 50;
+
+            public const double VolumeMinValue = 20;
+            public const double VolumeMaxValue = 10 * 1000;
+        }
     }
 }

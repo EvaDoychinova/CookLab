@@ -28,5 +28,12 @@
 
             public const string FibresDisplayName = "Fibres per 100 grams";
         }
+
+        public static class CookingVesselDisplayName
+        {
+            public const string FormDisplayName = "Vessel form";
+
+
+        }
     }
 }

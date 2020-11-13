@@ -6,6 +6,8 @@
 
     using CookLab.Data.Common.Models;
 
+    using static CookLab.Common.ModelsValidations.IngredientsValidations;
+
     public class Ingredient : BaseDeletableModel<string>
     {
         public Ingredient()
@@ -17,6 +19,7 @@
         [Required]
         public string Name { get; set; }
 
+        [Range(VolumeMinValue, VolumeMaxValue)]
         public double VolumeInMlPer100Grams { get; set; }
 
         public virtual Nutrition NutritionPer100Grams { get; set; }

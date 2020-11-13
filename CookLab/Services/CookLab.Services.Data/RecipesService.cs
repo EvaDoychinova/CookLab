@@ -13,7 +13,6 @@
     {
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
         private readonly IRepository<CookingVessel> cookingVesselRepository;
-        private readonly IRepository<VesselDimension> vesselDimensionsRepository;
         private readonly ICategoriesService categoriesService;
         private readonly IIngredientsService ingredientsService;
         private readonly INutritionsService nutritionsService;
@@ -21,14 +20,12 @@
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
             IRepository<CookingVessel> cookingVesselRepository,
-            IRepository<VesselDimension> vesselDimensionsRepository,
             ICategoriesService categoriesService,
             IIngredientsService ingredientsService,
             INutritionsService nutritionsService)
         {
             this.recipesRepository = recipesRepository;
             this.cookingVesselRepository = cookingVesselRepository;
-            this.vesselDimensionsRepository = vesselDimensionsRepository;
             this.categoriesService = categoriesService;
             this.ingredientsService = ingredientsService;
             this.nutritionsService = nutritionsService;

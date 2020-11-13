@@ -37,6 +37,6 @@
 
         public string IngredientId { get; set; }
 
-        public IngredientViewModel Ingredient{ get; set; }
+        public IngredientViewModel Ingredient { get; set; }
     }
 }

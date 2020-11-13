@@ -9,6 +9,6 @@
     {
         Task<int> CreateAsync(CookingVesselInputModel inputModel);
 
-        ICollection<T> GetAll<T>();
+        Task<ICollection<T>> GetAllAsync<T>();
     }
 }
