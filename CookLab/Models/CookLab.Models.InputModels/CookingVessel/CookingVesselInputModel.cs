@@ -13,20 +13,19 @@
         public PanForm Form { get; set; }
 
         [Range(DiameterMinValue, DiameterMaxValue)]
-        public double Diameter { get; set; }
+        public double? Diameter { get; set; }
 
         [Range(SideMinValue, SideMaxValue)]
-        public double SideA { get; set; }
+        public double? SideA { get; set; }
 
         [Range(SideMinValue, SideMaxValue)]
-        public double SideB { get; set; }
+        public double? SideB { get; set; }
 
         [Required]
         [Range(HeightMinValue, HeightMaxValue)]
         public double Height { get; set; }
 
-        [Required]
         [Range(VolumeMinValue, VolumeMaxValue)]
-        public double Volume { get; set; }
+        public double? Area { get; set; }
     }
 }

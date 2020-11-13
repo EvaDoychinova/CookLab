@@ -50,6 +50,9 @@
             public const double HeightMinValue = 1;
             public const double HeightMaxValue = 50;
 
+            public const double AreaMinValue = 2 * 2;
+            public const double AreaMaxValue = 100 * 100;
+
             public const double VolumeMinValue = 20;
             public const double VolumeMaxValue = 10 * 1000;
         }

@@ -28,6 +28,10 @@
         public double Height { get; set; }
 
         [Required]
+        [Range(AreaMinValue, AreaMaxValue)]
+        public double Area { get; set; }
+
+        [Required]
         [Range(VolumeMinValue, VolumeMaxValue)]
         public double Volume { get; set; }
     }
