@@ -9,6 +9,7 @@
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.CookingVessel;
     using CookLab.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class CookingVesselsService : ICookingVesselsService
     {
@@ -23,23 +24,41 @@
         {
             double volume = (int)inputModel.Form switch
             {
-                1 => Math.PI * (inputModel.VesselDimension.Diameter / 2) * (inputModel.VesselDimension.Diameter / 2) / 2,
-                2 => inputModel.VesselDimension.SideA * inputModel.VesselDimension.SideA,
-                3 => inputModel.VesselDimension.SideA * inputModel.VesselDimension.SideB,
+                1 => Math.PI * (inputModel.Diameter / 2) * (inputModel.Diameter / 2),
+                2 => inputModel.SideA * inputModel.SideA,
+                3 => inputModel.SideA * inputModel.SideB,
                 4 => inputModel.Volume,
                 _ => 0,
             };
 
             var cookingVessel = new CookingVessel
             {
-                Form = inputModel.Form,
-                VesselDimension = new VesselDimension
+                Name = (int)inputModel.Form switch
                 {
-                    Diameter = inputModel.VesselDimension.Diameter,
-                    SideA = inputModel.VesselDimension.SideA,
-                    SideB = inputModel.VesselDimension.SideB,
-                    Height = inputModel.VesselDimension.Height,
+                    1 => $"{inputModel.Form.ToString()} {inputModel.Diameter}cm",
+                    2 => $"{inputModel.Form.ToString()} {inputModel.SideA}x{inputModel.SideA} cm\xB2",
+                    3 => $"{inputModel.Form.ToString()} {inputModel.SideA}x{inputModel.SideB} cm\xB2",
+                    4 => $"{inputModel.Name} {inputModel.Volume}cm\xB3",
+                    _ => null,
                 },
+                Form = inputModel.Form,
+                Diameter = (int)inputModel.Form switch
+                {
+                    1 => inputModel.Diameter,
+                    _ => null,
+                },
+                SideA = (int)inputModel.Form switch
+                {
+                    2 => inputModel.SideA,
+                    3 => inputModel.SideA,
+                    _ => null,
+                },
+                SideB = (int)inputModel.Form switch
+                {
+                    3 => inputModel.SideB,
+                    _ => null,
+                },
+                Height = inputModel.Height,
                 Volume = volume,
             };
 
@@ -49,11 +68,11 @@
             return cookingVessel.Id;
         }
 
-        public ICollection<T> GetAll<T>()
+        public async Task<ICollection<T>> GetAllAsync<T>()
         {
-            var cookingVessels = this.cookingVesselRepository.All()
+            var cookingVessels = await this.cookingVesselRepository.All()
                .To<T>()
-               .ToList();
+               .ToListAsync();
 
             return cookingVessels;
         }
