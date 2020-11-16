@@ -20,8 +20,17 @@ function solve() {
     const area = document.getElementById("Area");
     const areaParent = area.parentNode;
 
+    const parents = document.querySelectorAll('div.form-group');
+    const inputs = document.querySelectorAll('input.form-control');
+
+    parents.forEach(x => x.classList.add('d-none'));
+    inputs.forEach(x => x.setAttribute('disabled', 'disabled'));
+
     functionalSelect.addEventListener("change", (e) => {
-        e.preventDefault();
+
+        parents.forEach(x => x.classList.add('d-none'));
+        inputs.forEach(x => x.setAttribute('disabled', 'disabled'));
+
         let selectedOption = Array.from(options).filter(x => x.value == functionalSelect.value)[0];
         let value = selectedOption.value;
         console.log(value);
@@ -56,11 +65,15 @@ function solve() {
 
                 break;
             case '4':
+                nameParent.classList.remove('d-none');
+                name.removeAttribute('disabled');
+
+
                 areaParent.classList.remove('d-none');
-                area.removeAttribute('disable');
+                area.removeAttribute('disabled');
 
                 heightParent.classList.remove('d-none');
-                height.removeAttribute('disable');
+                height.removeAttribute('disabled');
 
                 break;
             default:

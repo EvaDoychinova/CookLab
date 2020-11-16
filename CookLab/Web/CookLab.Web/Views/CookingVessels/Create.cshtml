@@ -15,7 +15,7 @@
 
         <div asp-validation-summary="All" class="text-danger"></div>
 
-        <div class="form group mb-3">
+        <div class="my-3">
             <label asp-for="Form"></label>
             <select asp-for="Form" class="form-control" asp-items="@Html.GetEnumSelectList<PanForm>()">
                 <option selected disabled value="0">Choose cooking vessel form...</option>
@@ -23,39 +23,39 @@
             <span asp-validation-for="Form" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" disabled/>
+            <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="Diameter"></label>
-            <input type="number" step="any" asp-for="Diameter" class="form-control" disabled />
+            <input type="number" step="any" asp-for="Diameter" class="form-control"  />
             <span asp-validation-for="Diameter" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="SideA"></label>
-            <input type="number" step="any" asp-for="SideA" class="form-control" disabled/>
+            <input type="number" step="any" asp-for="SideA" class="form-control" />
             <span asp-validation-for="SideA" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="SideB"></label>
-            <input type="number" step="any" asp-for="SideB" class="form-control" disabled/>
+            <input type="number" step="any" asp-for="SideB" class="form-control" />
             <span asp-validation-for="SideB" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="Height"></label>
-            <input type="number" step="any" asp-for="Height" class="form-control" disabled/>
+            <input type="number" step="any" asp-for="Height" class="form-control" />
             <span asp-validation-for="Height" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-none">
+        <div class="form-group ">
             <label asp-for="Area"></label>
-            <input type="number" step="any" asp-for="Area" class="form-control" disabled/>
+            <input type="number" step="any" asp-for="Area" class="form-control" />
             <span asp-validation-for="Area" class="text-danger"></span>
         </div>
 
