@@ -7,7 +7,10 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Recipes;
+    using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Mapping;
+
+    using Microsoft.EntityFrameworkCore;
 
     public class RecipesService : IRecipesService
     {
@@ -48,35 +51,66 @@
             return recipe.Id;
         }
 
-        public ICollection<T> GetAll<T>()
+        public async Task<ICollection<T>> GetAllAsync<T>()
         {
-            var recipes = this.recipesRepository.All()
+            var recipes = await this.recipesRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
                 .To<T>()
-                .ToList();
+                .ToListAsync();
 
             return recipes;
         }
 
-        public ICollection<T> GetAllByCategory<T>(string categoryName)
+        public async Task<T> GetByIdAsync<T>(string id)
         {
-            var recipes = this.recipesRepository.All()
-                .Where(x => x.Categories
-                             .Any(y => y.Category.Name == categoryName))
-                .To<T>()
-                .ToList();
-
-            return recipes;
-        }
-
-        public T GetById<T>(string id)
-        {
-            var recipe = this.recipesRepository.All()
+            var recipe = await this.recipesRepository.All()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return recipe;
+        }
+
+        public async Task<ICollection<T>> GetAllByCategoryAsync<T>(int categoryId)
+        {
+            var recipes = await this.recipesRepository.All()
+                .Where(x => x.Categories
+                             .Any(y => y.CategoryId == categoryId))
+                .To<T>()
+                .ToListAsync();
+
+            return recipes;
+        }
+
+        public async Task<ICollection<T>> GetAllByCreatorAsync<T>(string userId)
+        {
+            var recipes = await this.recipesRepository.All()
+                .Where(x => x.CreatorId == userId)
+                .To<T>()
+                .ToListAsync();
+
+            return recipes;
+        }
+
+        public async Task<ICollection<T>> GetAllByUserAsync<T>(string userId)
+        {
+            var recipes = await this.recipesRepository.All()
+                .Where(x => x.Users
+                             .Any(y => y.UserId == userId))
+                .To<T>()
+                .ToListAsync();
+
+            return recipes;
+        }
+
+        public async Task EditAsync(RecipeEditViewModel viewModel)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
