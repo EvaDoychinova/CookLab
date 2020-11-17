@@ -20,11 +20,14 @@
 
         public string Name { get; set; }
 
+        public TimeSpan PreparationTime { get; set; }
+
+        public TimeSpan CookingTime { get; set; }
+
         public virtual ICollection<CategoryRecipe> Categories { get; set; }
 
         public virtual ICollection<RecipeImage> Images { get; set; }
 
-        [Required]
         [ForeignKey(nameof(CookingVessel))]
         public int CookingVesselId { get; set; }
 

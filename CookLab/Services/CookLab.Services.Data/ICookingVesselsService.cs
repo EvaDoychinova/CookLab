@@ -10,5 +10,9 @@
         Task<int> CreateAsync(CookingVesselInputModel inputModel);
 
         Task<ICollection<T>> GetAllAsync<T>();
+
+        Task<T> GetByIdAsync<T>(int id);
+
+        Task DeleteAsync(int id);
     }
 }

@@ -4,14 +4,16 @@ using CookLab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookLab.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201117032019_AddPreparationAndCookingTimeToRecipeEntity")]
+    partial class AddPreparationAndCookingTimeToRecipeEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,9 +344,6 @@ namespace CookLab.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<TimeSpan>("CookingTime")
-                        .HasColumnType("time");
-
                     b.Property<int>("CookingVesselId")
                         .HasColumnType("int");
 
@@ -369,9 +368,6 @@ namespace CookLab.Data.Migrations
 
                     b.Property<string>("Preparation")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("PreparationTime")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -656,7 +652,7 @@ namespace CookLab.Data.Migrations
             modelBuilder.Entity("CookLab.Data.Models.Recipe", b =>
                 {
                     b.HasOne("CookLab.Data.Models.CookingVessel", "CookingVessel")
-                        .WithMany("Recipes")
+                        .WithMany()
                         .HasForeignKey("CookingVesselId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

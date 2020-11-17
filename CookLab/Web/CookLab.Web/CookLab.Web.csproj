@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\CookingVessels\Details.cshtml" />
     <Content Remove="Views\Ingredients\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\CookingVessels\Details.cshtml" />
     <None Include="Views\Ingredients\Details.cshtml" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using CookLab.Models.InputModels.CookingVessel;
-    using CookLab.Models.ViewModels.CookingVessel;
+    using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Services.Data;
 
     using Microsoft.AspNetCore.Mvc;
@@ -32,7 +32,7 @@
 
             var cookingVessel = await this.cookingVesselsService.CreateAsync(inputModel);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> All()
@@ -45,6 +45,27 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var cookingVessel = await this.cookingVesselsService.GetByIdAsync<CookingVesselViewModel>(id);
+
+            return this.View(cookingVessel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var cookingVessel = await this.cookingVesselsService.GetByIdAsync<CookingVesselDeleteViewModel>(id);
+
+            return this.View(cookingVessel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(CookingVesselDeleteViewModel viewModel)
+        {
+            await this.cookingVesselsService.DeleteAsync(viewModel.Id);
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

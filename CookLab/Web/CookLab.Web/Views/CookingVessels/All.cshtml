@@ -1,5 +1,5 @@
 ﻿@using CookLab.Common
-@using CookLab.Models.ViewModels.CookingVessel
+@using CookLab.Models.ViewModels.CookingVessels
 
 @model CookingVesselsListViewModel
 
@@ -23,10 +23,12 @@
         </thead>
         <tbody>
             @foreach (var cookingVessel in Model.CookingVessels)
-            {
+             {
                 <tr>
                     <th scope="row">
-                        @cookingVessel.Name
+                        <a class="btn btn-outline-secondary" asp-area="" asp-controller="CookingVessels" asp-action="Details" asp-route-id="@cookingVessel.Id">
+                            @cookingVessel.Name
+                        </a>
                     </th>
                     <td class="text-primary">
                         @cookingVessel.AreaToString
@@ -35,7 +37,7 @@
                         @cookingVessel.VolumeToString
                     </td>
                 </tr>
-            }
+             }
         </tbody>
     </table>
 </div>
