@@ -1,4 +1,4 @@
-﻿namespace CookLab.Models.ViewModels.CookingVessel
+﻿namespace CookLab.Models.ViewModels.CookingVessels
 {
     using System.Globalization;
 

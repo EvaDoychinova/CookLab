@@ -20,10 +20,11 @@
         public const string EditIngredientPageTitle = "Edit Ingredient {0}";
 
         // Nutritions Page Titles
-        public const string NutritionsCreatePageTitle = "Add nutrition to ingredient {0}";
+        public const string NutritionsCreatePageTitle = "Add Nutrition to Ingredient {0}";
 
         // Cooking Vessel Page Titles
-        public const string CookingVesselCreatePageTitle = "Create cooking vessel";
-        public const string CookingVesselAllPageTitle = "List of cooking vessels";
+        public const string CookingVesselCreatePageTitle = "Create Cooking vessel";
+        public const string CookingVesselAllPageTitle = "List of Cooking vessels";
+        public const string DeleteCookingVesselPageTitle = "Delete Cooking vessel {0}";
     }
 }

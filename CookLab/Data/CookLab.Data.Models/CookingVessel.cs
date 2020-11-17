@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CookLab.Data.Common.Models;
@@ -9,6 +10,11 @@
 
     public class CookingVessel : BaseModel<int>
     {
+        public CookingVessel()
+        {
+            this.Recipes = new HashSet<Recipe>();
+        }
+
         [Required]
         public string Name { get; set; }
 
@@ -34,5 +40,7 @@
         [Required]
         [Range(VolumeMinValue, VolumeMaxValue)]
         public double Volume { get; set; }
+
+        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

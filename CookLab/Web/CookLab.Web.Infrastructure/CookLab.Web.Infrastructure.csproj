@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CookLab.Common\CookLab.Common.csproj" />
+    <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>
