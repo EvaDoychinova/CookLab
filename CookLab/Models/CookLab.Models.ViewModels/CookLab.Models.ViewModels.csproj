@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\Web\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CategoryRecipes\" />
+  </ItemGroup>
+
 </Project>

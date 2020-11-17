@@ -4,15 +4,24 @@
     using System.Threading.Tasks;
 
     using CookLab.Models.InputModels.Recipes;
+    using CookLab.Models.ViewModels.Recipes;
 
     public interface IRecipesService
     {
         Task<string> CreateAsync(string userId, RecipeInputModel inputModel);
 
-        ICollection<T> GetAll<T>();
+        Task<ICollection<T>> GetAllAsync<T>();
 
-        ICollection<T> GetAllByCategory<T>(string categoryName);
+        Task<ICollection<T>> GetAllByCategoryAsync<T>(int categoryId);
 
-        T GetById<T>(string id);
+        Task<T> GetByIdAsync<T>(string id);
+
+        Task<ICollection<T>> GetAllByCreatorAsync<T>(string userId);
+
+        Task<ICollection<T>> GetAllByUserAsync<T>(string userId);
+
+        Task EditAsync(RecipeEditViewModel viewModel);
+
+        Task DeleteAsync(string id);
     }
 }

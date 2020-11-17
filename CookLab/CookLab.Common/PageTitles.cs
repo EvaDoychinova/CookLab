@@ -26,5 +26,12 @@
         public const string CookingVesselCreatePageTitle = "Create Cooking vessel";
         public const string CookingVesselAllPageTitle = "List of Cooking vessels";
         public const string DeleteCookingVesselPageTitle = "Delete Cooking vessel {0}";
+
+        // Recipe Page Titles
+        public const string RecipeCreatePageTitle = "Create Recipe";
+        public const string RecipeAllPageTitle = "List of All Recipes";
+        public const string RecipeCategoryAllPageTitle = "List of Recipes from Category {0}";
+        public const string RecipeEditPageTitle = "Edit Recipe {0}";
+        public const string RecipeDeletePageTitle = "Delete Recipe {0}";
     }
 }

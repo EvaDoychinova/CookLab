@@ -1,1 +1,42 @@
-﻿
+﻿@using CookLab.Common
+@using CookLab.Models.InputModels.Recipes;
+
+@model RecipeInputModel
+
+@{
+    this.ViewData["Title"] = PageTitles.RecipeCreatePageTitle;
+}
+
+<div class="container d-flex flex-column align-items-center">
+    <h2 class="my-lg-5 mb-5">@this.ViewData["Title"]</h2>
+
+    <form asp-controller="Recipes" asp-action="Create" method="post" class="form col-md-6 d-flex flex-column">
+        <div asp-validation-summary="All"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PreparationTime"></label>
+            <input asp-for="PreparationTime" class="form-control" />
+            <span asp-validation-for="PreparationTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CookingTime"></label>
+            <input asp-for="CookingTime" class="form-control" />
+            <span asp-validation-for="CookingTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Preparation"></label>
+            <textarea asp-for="Preparation" class="form-control" ></textarea>
+            <span asp-validation-for="Preparation" class="text-danger"></span>
+        </div>
+    </form>
+
+</div>
+
