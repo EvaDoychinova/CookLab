@@ -6,6 +6,8 @@
     using CookLab.Models.InputModels.Categories;
     using CookLab.Models.ViewModels.Categories;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public interface ICategoriesService
     {
         Task<int> CreateAsync(CategoryInputModel inputModel, string rootPath);
@@ -17,5 +19,7 @@
         Task EditAsync(CategoryEditViewModel viewModel, string rootPath);
 
         Task DeleteAsync(int id);
+
+        Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeAsync();
     }
 }

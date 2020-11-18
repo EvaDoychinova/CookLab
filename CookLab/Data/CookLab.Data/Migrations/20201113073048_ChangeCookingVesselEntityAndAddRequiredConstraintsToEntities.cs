@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookLab.Data.Migrations
+﻿namespace CookLab.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ChangeCookingVesselEntityAndAddRequiredConstraintsToEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +27,7 @@ namespace CookLab.Data.Migrations
                 name: "Name",
                 table: "CookingVessels",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
 
             migrationBuilder.AddColumn<double>(
                 name: "SideA",
@@ -103,7 +104,7 @@ namespace CookLab.Data.Migrations
                     Height = table.Column<double>(type: "float", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     SideA = table.Column<double>(type: "float", nullable: false),
-                    SideB = table.Column<double>(type: "float", nullable: false)
+                    SideB = table.Column<double>(type: "float", nullable: false),
                 },
                 constraints: table =>
                 {

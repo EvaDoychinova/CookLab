@@ -5,6 +5,7 @@
     using CookLab.Data.Models.Enums;
     using CookLab.Web.Infrastructure.Attributes;
 
+    using static CookLab.Common.DisplayNames.CookingVesselDisplayName;
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.CookingVesselValidations;
 
@@ -14,6 +15,8 @@
         [RequiredForm(PanForm.Custom, "Form")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = RequiredSelectFiledError)]
+        [Display(Name = FormDisplayName)]
         public PanForm Form { get; set; }
 
         [RequiredForm(PanForm.Circle, "Form")]

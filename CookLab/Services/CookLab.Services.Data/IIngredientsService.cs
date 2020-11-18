@@ -6,6 +6,8 @@
     using CookLab.Models.InputModels.Ingredients;
     using CookLab.Models.ViewModels.Ingredients;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public interface IIngredientsService
     {
         Task<string> CreateAsync(IngredientInputModel inputModel);
@@ -17,5 +19,7 @@
         Task EditAsync(IngredientEditViewModel viewModel);
 
         Task DeleteAsync(string id);
+
+        Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeAsync();
     }
 }

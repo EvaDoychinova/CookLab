@@ -12,6 +12,7 @@
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Mapping;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     public class IngredientsService : IIngredientsService
@@ -130,6 +131,17 @@
 
             this.ingredientRepository.Update(ingredient);
             await this.ingredientRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeAsync()
+        {
+            var ingredientsViewModel = await this.GetAllAsync<IngredientRecipeViewModel>();
+
+            var inredients = ingredientsViewModel
+                    .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                    .ToList();
+
+            return inredients;
         }
     }
 }

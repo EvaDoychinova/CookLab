@@ -10,5 +10,8 @@
 
         public const string CookingVesselAlreadyExists = "Cooking vessel with name {0} already exists";
         public const string CookingVesselMissing = "Cooking vessel with id {0} does not exist";
+
+        public const string RecipeAlreadyExists = "Recipe with name {0} already exists";
+        public const string RecipeMissing = "Recipe with id {0} does not exist";
     }
 }

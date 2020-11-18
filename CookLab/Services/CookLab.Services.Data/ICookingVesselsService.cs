@@ -5,6 +5,8 @@
 
     using CookLab.Models.InputModels.CookingVessel;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public interface ICookingVesselsService
     {
         Task<int> CreateAsync(CookingVesselInputModel inputModel);
@@ -14,5 +16,7 @@
         Task<T> GetByIdAsync<T>(int id);
 
         Task DeleteAsync(int id);
+
+        Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeAsync();
     }
 }

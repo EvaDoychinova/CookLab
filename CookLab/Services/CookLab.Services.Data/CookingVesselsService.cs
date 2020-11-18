@@ -9,8 +9,10 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.CookingVessel;
+    using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Services.Mapping;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     public class CookingVesselsService : ICookingVesselsService
@@ -139,6 +141,17 @@
             this.cookingVesselRepository.Delete(cookingVessel);
             await this.cookingVesselRepository.SaveChangesAsync();
             await this.recipesRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeAsync()
+        {
+            var cookingVesselsViewModel = await this.GetAllAsync<CookingVesselRecipeViewModel>();
+
+            var cookingVessels = cookingVesselsViewModel
+                    .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                    .ToList();
+
+            return cookingVessels;
         }
     }
 }
