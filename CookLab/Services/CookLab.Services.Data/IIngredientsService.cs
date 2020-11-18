@@ -10,7 +10,7 @@
     {
         Task<string> CreateAsync(IngredientInputModel inputModel);
 
-        Task<ICollection<T>> GetAllAsync<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<T> GetByIdAsync<T>(string id);
 

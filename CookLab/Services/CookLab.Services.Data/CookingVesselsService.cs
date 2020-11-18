@@ -82,9 +82,10 @@
             return cookingVessel.Id;
         }
 
-        public async Task<ICollection<T>> GetAllAsync<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             var cookingVessels = await this.cookingVesselRepository.All()
+               .OrderBy(x => x.Name)
                .To<T>()
                .ToListAsync();
 

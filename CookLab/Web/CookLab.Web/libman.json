@@ -35,6 +35,44 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "library": "select2@4.1.0-beta.1",
+      "destination": "wwwroot/lib/select2/",
+      "files": [
+        "dist/css/select2.css",
+        "dist/css/select2.min.css",
+        "dist/js/select2.js",
+        "dist/js/select2.min.js"
+      ]
+    },
+    {
+      "library": "jquery-easing@0.0.1",
+      "destination": "wwwroot/lib/jquery-easing/",
+      "files": [
+        "dist/jquery.easing.1.3.umd.js",
+        "dist/jquery.easing.1.3.umd.min.js"
+      ]
+    },
+    {
+      "library": "magnific-popup@1.1.0",
+      "destination": "wwwroot/lib/magnific-popup/",
+      "files": [
+        "dist/magnific-popup.css",
+        "dist/magnific-popup.min.css",
+        "dist/jquery.magnific-popup.js",
+        "dist/jquery.magnific-popup.min.js"
+      ]
+    },
+    {
+      "library": "@fortawesome/fontawesome-free@5.15.1",
+      "destination": "wwwroot/lib/fontawesome/",
+      "files": [
+        "css/all.css",
+        "css/all.min.css",
+        "js/all.js",
+        "js/all.min.js"
+      ]
     }
   ]
 }

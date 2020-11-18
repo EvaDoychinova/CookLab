@@ -12,6 +12,7 @@ a.navbar-brand {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -21,6 +22,7 @@ html {
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
 }
@@ -34,7 +36,7 @@ button.accept-policy {
     line-height: inherit;
 }
 
- /*Sticky footer styles
+/*Sticky footer styles
 -------------------------------------------------- */
 html {
     position: relative;
@@ -162,4 +164,17 @@ main a {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+.select2-container {
+    color: #495057;
+}
+
+    .select2-container .select2-selection--single {
+        height: 36px;
+    }
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 36px;
+    padding-top: 4px;
 }

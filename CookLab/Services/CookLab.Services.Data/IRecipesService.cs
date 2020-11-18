@@ -10,15 +10,15 @@
     {
         Task<string> CreateAsync(string userId, RecipeInputModel inputModel);
 
-        Task<ICollection<T>> GetAllAsync<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
-        Task<ICollection<T>> GetAllByCategoryAsync<T>(int categoryId);
+        Task<IEnumerable<T>> GetAllByCategoryAsync<T>(int categoryId);
 
         Task<T> GetByIdAsync<T>(string id);
 
-        Task<ICollection<T>> GetAllByCreatorAsync<T>(string userId);
+        Task<IEnumerable<T>> GetAllByCreatorAsync<T>(string userId);
 
-        Task<ICollection<T>> GetAllByUserAsync<T>(string userId);
+        Task<IEnumerable<T>> GetAllByUserAsync<T>(string userId);
 
         Task EditAsync(RecipeEditViewModel viewModel);
 

@@ -33,10 +33,35 @@
 
         <div class="form-group">
             <label asp-for="Preparation"></label>
-            <textarea asp-for="Preparation" class="form-control" ></textarea>
+            <textarea asp-for="Preparation" class="form-control"></textarea>
             <span asp-validation-for="Preparation" class="text-danger"></span>
         </div>
+
+        <div class="form-group">
+            <label asp-for="SelectedCategories"></label>
+            <select asp-for="SelectedCategories" asp-items="Model.Categories"
+                    class="select-multiple-categories form-control select-categories" multiple="multiple">
+            </select>
+            <span asp-validation-for="SelectedCategories" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SelectedIngredients"></label>
+            <select asp-for="SelectedIngredients" asp-items="Model.Ingredients"
+                    class="select-multiple-ingredients form-control" multiple="multiple">
+            </select>
+            <span asp-validation-for="SelectedIngredients" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CookingVesselId"></label>
+            <select asp-for="CookingVesselId" asp-items="Model.CookingVessels" class="select-cookingVessel form-control">
+                <option></option>
+            </select>
+            <span asp-validation-for="CookingVesselId" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />
+
     </form>
-
 </div>
-

@@ -7,6 +7,8 @@
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class RecipeInputModel : IMapTo<Recipe>
     {
@@ -20,10 +22,16 @@
 
         public int CookingVesselId { get; set; }
 
-        public ICollection<CategoryRecipeViewModel> Categories { get; set; }
+        public IList<int> SelectedCategories { get; set; }
 
-        public ICollection<IngredientRecipeViewModel> Ingredients { get; set; }
+        public IList<string> SelectedIngredients { get; set; }
 
-        public ICollection<ImageRecipeInputModel> Images { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; }
+
+        public IEnumerable<SelectListItem> CookingVessels { get; set; }
+
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
+        public IEnumerable<SelectListItem> Ingredients { get; set; }
     }
 }

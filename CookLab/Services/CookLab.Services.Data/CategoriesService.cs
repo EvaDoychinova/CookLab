@@ -57,7 +57,7 @@
             return category.Id;
         }
 
-        public async Task<ICollection<T>> GetAllAsync<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
             var categories = await this.categoriesRepository.All()
                 .OrderBy(x => x.Name)
