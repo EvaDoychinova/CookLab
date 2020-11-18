@@ -8,8 +8,8 @@
     ViewData["Title"] = string.Format(PageTitles.CookingVesselCreatePageTitle);
 }
 
-<div class="container d-flex flex-column align-items-center">
-    <h2 class="my-lg-3 mb-3">@ViewData["Title"]</h2>
+<div class="container d-flex flex-column align-items-center mb-md-3">
+    <h2 class="my-md-3">@ViewData["Title"]</h2>
 
     <form asp-controller="CookingVessels" asp-action="Create" method="post" class="form col-md-6 d-flex flex-column">
 
@@ -23,39 +23,39 @@
             <span asp-validation-for="Form" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
+            <input asp-for="Name" class="form-control"/>
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="Diameter"></label>
-            <input type="number" step="any" asp-for="Diameter" class="form-control"  />
+            <input type="number" step="any" asp-for="Diameter" class="form-control"/>
             <span asp-validation-for="Diameter" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="SideA"></label>
-            <input type="number" step="any" asp-for="SideA" class="form-control" />
+            <input type="number" step="any" asp-for="SideA" class="form-control"/>
             <span asp-validation-for="SideA" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="SideB"></label>
-            <input type="number" step="any" asp-for="SideB" class="form-control" />
+            <input type="number" step="any" asp-for="SideB" class="form-control"/>
             <span asp-validation-for="SideB" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="Height"></label>
-            <input type="number" step="any" asp-for="Height" class="form-control" />
+            <input type="number" step="any" asp-for="Height" class="form-control"/>
             <span asp-validation-for="Height" class="text-danger"></span>
         </div>
 
-        <div class="form-group ">
+        <div class="form-group">
             <label asp-for="Area"></label>
-            <input type="number" step="any" asp-for="Area" class="form-control" />
+            <input type="number" step="any" asp-for="Area" class="form-control"/>
             <span asp-validation-for="Area" class="text-danger"></span>
         </div>
 
@@ -63,6 +63,7 @@
     </form>
 </div>
 
-@section Scripts{ 
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>document.onload = cookingVesselFunctionalCreateForm();</script>
 } 

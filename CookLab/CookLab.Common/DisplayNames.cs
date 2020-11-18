@@ -32,8 +32,25 @@
         public static class CookingVesselDisplayName
         {
             public const string FormDisplayName = "Vessel form";
+        }
 
+        public static class RecipesDisplayNames
+        {
+            public const string RecipeNameDisplayName = "Recipe name";
 
+            public const string PreparationTimeDisplayName = "Preparation time";
+
+            public const string CookingTimeDisplayName = "Cooking time";
+
+            public const string SelectedCategoriesDisplayName = "Categories";
+
+            public const string SelectedIngredientsNameDisplayName = "Ingredients";
+
+            public const string SelectedIngredientsWeightDisplayName = "Weight";
+
+            public const string CookingVesselDisplayName = "Cooking vessel";
+
+            public const string ImagesDisplayName = "Choose images...";
         }
     }
 }

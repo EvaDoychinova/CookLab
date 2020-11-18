@@ -16,14 +16,14 @@
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = StringLengthError)]
         [Display(Name = CategoryName)]
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
 
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]
         [AllowedImageExtensions]
         [ImageMaxSize(ImageFileMaxSize)]

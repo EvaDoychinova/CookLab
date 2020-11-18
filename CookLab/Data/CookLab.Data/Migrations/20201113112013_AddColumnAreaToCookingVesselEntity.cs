@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookLab.Data.Migrations
+﻿namespace CookLab.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddColumnAreaToCookingVesselEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

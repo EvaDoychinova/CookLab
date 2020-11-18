@@ -8,12 +8,12 @@
 
     public class IngredientInputModel
     {
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = StringLengthError)]
         [Display(Name = IngredientName)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [Range(VolumeMinValue, VolumeMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = IngredientVolume)]
         public double VolumeInMlPer100Grams { get; set; }

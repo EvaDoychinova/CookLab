@@ -9,6 +9,7 @@
     using CookLab.Data.Repositories;
     using CookLab.Data.Seeding;
     using CookLab.Models.ViewModels;
+    using CookLab.Services;
     using CookLab.Services.Data;
     using CookLab.Services.Mapping;
     using CookLab.Services.Messaging;
@@ -64,6 +65,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IUploadImageService, UploadImageService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IIngredientsService, IngredientsService>();
             services.AddTransient<INutritionsService, NutritionsService>();

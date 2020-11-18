@@ -178,3 +178,11 @@ main a {
     height: 36px;
     padding-top: 4px;
 }
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 5px;
+}
+
+a.navbar-brand {
+    word-break:keep-all;
+}

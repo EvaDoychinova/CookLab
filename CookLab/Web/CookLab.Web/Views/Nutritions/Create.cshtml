@@ -7,8 +7,8 @@
     ViewData["Title"] =string.Format(PageTitles.NutritionsCreatePageTitle, Model.Ingredient.Name);
 }
 
-<div class="container d-flex flex-column align-items-center">
-    <h2 class="my-lg-3 mb-3">Add nutrition per 100 grams for @Model.Ingredient.Name</h2>
+<div class="container d-flex flex-column align-items-center mb-md-3">
+    <h2 class="my-md-3">Add nutrition per 100 grams for @Model.Ingredient.Name</h2>
 
     <form asp-controller="Nutritions" asp-action="Create" method="post" class="form col-md-6 d-flex flex-column">
 
@@ -43,6 +43,7 @@
             <input type="number" step="any" asp-for="Fibres" class="form-control" />
             <span asp-validation-for="Fibres" class="text-danger"></span>
         </div>
+
         <input type="submit" value="Add nutrition" class="btn btn-primary align-self-stretch" />
     </form>
 </div>

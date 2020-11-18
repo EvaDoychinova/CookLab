@@ -10,7 +10,7 @@
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = true)]
     public class RequiredFormAttribute : RequiredAttribute
     {
-        private readonly string errorMessage = RequiredFieldError;
+        private readonly string errorMessage = RequiredInputFieldError;
         private readonly PanForm requiredForm;
         private readonly string givenForm;
 
@@ -22,13 +22,15 @@
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            var name = validationContext.DisplayName.ToString();
+
             var form = validationContext.ObjectType.GetProperty(this.givenForm);
             var formValue = form.GetValue(validationContext.ObjectInstance, null);
             var formValueAsString = formValue.ToString();
 
             if (value == null && this.requiredForm.ToString() == formValueAsString)
             {
-                return new ValidationResult(this.errorMessage);
+                return new ValidationResult(string.Format(this.errorMessage, name));
             }
 
             var stringValue = value as string;
@@ -38,7 +40,7 @@
 
                 if (!isValid)
                 {
-                    return new ValidationResult(this.errorMessage);
+                    return new ValidationResult(string.Format(this.errorMessage));
                 }
             }
 

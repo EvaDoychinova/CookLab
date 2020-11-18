@@ -7,11 +7,11 @@
     this.ViewData["Title"] = PageTitles.RecipeCreatePageTitle;
 }
 
-<div class="container d-flex flex-column align-items-center">
-    <h2 class="my-lg-5 mb-5">@this.ViewData["Title"]</h2>
+<div class="container d-flex flex-column align-items-center mb-md-3">
+    <h2 class="my-md-3">@this.ViewData["Title"]</h2>
 
-    <form asp-controller="Recipes" asp-action="Create" method="post" class="form col-md-6 d-flex flex-column">
-        <div asp-validation-summary="All"></div>
+    <form asp-controller="Recipes" asp-action="Create" method="post" class="form row d-flex flex-column col-md-8" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group">
             <label asp-for="Name"></label>
@@ -40,28 +40,43 @@
         <div class="form-group">
             <label asp-for="SelectedCategories"></label>
             <select asp-for="SelectedCategories" asp-items="Model.Categories"
-                    class="select-multiple-categories form-control select-categories" multiple="multiple">
+                    class="form-control select-multiple-categories" multiple="multiple">
             </select>
             <span asp-validation-for="SelectedCategories" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label asp-for="SelectedIngredients"></label>
-            <select asp-for="SelectedIngredients" asp-items="Model.Ingredients"
-                    class="select-multiple-ingredients form-control" multiple="multiple">
-            </select>
-            <span asp-validation-for="SelectedIngredients" class="text-danger"></span>
+        <div class="form-group d-flex flex-row row">
+            <div class="col-8">
+                <label asp-for="SelectedIngredients.IngredientId"></label>
+                <select asp-for="SelectedIngredients.IngredientId" asp-items="Model.Ingredients"
+                        class="form-control select-ingredients">
+                    <option></option>
+                </select>
+                <span asp-validation-for="SelectedIngredients.IngredientId" class="text-danger"></span>
+            </div>
+            
+            <div class="col-4" >
+                <label asp-for="SelectedIngredients.WeightInGrams"></label>
+                <input asp-for="SelectedIngredients.WeightInGrams" class=" form-control"/>
+                <span asp-validation-for="SelectedIngredients.WeightInGrams" class="text-danger"></span>
+            </div>
+
         </div>
 
         <div class="form-group">
             <label asp-for="CookingVesselId"></label>
-            <select asp-for="CookingVesselId" asp-items="Model.CookingVessels" class="select-cookingVessel form-control">
+            <select asp-for="CookingVesselId" asp-items="Model.CookingVessels" class="form-control select-cookingVessel">
                 <option></option>
             </select>
             <span asp-validation-for="CookingVesselId" class="text-danger"></span>
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />
+        <div class="form-group input-group">
+            <label asp-for="Images" class="custom-file-label"></label>
+            <input asp-for="Images" class="custom-file-input" multiple />
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>
 
+        <input type="submit" value="Create" class="btn btn-primary" />
     </form>
 </div>

@@ -2,7 +2,8 @@
 {
     public static class ErrorMessages
     {
-        public const string RequiredFieldError = "Please enter the required field!";
+        public const string RequiredInputFieldError = "Please enter the {0} field!";
+        public const string RequiredSelectFiledError = "Please select {0}";
 
         public const string StringLengthError = "{0} should be between {2} and {1} characters";
 

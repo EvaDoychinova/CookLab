@@ -71,10 +71,11 @@ $(document).ready(function () {
     });
 
     $('.select-multiple-categories').select2({
-        placeholder: 'Choose one or more categories...'
+        placeholder: 'Choose one or more categories...',
+        closeOnSelect: false
     });
 
-    $('.select-multiple-ingredients').select2({
-        placeholder: 'Choose one or more ingredients...'
+    $('.select-ingredients').select2({
+        placeholder: 'Choose ingredient...'
     });
 });

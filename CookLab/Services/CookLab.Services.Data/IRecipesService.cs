@@ -8,7 +8,7 @@
 
     public interface IRecipesService
     {
-        Task<string> CreateAsync(string userId, RecipeInputModel inputModel);
+        Task<string> CreateAsync(string userId, RecipeInputModel inputModel, string rootPath);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 

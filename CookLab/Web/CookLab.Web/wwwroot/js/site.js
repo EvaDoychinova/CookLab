@@ -23,11 +23,67 @@ function cookingVesselFunctionalCreateForm() {
     const parents = document.querySelectorAll('div.form-group');
     const inputs = document.querySelectorAll('input.form-control');
 
-    parents.forEach(x => x.classList.add('d-none'));
-    inputs.forEach(x => x.setAttribute('disabled', 'disabled'));
+    switch (functionalSelect.value) {
+        case '0':
+            parents.forEach(x => x.classList.add('d-none'));
+            inputs.forEach(x => x.setAttribute('disabled', 'disabled'));
+
+            break;
+        case '1':
+            nameParent.classList.add('d-none');
+            name.setAttribute('disabled', "disabled");
+
+            sideAParent.classList.add('d-none');
+            sideA.setAttribute('disabled', "disabled");
+
+            sideBParent.classList.add('d-none');
+            sideB.setAttribute('disabled', "disabled");
+
+            areaParent.classList.add('d-none');
+            area.setAttribute('disabled', "disabled");
+
+            break;
+        case '2':
+            nameParent.classList.add('d-none');
+            name.setAttribute('disabled', "disabled");
+
+            diameterParent.classList.add('d-none');
+            diameter.setAttribute('disabled', "disabled");
+
+            sideBParent.classList.add('d-none');
+            sideB.setAttribute('disabled', "disabled");
+
+            areaParent.classList.add('d-none');
+            area.setAttribute('disabled', "disabled");
+
+            break;
+        case '3':
+            nameParent.classList.add('d-none');
+            name.setAttribute('disabled', "disabled");
+
+            diameterParent.classList.add('d-none');
+            diameter.setAttribute('disabled', "disabled");
+
+            areaParent.classList.add('d-none');
+            area.setAttribute('disabled', "disabled");
+
+            break;
+        case '4':
+            sideAParent.classList.add('d-none');
+            sideA.setAttribute('disabled', "disabled");
+
+            diameterParent.classList.add('d-none');
+            diameter.setAttribute('disabled', "disabled");
+
+            sideBParent.classList.add('d-none');
+            sideB.setAttribute('disabled', "disabled");
+
+            break;
+        default:
+            break;
+    }
 
     functionalSelect.addEventListener("change", (e) => {
-
         parents.forEach(x => x.classList.add('d-none'));
         inputs.forEach(x => x.setAttribute('disabled', 'disabled'));
 
@@ -68,16 +124,19 @@ function cookingVesselFunctionalCreateForm() {
                 nameParent.classList.remove('d-none');
                 name.removeAttribute('disabled');
 
+                heightParent.classList.remove('d-none');
+                height.removeAttribute('disabled');
 
                 areaParent.classList.remove('d-none');
                 area.removeAttribute('disabled');
-
-                heightParent.classList.remove('d-none');
-                height.removeAttribute('disabled');
 
                 break;
             default:
                 break;
         }
     })
+}
+
+function recipeIngredientsDynamicSelectList() {
+
 }

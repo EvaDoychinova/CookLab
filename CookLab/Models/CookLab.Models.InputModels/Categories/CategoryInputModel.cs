@@ -12,12 +12,12 @@
 
     public class CategoryInputModel
     {
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [StringLength(NameMaxValue, MinimumLength = NameMinValue, ErrorMessage = StringLengthError)]
         [Display(Name = CategoryName)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = RequiredFieldError)]
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]
         [AllowedImageExtensions]
         [ImageMaxSize(ImageFileMaxSize)]

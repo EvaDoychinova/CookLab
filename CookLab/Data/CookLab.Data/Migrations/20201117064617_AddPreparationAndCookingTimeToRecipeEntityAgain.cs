@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookLab.Data.Migrations
+﻿namespace CookLab.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddPreparationAndCookingTimeToRecipeEntityAgain : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

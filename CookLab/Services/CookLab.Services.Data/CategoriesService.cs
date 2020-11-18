@@ -13,6 +13,7 @@
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Services.Mapping;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     public class CategoriesService : ICategoriesService
@@ -137,6 +138,17 @@
 
             this.categoriesRepository.Update(category);
             await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeAsync()
+        {
+            var categoriesViewModel = await this.GetAllAsync<CategoryRecipeViewModel>();
+
+            var categories = categoriesViewModel
+                    .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                    .ToList();
+
+            return categories;
         }
     }
 }
