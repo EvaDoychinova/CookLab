@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-function solve() {
+function cookingVesselFunctionalCreateForm() {
 
     const functionalSelect = document.getElementById("Form");
     const options = functionalSelect.children;

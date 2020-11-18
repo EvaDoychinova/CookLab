@@ -10,7 +10,7 @@
     {
         Task<int> CreateAsync(CategoryInputModel inputModel, string rootPath);
 
-        Task<ICollection<T>> GetAllAsync<T>();
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<T> GetByIdAsync<T>(int id);
 
