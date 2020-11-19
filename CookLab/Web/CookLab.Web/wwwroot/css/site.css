@@ -184,5 +184,10 @@ main a {
 }
 
 a.navbar-brand {
-    word-break:keep-all;
+    word-break: keep-all;
+}
+
+.list-group-label-item {
+    font-weight: 600;
+    color: black;
 }

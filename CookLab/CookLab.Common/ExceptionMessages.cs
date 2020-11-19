@@ -13,5 +13,6 @@
 
         public const string RecipeAlreadyExists = "Recipe with name {0} already exists";
         public const string RecipeMissing = "Recipe with id {0} does not exist";
+        public const string RecipeIncorrect = "Recipe with name {0} was not created correctly";
     }
 }

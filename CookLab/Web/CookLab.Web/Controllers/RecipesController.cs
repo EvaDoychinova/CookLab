@@ -63,6 +63,7 @@
 
             var rootPath = this.webHostEnvironment.WebRootPath;
             var userId = this.userManager.GetUserId(this.User);
+            var currentUser = await this.userManager.GetUserAsync(this.User);
             await this.recipesService.CreateAsync(userId, inputModel, rootPath);
 
             return this.RedirectToAction(nameof(this.All));
