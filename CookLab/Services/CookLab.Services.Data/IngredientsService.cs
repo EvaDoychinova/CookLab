@@ -92,11 +92,11 @@
 
             if (nutrition != null)
             {
-                nutrition.Calories = viewModel.Nutrition.Calories;
-                nutrition.Carbohydrates = viewModel.Nutrition.Carbohydrates;
-                nutrition.Fats = viewModel.Nutrition.Fats;
-                nutrition.Proteins = viewModel.Nutrition.Proteins;
-                nutrition.Fibres = viewModel.Nutrition.Fibres;
+                nutrition.Calories = viewModel.NutritionPer100Grams.Calories;
+                nutrition.Carbohydrates = viewModel.NutritionPer100Grams.Carbohydrates;
+                nutrition.Fats = viewModel.NutritionPer100Grams.Fats;
+                nutrition.Proteins = viewModel.NutritionPer100Grams.Proteins;
+                nutrition.Fibres = viewModel.NutritionPer100Grams.Fibres;
                 nutrition.ModifiedOn = DateTime.UtcNow;
                 this.nutritionsRepository.Update(nutrition);
             }
@@ -104,6 +104,7 @@
             ingredient.ModifiedOn = DateTime.UtcNow;
             this.ingredientRepository.Update(ingredient);
             await this.ingredientRepository.SaveChangesAsync();
+            await this.nutritionsRepository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string id)

@@ -33,7 +33,7 @@
 
     // Collapse Navbar
     var navbarCollapse = function () {
-        if ($("#mainNav").offset().top > 75) {
+        if ($("#mainNav").offset().top > 45) {
             $("#mainNav").addClass("navbar-scrolled");
         } else {
             $("#mainNav").removeClass("navbar-scrolled");

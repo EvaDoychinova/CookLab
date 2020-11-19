@@ -66,10 +66,10 @@
             public const int NameMaxLength = 100;
 
             public const int MinPreparationTime = 5;
-            public const int MaxPreparationTime = 2 * 24;
+            public const int MaxPreparationTime = 2 * 24 * 60;
 
             public const int MinCookingTime = 5;
-            public const int MaxCookingTime = 2 * 24;
+            public const int MaxCookingTime = 2 * 24 * 60;
 
             public const int PreparationMinLength = 20;
             public const int PreparationMaxLength = int.MaxValue;
@@ -77,10 +77,10 @@
             public const int ImageFileMaxSize = 2;
         }
 
-        public static class RecipesIngredientsValidations 
+        public static class RecipesIngredientsValidations
         {
             public const double WeightMinLength = 0.5;
-            public const double WeightMaxLength = 10 * 100;
+            public const double WeightMaxLength = 10 * 1000;
         }
     }
 }

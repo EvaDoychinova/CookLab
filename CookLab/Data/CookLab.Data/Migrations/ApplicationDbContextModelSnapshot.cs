@@ -662,7 +662,7 @@ namespace CookLab.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CookLab.Data.Models.ApplicationUser", "Creator")
-                        .WithMany()
+                        .WithMany("CreatedRecipes")
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -699,7 +699,7 @@ namespace CookLab.Data.Migrations
                         .HasForeignKey("RecipeId");
 
                     b.HasOne("CookLab.Data.Models.ApplicationUser", "User")
-                        .WithMany("Recipes")
+                        .WithMany("MyRecipes")
                         .HasForeignKey("UserId");
                 });
 

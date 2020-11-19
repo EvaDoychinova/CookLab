@@ -16,7 +16,8 @@ namespace CookLab.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Recipes = new HashSet<UserRecipe>();
+            this.MyRecipes = new HashSet<UserRecipe>();
+            this.CreatedRecipes = new HashSet<Recipe>();
         }
 
         // Audit info
@@ -35,6 +36,8 @@ namespace CookLab.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<UserRecipe> Recipes { get; set; }
+        public virtual ICollection<UserRecipe> MyRecipes { get; set; }
+
+        public virtual ICollection<Recipe> CreatedRecipes { get; set; }
     }
 }

@@ -10,7 +10,7 @@
 <div class="container d-flex flex-column align-items-center mb-md-3">
     <h2 class="my-md-3">@this.ViewData["Title"]</h2>
 
-    <form asp-controller="Recipes" asp-action="Create" method="post" class="form row d-flex flex-column col-md-8" enctype="multipart/form-data">
+    <form asp-controller="Recipes" asp-action="Create" method="post" class="form row d-flex flex-column col-md-9" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group">
@@ -21,19 +21,19 @@
 
         <div class="form-group">
             <label asp-for="PreparationTime"></label>
-            <input asp-for="PreparationTime" class="form-control" />
+            <input type="number" asp-for="PreparationTime" class="form-control" placeholder="0" value='null'/>
             <span asp-validation-for="PreparationTime" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="CookingTime"></label>
-            <input asp-for="CookingTime" class="form-control" />
+            <input type="number" asp-for="CookingTime" class="form-control" placeholder="0" value='null'/>
             <span asp-validation-for="CookingTime" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Preparation"></label>
-            <textarea asp-for="Preparation" class="form-control"></textarea>
+            <textarea asp-for="Preparation" class="form-control" placeholder=""></textarea>
             <span asp-validation-for="Preparation" class="text-danger"></span>
         </div>
 
@@ -46,21 +46,32 @@
         </div>
 
         <div class="form-group d-flex flex-row row">
-            <div class="col-8">
-                <label asp-for="SelectedIngredients.IngredientId"></label>
-                <select asp-for="SelectedIngredients.IngredientId" asp-items="Model.Ingredients"
-                        class="form-control select-ingredients">
-                    <option></option>
-                </select>
-                <span asp-validation-for="SelectedIngredients.IngredientId" class="text-danger"></span>
-            </div>
-            
-            <div class="col-4" >
-                <label asp-for="SelectedIngredients.WeightInGrams"></label>
-                <input asp-for="SelectedIngredients.WeightInGrams" class=" form-control"/>
-                <span asp-validation-for="SelectedIngredients.WeightInGrams" class="text-danger"></span>
+            <div class="col-7">
+                <label asp-for="SelectedIngredients[0].IngredientId"></label>
+                <div id="ingredient-name-container">
+                    <div class="form-group">
+                        <select asp-for="SelectedIngredients[0].IngredientId" asp-items="Model.Ingredients"
+                                class="form-control select-ingredients">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="SelectedIngredients[0].IngredientId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
 
+            <div class="col-5">
+                <label asp-for="SelectedIngredients[0].WeightInGrams"></label>
+                <div id="ingredient-weight-container">
+                    <div class="form-group">
+                        <input type="number" step="any" asp-for="SelectedIngredients[0].WeightInGrams" class=" form-control" placeholder="0"/>
+                        <span asp-validation-for="SelectedIngredients[0].WeightInGrams" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class=" btn btn-secondary" id="btn-add-ingredient">Add new ingredient</button>
         </div>
 
         <div class="form-group">
@@ -80,3 +91,8 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </form>
 </div>
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>document.onload = recipeIngredientsDynamicSelectList();</script>
+} 

@@ -138,5 +138,31 @@ function cookingVesselFunctionalCreateForm() {
 }
 
 function recipeIngredientsDynamicSelectList() {
+    let btn = document.getElementById('btn-add-ingredient');
 
+    let divAllIngredientsNames = document.getElementById('ingredient-name-container');
+    let divAllIngredientsWeight = document.getElementById('ingredient-weight-container');
+
+    let ingredientNameTags = divAllIngredientsNames.firstElementChild.innerHTML;
+
+    let ingredientWeightTags = divAllIngredientsWeight.firstElementChild.innerHTML;
+
+    let index = 1;
+
+    btn.addEventListener('click', (e) => {
+
+        let newIngredientName = ingredientNameTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
+        let newNameDiv = document.createElement('div');
+        newNameDiv.classList.add('form-group');
+        newNameDiv.innerHTML = newIngredientName;
+        divAllIngredientsNames.appendChild(newNameDiv);
+
+        let newIngredientWeight = ingredientWeightTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
+        let newWeightDiv = document.createElement('div');
+        newWeightDiv.classList.add('form-group');
+        newWeightDiv.innerHTML = newIngredientWeight;
+        divAllIngredientsWeight.appendChild(newWeightDiv);
+
+        index++;
+    })
 }

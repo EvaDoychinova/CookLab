@@ -24,6 +24,6 @@
         [Display(Name = IngredientVolume)]
         public double VolumeInMlPer100Grams { get; set; }
 
-        public NutritionEditViewModel Nutrition { get; set; }
+        public NutritionEditViewModel NutritionPer100Grams { get; set; }
     }
 }

@@ -42,7 +42,7 @@
         public IList<int> SelectedCategories { get; set; }
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
-        public RecipeIngredientInputModel SelectedIngredients { get; set; }
+        public IList<RecipeIngredientInputModel> SelectedIngredients { get; set; }
 
         [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]

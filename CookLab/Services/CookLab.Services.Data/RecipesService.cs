@@ -19,27 +19,36 @@
     {
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
         private readonly IRepository<CookingVessel> cookingVesselRepository;
+        private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
+        private readonly IDeletableEntityRepository<Category> categoryRepository;
         private readonly IDeletableEntityRepository<RecipeImage> recipeImageRepository;
         private readonly IDeletableEntityRepository<CategoryRecipe> categoryRecipesRepository;
-        private readonly ICategoriesService categoriesService;
-        private readonly IIngredientsService ingredientsService;
+        private readonly IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IDeletableEntityRepository<Nutrition> nutritionRepository;
         private readonly INutritionsService nutritionsService;
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
             IRepository<CookingVessel> cookingVesselRepository,
+            IDeletableEntityRepository<Ingredient> ingredientRepository,
+            IDeletableEntityRepository<Category> categoryRepository,
             IDeletableEntityRepository<RecipeImage> recipeImageRepository,
             IDeletableEntityRepository<CategoryRecipe> categoryRecipesRepository,
-            ICategoriesService categoriesService,
-            IIngredientsService ingredientsService,
+            IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            IDeletableEntityRepository<Nutrition> nutritionRepository,
             INutritionsService nutritionsService)
         {
             this.recipesRepository = recipesRepository;
             this.cookingVesselRepository = cookingVesselRepository;
+            this.ingredientRepository = ingredientRepository;
+            this.categoryRepository = categoryRepository;
             this.recipeImageRepository = recipeImageRepository;
             this.categoryRecipesRepository = categoryRecipesRepository;
-            this.categoriesService = categoriesService;
-            this.ingredientsService = ingredientsService;
+            this.ingredientRecipeRepository = ingredientRecipeRepository;
+            this.userRepository = userRepository;
+            this.nutritionRepository = nutritionRepository;
             this.nutritionsService = nutritionsService;
         }
 
@@ -52,6 +61,15 @@
                 throw new ArgumentException(ExceptionMessages.RecipeAlreadyExists, inputModel.Name);
             }
 
+            var cookingVessel = this.cookingVesselRepository.All()
+                .FirstOrDefault(x => x.Id == inputModel.CookingVesselId);
+
+            if (cookingVessel == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CookingVesselMissing, inputModel.CookingVesselId));
+            }
+
             var recipe = new Recipe
             {
                 Name = inputModel.Name,
@@ -62,45 +80,104 @@
                 CookingVesselId = inputModel.CookingVesselId,
             };
 
+            cookingVessel.Recipes.Add(recipe);
+
+            var user = this.userRepository.All()
+                .FirstOrDefault(x => x.Id == userId);
+
+            user.CreatedRecipes.Add(recipe);
+
             foreach (var imageFile in inputModel.Images)
             {
                 var image = new RecipeImage();
-                image.ImageUrl = $"assets/img/recipes/{image.Id}.jpg";
-                image.Recipe = recipe;
-
-                await this.recipeImageRepository.AddAsync(image);
+                image.ImageUrl = $"/assets/img/recipes/{image.Id}.jpg";
+                image.RecipeId = recipe.Id;
 
                 string imagePath = rootPath + image.ImageUrl;
-                image.RecipeId = recipe.Id;
 
                 using (FileStream stream = new FileStream(imagePath, FileMode.Create))
                 {
                     await imageFile.CopyToAsync(stream);
                 }
+
+                recipe.Images.Add(image);
             }
 
-            foreach (var categoryId in inputModel.Categories)
+            foreach (var categoryId in inputModel.SelectedCategories)
             {
+                var category = this.categoryRepository.All()
+                    .FirstOrDefault(x => x.Id == categoryId);
+
+                if (category == null)
+                {
+                    throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CategoryMissing, categoryId));
+                }
+
                 var categoryRecipe = new CategoryRecipe
                 {
-                    CategoryId = int.Parse(categoryId.Value),
-                    Recipe = recipe,
+                    CategoryId = categoryId,
+                    RecipeId = recipe.Id,
                 };
 
-                await this.categoryRecipesRepository.AddAsync(categoryRecipe);
+                recipe.Categories.Add(categoryRecipe);
+                category.Recipes.Add(categoryRecipe);
             }
 
-            foreach (var ingredient in inputModel.Ingredients)
+            foreach (var ingredientInputModel in inputModel.SelectedIngredients)
             {
+                var ingredient = this.ingredientRepository.All()
+                .FirstOrDefault(x => x.Id == ingredientInputModel.IngredientId);
 
+                if (ingredient == null)
+                {
+                    throw new NullReferenceException(
+                    string.Format(ExceptionMessages.IngredientMissing, ingredientInputModel.IngredientId));
+                }
+
+                var ingredientRecipe = new RecipeIngredient
+                {
+                    IngredientId = ingredientInputModel.IngredientId,
+                    WeightInGrams = ingredientInputModel.WeightInGrams,
+                    RecipeId = recipe.Id,
+                };
+
+                recipe.Ingredients.Add(ingredientRecipe);
+                ingredient.Recipies.Add(ingredientRecipe);
             }
 
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();
             await this.recipeImageRepository.SaveChangesAsync();
             await this.categoryRecipesRepository.SaveChangesAsync();
+            await this.ingredientRecipeRepository.SaveChangesAsync();
 
-            return recipe.Id;
+            var recipeWithNutrition = this.recipesRepository.All()
+                .Where(x => x.Name == inputModel.Name)
+                .FirstOrDefault();
+
+            if (recipeWithNutrition == null)
+            {
+                throw new ArgumentException(ExceptionMessages.RecipeIncorrect, recipeWithNutrition.Name);
+            }
+
+            if (recipeWithNutrition.Ingredients.Count > 0)
+            {
+                var nutritions = this.nutritionRepository.All()
+                    .ToList()
+                    .Where(x => recipeWithNutrition.Ingredients.Any(y => y.IngredientId == x.IngredientId));
+
+                if (nutritions.Any(x => x == null))
+                {
+                    recipeWithNutrition.NutritionPer100Grams = null;
+                }
+                else
+                {
+                    await this.nutritionsService.CalculateNutritionForRecipeAsync(recipeWithNutrition.Id);
+                }
+            }
+
+            return recipeWithNutrition.Id;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()

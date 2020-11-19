@@ -1,13 +1,16 @@
 ﻿namespace CookLab.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CookLab.Common;
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Nutritions;
     using CookLab.Services.Mapping;
+
     using Microsoft.EntityFrameworkCore;
 
     public class NutritionsService : INutritionsService
@@ -57,6 +60,11 @@
                 .Where(x => x.Id == recipeId)
                 .FirstOrDefault();
 
+            if (recipe == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.RecipeMissing, recipeId));
+            }
+
             var nutrition = new Nutrition
             {
                 Calories = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Calories"),
@@ -65,12 +73,13 @@
                 Proteins = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Proteins"),
                 Fibres = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Fibres"),
                 RecipeId = recipeId,
+                IngredientId = null,
             };
 
+            recipe.NutritionPer100Grams = nutrition;
             await this.nutritionRepository.AddAsync(nutrition);
             await this.nutritionRepository.SaveChangesAsync();
 
-            recipe.NutritionPer100Grams = nutrition;
             this.recipeRepository.Update(recipe);
             await this.recipeRepository.SaveChangesAsync();
             return nutrition.Id;
@@ -92,7 +101,7 @@
                 .Sum(x => x.WeightInGrams * (double)x.Ingredient.NutritionPer100Grams
                                                         .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
 
-            var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
+            var nutritionElementPer100Grams = nutritionElement * 100 / ingredients.Sum(x => x.WeightInGrams);
 
             return nutritionElementPer100Grams;
         }
