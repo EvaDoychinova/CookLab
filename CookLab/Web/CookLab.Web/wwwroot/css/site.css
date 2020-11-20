@@ -194,6 +194,32 @@ a.navbar-brand {
 
 .card-img-container {
     overflow: hidden;
-    height:250px;
-    width: 250px;
+    min-height:150px;
+    min-width: 150px;
+    max-height: 250px;
+    max-width: 250px;
+    border-radius: 5px;
+}
+
+.carousel-item {
+   height:300px;
+   overflow:hidden;
+   text-align:center;
+   position:relative;
+}
+
+.carousel-img {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#carouselExampleIndicators a {
+    background-color:transparent;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
 }
