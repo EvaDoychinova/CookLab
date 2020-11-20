@@ -12,7 +12,7 @@
     using CookLab.Models.InputModels.Recipes;
     using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Mapping;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class RecipesService : IRecipesService
@@ -24,8 +24,8 @@
         private readonly IDeletableEntityRepository<RecipeImage> recipeImageRepository;
         private readonly IDeletableEntityRepository<CategoryRecipe> categoryRecipesRepository;
         private readonly IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Nutrition> nutritionRepository;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly INutritionsService nutritionsService;
 
         public RecipesService(
@@ -36,8 +36,8 @@
             IDeletableEntityRepository<RecipeImage> recipeImageRepository,
             IDeletableEntityRepository<CategoryRecipe> categoryRecipesRepository,
             IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository,
             IDeletableEntityRepository<Nutrition> nutritionRepository,
+            UserManager<ApplicationUser> userManager,
             INutritionsService nutritionsService)
         {
             this.recipesRepository = recipesRepository;
@@ -47,8 +47,8 @@
             this.recipeImageRepository = recipeImageRepository;
             this.categoryRecipesRepository = categoryRecipesRepository;
             this.ingredientRecipeRepository = ingredientRecipeRepository;
-            this.userRepository = userRepository;
             this.nutritionRepository = nutritionRepository;
+            this.userManager = userManager;
             this.nutritionsService = nutritionsService;
         }
 
@@ -82,8 +82,7 @@
 
             cookingVessel.Recipes.Add(recipe);
 
-            var user = this.userRepository.All()
-                .FirstOrDefault(x => x.Id == userId);
+            var user = await this.userManager.FindByIdAsync(userId);
 
             user.CreatedRecipes.Add(recipe);
 
