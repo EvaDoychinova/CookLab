@@ -191,3 +191,9 @@ a.navbar-brand {
     font-weight: 600;
     color: black;
 }
+
+.card-img-container {
+    overflow: hidden;
+    height:250px;
+    width: 250px;
+}

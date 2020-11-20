@@ -101,7 +101,7 @@
                 .Sum(x => x.WeightInGrams * (double)x.Ingredient.NutritionPer100Grams
                                                         .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
 
-            var nutritionElementPer100Grams = nutritionElement * 100 / ingredients.Sum(x => x.WeightInGrams);
+            var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
 
             return nutritionElementPer100Grams;
         }
