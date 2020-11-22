@@ -6,6 +6,7 @@
     using CookLab.Common;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Recipes;
+    using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Data;
 
@@ -80,7 +81,8 @@
         public async Task<IActionResult> AllByCategory(int id)
         {
             var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(id);
-            this.ViewData["Title"] = PageTitles.RecipeAllByCategoryPageTitle;
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
+            this.ViewData["Title"] = string.Format(PageTitles.RecipeAllByCategoryPageTitle, category.Name);
 
             return this.View(nameof(this.All), this.CreateListViewModel(recipes));
         }
@@ -88,7 +90,8 @@
         public async Task<IActionResult> AllCreatedBy(string id)
         {
             var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(id);
-            this.ViewData["Title"] = PageTitles.RecipeAllCreatedByPageTitle;
+            var user = await this.userManager.FindByIdAsync(id);
+            this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
 
             return this.View(nameof(this.All), this.CreateListViewModel(recipes));
         }
@@ -97,8 +100,8 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             var recipes = await this.recipesService.GetAllByUserAsync<RecipeViewModel>(userId);
-
             this.ViewData["Title"] = PageTitles.RecipeAllMyPageTitle;
+
             return this.View(nameof(this.All), this.CreateListViewModel(recipes));
         }
 

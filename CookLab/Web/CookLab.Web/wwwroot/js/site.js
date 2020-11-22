@@ -134,7 +134,7 @@ function cookingVesselFunctionalCreateForm() {
             default:
                 break;
         }
-    })
+    });
 }
 
 function recipeIngredientsDynamicSelectList() {
@@ -164,5 +164,20 @@ function recipeIngredientsDynamicSelectList() {
         divAllIngredientsWeight.appendChild(newWeightDiv);
 
         index++;
-    })
+    });
+}
+
+function showNutritionInfoForRecipe() {
+    let btn = document.getElementById('showNutritionInfo');
+    let nutritionInfo = document.getElementById('nutritin-info-list-item');
+    nutritionInfo.style.display='none';
+
+    btn.addEventListener('click', (e) => {
+        if (nutritionInfo.style.display == 'none') {
+            nutritionInfo.style.display = 'block';
+        }
+        else {
+            nutritionInfo.style.display = 'none';
+        }
+    });
 }

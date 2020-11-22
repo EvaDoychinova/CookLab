@@ -32,7 +32,7 @@
         public const string RecipeAllPageTitle = "All Recipes";
         public const string RecipeAllByCategoryPageTitle = "Recipes from Category {0}";
         public const string RecipeAllCreatedByPageTitle = "Recipes created by {0}";
-        public const string RecipeAllMyPageTitle = "My Recipes";
+        public const string RecipeAllMyPageTitle = "My Recipes List";
         public const string RecipeEditPageTitle = "Edit Recipe {0}";
         public const string RecipeDeletePageTitle = "Delete Recipe {0}";
     }
