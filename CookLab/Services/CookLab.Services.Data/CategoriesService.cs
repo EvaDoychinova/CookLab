@@ -142,7 +142,7 @@
 
         public async Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeAsync()
         {
-            var categoriesViewModel = await this.GetAllAsync<CategoryRecipeViewModel>();
+            var categoriesViewModel = await this.GetAllAsync<CategoryInRecipeViewModel>();
 
             var categories = categoriesViewModel
                     .Select(x => new SelectListItem(x.Name, x.Id.ToString()))

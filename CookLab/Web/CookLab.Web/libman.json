@@ -11,6 +11,14 @@
       ]
     },
     {
+      "library": "popper.js@1.16.1",
+      "destination": "wwwroot/lib/popper.js/",
+      "files": [
+        "dist/umd/popper.js",
+        "dist/umd/popper.min.js"
+      ]
+    },
+    {
       "library": "bootstrap@4.5.3",
       "destination": "wwwroot/lib/bootstrap/",
       "files": [
@@ -71,7 +79,9 @@
         "css/all.css",
         "css/all.min.css",
         "js/all.js",
-        "js/all.min.js"
+        "js/all.min.js",
+        "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-brands-400.woff2"
       ]
     }
   ]

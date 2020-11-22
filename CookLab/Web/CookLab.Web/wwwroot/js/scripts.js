@@ -61,6 +61,8 @@
     });
 })(jQuery); // End of use strict
 
+
+// Select2 library
 $.fn.select2.defaults.set("theme", "default");
 
 $(document).ready(function () {
@@ -78,4 +80,19 @@ $(document).ready(function () {
     $('.select-ingredients').select2({
         placeholder: 'Choose ingredient...'
     });
+});
+
+// Enable Popovers
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
+
+// Enable Tooltips
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+//Enable Modals
+$(document).ready(function () {
+    $('#recipeNutritionModal').modal();
 });
