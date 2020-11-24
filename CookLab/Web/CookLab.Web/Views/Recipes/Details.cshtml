@@ -12,7 +12,7 @@
     <div class="col-md-10 col-lg-10 align-self-end">
         <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
         <div class=" row justify-content-between col-lg-10 mx-auto">
-            <a class="text-white bg-transparent" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-id="@Model.CreatorId">Author: @Model.Creator.UserName</a>
+            <a class="text-white bg-transparent" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-userId="@Model.CreatorId">Author: @Model.Creator.UserName</a>
             <span>@Model.CreatedOnToString</span>
         </div>
         <hr class="divider mb-4" />

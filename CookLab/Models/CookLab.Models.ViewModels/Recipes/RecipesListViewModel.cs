@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class RecipesListViewModel
+    public class RecipesListViewModel : PaginationViewModel
     {
-        public IEnumerable<RecipeViewModel> Recipes { get; set; }
+        public ICollection<RecipeViewModel> Recipes { get; set; }
     }
 }
