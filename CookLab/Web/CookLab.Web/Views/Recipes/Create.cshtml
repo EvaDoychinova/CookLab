@@ -72,7 +72,7 @@
 
             <div class="col-3">
                 <label asp-for="SelectedIngredients[0].PartOfRecipe"></label>
-                <div id="ingredient-weight-container">
+                <div id="ingredient-part-container">
                     <div class="form-group">
                         <select asp-for="SelectedIngredients[0].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
                                 class="form-control select-partOfRecipe">
