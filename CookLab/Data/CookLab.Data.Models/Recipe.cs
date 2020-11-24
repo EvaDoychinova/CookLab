@@ -24,6 +24,8 @@
 
         public TimeSpan CookingTime { get; set; }
 
+        public int Portions { get; set; }
+
         public virtual ICollection<CategoryRecipe> Categories { get; set; }
 
         public virtual ICollection<RecipeImage> Images { get; set; }
@@ -37,7 +39,7 @@
 
         public string Preparation { get; set; }
 
-        public virtual Nutrition NutritionPer100Grams { get; set; }
+        public virtual Nutrition Nutrition { get; set; }
 
         [Required]
         [ForeignKey(nameof(Creator))]
@@ -46,5 +48,7 @@
         public virtual ApplicationUser Creator { get; set; }
 
         public virtual ICollection<UserRecipe> Users { get; set; }
+
+        public string Notes { get; set; }
     }
 }

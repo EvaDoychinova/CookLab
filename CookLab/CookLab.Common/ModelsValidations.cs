@@ -41,6 +41,9 @@
 
         public static class CookingVesselValidations
         {
+            public const int FormMinValue = 1;
+            public const int FormMaxValue = 4;
+
             public const int NameMinValue = 3;
             public const int NameMaxValue = 20;
 
@@ -71,8 +74,14 @@
             public const int MinCookingTime = 5;
             public const int MaxCookingTime = 2 * 24 * 60;
 
+            public const int PortionsMinValue = 1;
+            public const int PortionsMaxValue = 50;
+
             public const int PreparationMinLength = 20;
             public const int PreparationMaxLength = int.MaxValue;
+
+            public const int NotesMinLength = 0;
+            public const int NotesMaxLength = int.MaxValue;
 
             public const int ImageFileMaxSize = 2;
         }
@@ -81,6 +90,9 @@
         {
             public const double WeightMinLength = 0.5;
             public const double WeightMaxLength = 10 * 1000;
+
+            public const int PartOfRecipeMinValue = 0;
+            public const int PartOfRecipeMaxValue = 7;
         }
     }
 }

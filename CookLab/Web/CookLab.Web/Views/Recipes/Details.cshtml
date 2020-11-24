@@ -8,7 +8,7 @@
 
 <div class="row h-100 align-items-center justify-content-center text-center">
     <div class="col-lg-10 align-self-end">
-        <h2 class="text-white font-weight-bold">@Model.Name</h2>
+        <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
         <div class=" row justify-content-between col-md-10 mx-auto">
             <a class="text-white bg-transparent" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-id="@Model.CreatorId">Author: @Model.Creator.UserName</a>
             <span>@Model.CreatedOnToString</span>
@@ -64,11 +64,22 @@
                         <span class="pl-2 border-left ml-2">Categories: @string.Join(", ", Model.Categories.Select(x => x.Category.Name))</span>
                     </li>
 
-                    @if (Model.NutritionPer100Grams != null)
+                    <li class="border-top p-2 border-bottom mb-3">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span class="pl-2 border-left ml-2">
+                            Portions:
+                            <form method="post">
+                                <input asp-for="@Model.DesiredPortions" value="@Model.Portions" class="form-control d-inline w-25 text-center mx-2" />
+                                <span asp-validation-for="@Model.DesiredPortions"></span>
+                            </form>
+                        </span>
+                    </li>
+
+                    @if (Model.Nutrition != null)
                     {
                         <li class="border-top p-2 border-bottom">
                             <i class="fab fa-nutritionix"></i>
-                            <span class="pl-2 border-left ml-2">Nutritional Info Per 100 Grams: </span>
+                            <span class="pl-2 border-left ml-2">Nutrition Per Portion: </span>
                             <a class="text-white bg-transparent" id="showNutritionInfo">
                                 <i class="fas fa-plus-circle"></i>
                             </a>
@@ -76,19 +87,19 @@
                         <li id="nutritin-info-list-item">
                             <ul class="list-unstyled">
                                 <li class="py-2 ml-5">
-                                    <span class="pl-2">Calories: @Model.NutritionPer100Grams.CaloriesToString kcal </span>
+                                    <span class="pl-2">Calories: @((Model.Nutrition.Calories / Model.DesiredPortions).ToString("F2")) kcal </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Carbohydrates: @Model.NutritionPer100Grams.CarbohydratesToString grams </span>
+                                    <span class="pl-2">Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.DesiredPortions).ToString("F2")) grams </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Proteins: @Model.NutritionPer100Grams.ProteinsToString grams </span>
+                                    <span class="pl-2">Proteins: @((Model.Nutrition.Proteins / Model.DesiredPortions).ToString("F2")) grams </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Fats: @Model.NutritionPer100Grams.FatsToString grams </span>
+                                    <span class="pl-2">Fats: @((Model.Nutrition.Fats / Model.DesiredPortions).ToString("F2"))ng grams </span>
                                 </li>
                                 <li class="border-top py-2 border-bottom ml-5">
-                                    <span class="pl-2">Fibres: @Model.NutritionPer100Grams.FibresToString grams </span>
+                                    <span class="pl-2">Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions).ToString("F2")) grams </span>
                                 </li>
                             </ul>
                         </li>

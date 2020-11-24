@@ -30,6 +30,11 @@
         public int CookingTime { get; set; }
 
         [Required(ErrorMessage = RequiredInputFieldError)]
+        [Range(PortionsMinValue, PortionsMaxValue, ErrorMessage = InvalidRangeError)]
+        [Display(Name = PortionsDisplayName)]
+        public int Portions { get; set; }
+
+        [Required(ErrorMessage = RequiredInputFieldError)]
         [StringLength(PreparationMaxLength, MinimumLength = PreparationMinLength, ErrorMessage = StringLengthError)]
         public string Preparation { get; set; }
 
@@ -43,6 +48,10 @@
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         public IList<RecipeIngredientInputModel> SelectedIngredients { get; set; }
+
+        [StringLength(NotesMaxLength, MinimumLength =NotesMinLength, ErrorMessage = StringLengthError)]
+        [Display(Name = NotesDisplayName)]
+        public string Notes { get; set; }
 
         [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]

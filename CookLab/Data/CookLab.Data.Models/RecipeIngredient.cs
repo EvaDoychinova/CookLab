@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using CookLab.Data.Common.Models;
+    using CookLab.Data.Models.Enums;
 
     public class RecipeIngredient : BaseDeletableModel<string>
     {
@@ -26,5 +27,7 @@
         public virtual Recipe Recipe { get; set; }
 
         public double WeightInGrams { get; set; }
+
+        public IngredientPartOfRecipe PartOfRecipe { get; set; }
     }
 }

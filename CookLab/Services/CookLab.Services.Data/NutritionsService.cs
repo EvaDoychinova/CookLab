@@ -76,7 +76,7 @@
                 IngredientId = null,
             };
 
-            recipe.NutritionPer100Grams = nutrition;
+            recipe.Nutrition = nutrition;
             await this.nutritionRepository.AddAsync(nutrition);
             await this.nutritionRepository.SaveChangesAsync();
 
@@ -101,9 +101,8 @@
                 .Sum(x => x.WeightInGrams * (double)x.Ingredient.NutritionPer100Grams
                                                         .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
 
-            var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
-
-            return nutritionElementPer100Grams;
+            // var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
+            return nutritionElement;
         }
     }
 }

@@ -80,6 +80,10 @@ $(document).ready(function () {
     $('.select-ingredients').select2({
         placeholder: 'Choose ingredient...'
     });
+
+    $('.select-partOfRecipe').select2({
+        placeholder: 'Part of recipe...'
+    });
 });
 
 // Enable Popovers

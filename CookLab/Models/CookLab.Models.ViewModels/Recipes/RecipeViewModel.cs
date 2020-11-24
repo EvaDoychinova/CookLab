@@ -1,11 +1,8 @@
 ﻿namespace CookLab.Models.ViewModels.Recipes
 {
-    using System;
     using System.Collections.Generic;
 
     using CookLab.Data.Models;
-    using CookLab.Models.ViewModels.CookingVessels;
-    using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Models.ViewModels.RecipeImages;
     using CookLab.Models.ViewModels.RecipeIngredients;
     using CookLab.Models.ViewModels.UserRecipes;

@@ -21,6 +21,8 @@
 
         public TimeSpan CookingTime { get; set; }
 
+        public int Portions { get; set; }
+
         public virtual ICollection<ImageRecipeViewModel> Images { get; set; }
 
         public int CookingVesselId { get; set; }
@@ -31,7 +33,9 @@
 
         public string Preparation { get; set; }
 
-        public virtual NutritionViewModel NutritionPer100Grams { get; set; }
+        public string Notes { get; set; }
+
+        public virtual NutritionViewModel Nutrition { get; set; }
 
         public string CreatorId { get; set; }
 
