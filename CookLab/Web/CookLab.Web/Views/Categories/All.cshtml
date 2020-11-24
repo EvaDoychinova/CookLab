@@ -17,7 +17,7 @@
         @foreach (var category in Model.Categories)
         {
             <div class="col-lg-4 col-sm-6 p-3">
-                <a class="portfolio-box" asp-controller="Recipes" asp-action="AllByCategory" asp-route-id="@category.Id">
+                <a class="portfolio-box" asp-controller="Recipes" asp-action="AllByCategory" asp-route-categoryId="@category.Id">
                     <img class="img-fluid portfolio-image" src="~/@category.ImageUrl" />
                     <div class="portfolio-box-caption">
                         <h5 class="project-name">@category.Name</h5>

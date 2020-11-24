@@ -70,39 +70,39 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
             var recipes = await this.recipesService.GetAllAsync<RecipeViewModel>();
             this.ViewData["Title"] = PageTitles.RecipeAllPageTitle;
-
-            return this.View(this.CreateListViewModel(recipes));
+            this.ViewData["Action"] = nameof(this.All);
+            return this.View(this.CreateListViewModel(recipes, id));
         }
 
-        public async Task<IActionResult> AllByCategory(int id)
+        public async Task<IActionResult> AllByCategory([FromQuery]int categoryId, int id = 1)
         {
-            var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(id);
-            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
+            var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(categoryId);
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(categoryId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllByCategoryPageTitle, category.Name);
 
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes));
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
         }
 
-        public async Task<IActionResult> AllCreatedBy(string id)
+        public async Task<IActionResult> AllCreatedBy([FromQuery]string userId, int id = 1)
         {
-            var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(id);
-            var user = await this.userManager.FindByIdAsync(id);
+            var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
 
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes));
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
         }
 
-        public async Task<IActionResult> AllMy()
+        public async Task<IActionResult> AllMy(int id = 1)
         {
             var userId = this.userManager.GetUserId(this.User);
             var recipes = await this.recipesService.GetAllByUserAsync<RecipeViewModel>(userId);
             this.ViewData["Title"] = PageTitles.RecipeAllMyPageTitle;
-
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes));
+            this.ViewData["Action"] = nameof(this.AllMy);
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
         }
 
         public async Task<IActionResult> Details(string id)
@@ -148,11 +148,14 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        private RecipesListViewModel CreateListViewModel(IEnumerable<RecipeViewModel> recipes)
+        private RecipesListViewModel CreateListViewModel(ICollection<RecipeViewModel> recipes, int id)
         {
             return new RecipesListViewModel
             {
                 Recipes = recipes,
+                CurrentPage = id,
+                ItemsCount = recipes.Count,
+                ItemsPerPage = 9,
             };
         }
     }

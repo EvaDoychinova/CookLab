@@ -179,7 +179,7 @@
             return recipeWithNutrition.Id;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>()
+        public async Task<ICollection<T>> GetAllAsync<T>()
         {
             var recipes = await this.recipesRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
@@ -199,7 +199,7 @@
             return recipe;
         }
 
-        public async Task<IEnumerable<T>> GetAllByCategoryAsync<T>(int categoryId)
+        public async Task<ICollection<T>> GetAllByCategoryAsync<T>(int categoryId)
         {
             var recipes = await this.recipesRepository.All()
                 .Where(x => x.Categories
@@ -210,7 +210,7 @@
             return recipes;
         }
 
-        public async Task<IEnumerable<T>> GetAllByCreatorAsync<T>(string userId)
+        public async Task<ICollection<T>> GetAllByCreatorAsync<T>(string userId)
         {
             var recipes = await this.recipesRepository.All()
                 .Where(x => x.CreatorId == userId)
@@ -220,7 +220,7 @@
             return recipes;
         }
 
-        public async Task<IEnumerable<T>> GetAllByUserAsync<T>(string userId)
+        public async Task<ICollection<T>> GetAllByUserAsync<T>(string userId)
         {
             var recipes = await this.recipesRepository.All()
                 .Where(x => x.Users
