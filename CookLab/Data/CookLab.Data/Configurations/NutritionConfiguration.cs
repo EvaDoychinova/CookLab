@@ -16,7 +16,7 @@
 
             nutrition
                 .HasOne(n => n.Recipe)
-                .WithOne(r => r.NutritionPer100Grams)
+                .WithOne(r => r.Nutrition)
                 .HasForeignKey<Nutrition>(n => n.RecipeId);
         }
     }

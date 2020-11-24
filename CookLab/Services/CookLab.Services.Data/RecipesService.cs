@@ -168,7 +168,7 @@
 
                 if (nutritions.Any(x => x == null))
                 {
-                    recipeWithNutrition.NutritionPer100Grams = null;
+                    recipeWithNutrition.Nutrition = null;
                 }
                 else
                 {

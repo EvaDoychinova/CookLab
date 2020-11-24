@@ -17,6 +17,7 @@
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         [Display(Name = FormDisplayName)]
+        [Range(FormMinValue, FormMaxValue, ErrorMessage = InvalidEnumRangeError)]
         public PanForm Form { get; set; }
 
         [RequiredForm(PanForm.Circle, "Form")]

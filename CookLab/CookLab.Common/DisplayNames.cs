@@ -42,13 +42,19 @@
 
             public const string CookingTimeDisplayName = "Cooking time";
 
+            public const string PortionsDisplayName = "Portions count";
+
             public const string SelectedCategoriesDisplayName = "Categories";
 
             public const string SelectedIngredientsNameDisplayName = "Ingredients";
 
             public const string SelectedIngredientsWeightDisplayName = "Weight";
 
+            public const string SelectedIngredientsPartOfRecipe = "Part of Recipe";
+
             public const string CookingVesselDisplayName = "Cooking vessel";
+
+            public const string NotesDisplayName = "Additional information";
 
             public const string ImagesDisplayName = "Choose images...";
         }
