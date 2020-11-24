@@ -142,10 +142,11 @@ function recipeIngredientsDynamicSelectList() {
 
     let divAllIngredientsNames = document.getElementById('ingredient-name-container');
     let divAllIngredientsWeight = document.getElementById('ingredient-weight-container');
+    let divAllIngredientsParts = document.getElementById('ingredient-part-container');
 
     let ingredientNameTags = divAllIngredientsNames.firstElementChild.innerHTML;
-
     let ingredientWeightTags = divAllIngredientsWeight.firstElementChild.innerHTML;
+    let ingredientPartTags = divAllIngredientsParts.firstElementChild.innerHTML;
 
     let index = 1;
 
@@ -162,6 +163,12 @@ function recipeIngredientsDynamicSelectList() {
         newWeightDiv.classList.add('form-group');
         newWeightDiv.innerHTML = newIngredientWeight;
         divAllIngredientsWeight.appendChild(newWeightDiv);
+
+        let newIngredientPart = ingredientPartTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
+        let newPartDiv = document.createElement('div');
+        newPartDiv.classList.add('form-group');
+        newPartDiv.innerHTML = newIngredientPart;
+        divAllIngredientsParts.appendChild(newPartDiv);
 
         index++;
     });
