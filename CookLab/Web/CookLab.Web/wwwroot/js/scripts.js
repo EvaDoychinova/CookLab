@@ -96,7 +96,7 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-//Enable Modals
-$(document).ready(function () {
-    $('#recipeNutritionModal').modal();
-});
+// Show image names
+document.querySelector(".custom-file-input").onchange = function () {
+    document.querySelector(".custom-file-label").textContent = Array.from(this.files).map(x=>x.name).join(", ");
+}

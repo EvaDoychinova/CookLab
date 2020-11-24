@@ -92,7 +92,7 @@
             public const double WeightMaxLength = 10 * 1000;
 
             public const int PartOfRecipeMinValue = 0;
-            public const int PartOfRecipeMaxValue = 7;
+            public const int PartOfRecipeMaxValue = 8;
         }
     }
 }

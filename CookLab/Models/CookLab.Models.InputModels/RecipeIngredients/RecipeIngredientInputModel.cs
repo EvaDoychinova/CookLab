@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Models.InputModels.RecipeIngredients
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using CookLab.Data.Models.Enums;
