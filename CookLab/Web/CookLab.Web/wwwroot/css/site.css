@@ -218,3 +218,22 @@ a.navbar-brand {
 a {
     cursor:pointer;
 }
+
+#desiredPortions {
+    width:3rem;
+}
+
+.i-hoverable {
+    margin: 0 10px;
+    transition: all 0.3s ease-out;
+}
+
+.i-hoverable:hover {
+    cursor: pointer;
+    color: #f4623a;
+    transform: scale(1.25);
+}
+
+.recipe-preparation {
+    word-break: break-all;
+}

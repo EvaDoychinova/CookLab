@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
 
     using CookLab.Data.Models;
@@ -11,8 +10,11 @@
     using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Models.ViewModels.RecipeImages;
     using CookLab.Models.ViewModels.RecipeIngredients;
+    using CookLab.Models.ViewModels.UserRecipes;
     using CookLab.Models.ViewModels.Users;
     using CookLab.Services.Mapping;
+
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.RecipesValidations;
@@ -32,10 +34,6 @@
         public int CookingTimeInMinutes => (int)this.CookingTime.TotalMinutes;
 
         public int Portions { get; set; }
-
-        [Required(ErrorMessage = RequiredInputFieldError)]
-        [Range(PortionsMinValue, PortionsMaxValue, ErrorMessage = InvalidRangeError)]
-        public int DesiredPortions { get; set; }
 
         public ICollection<ImageRecipeViewModel> Images { get; set; }
 
@@ -60,5 +58,9 @@
         public string CreatedOnToString => this.CreatedOn.ToString("d", CultureInfo.InvariantCulture);
 
         public string Notes { get; set; }
+
+        public ICollection<UserRecipeViewModel> Users { get; set; }
+
+        public IEnumerable<SelectListItem> CookingVessels { get; set; }
     }
 }

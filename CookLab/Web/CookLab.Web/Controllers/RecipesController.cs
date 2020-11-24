@@ -108,6 +108,7 @@
         public async Task<IActionResult> Details(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeDetailsViewModel>(id);
+            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
 
             return this.View(recipe);
         }
