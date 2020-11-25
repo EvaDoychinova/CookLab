@@ -133,7 +133,8 @@
                 return this.View(viewModel);
             }
 
-            await this.recipesService.EditAsync(viewModel);
+            var rootPath = this.webHostEnvironment.WebRootPath;
+            await this.recipesService.EditAsync(viewModel, rootPath);
 
             return this.RedirectToAction(nameof(this.Details));
         }

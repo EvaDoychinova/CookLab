@@ -20,7 +20,7 @@
 
         Task<IEnumerable<T>> GetAllByUserAsync<T>(string userId);
 
-        Task EditAsync(RecipeEditViewModel viewModel);
+        Task EditAsync(RecipeEditViewModel viewModel, string rootPath);
 
         Task DeleteAsync(string id);
     }

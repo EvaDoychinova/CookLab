@@ -129,6 +129,7 @@
 
             this.ingredientRepository.Update(ingredient);
             await this.ingredientRepository.SaveChangesAsync();
+            await this.nutritionsRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeAsync()
