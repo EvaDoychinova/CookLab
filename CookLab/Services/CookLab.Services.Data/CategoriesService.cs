@@ -60,7 +60,7 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var categories = await this.categoriesRepository.All()
+            var categories = await this.categoriesRepository.AllAsNoTracking()
                 .OrderBy(x => x.Name)
                 .To<T>()
                 .ToListAsync();
@@ -70,7 +70,7 @@
 
         public async Task<T> GetByIdAsync<T>(int id)
         {
-            var category = await this.categoriesRepository.All()
+            var category = await this.categoriesRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();

@@ -86,7 +86,7 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var cookingVessels = await this.cookingVesselRepository.All()
+            var cookingVessels = await this.cookingVesselRepository.AllAsNoTracking()
                .OrderBy(x => x.Name)
                .To<T>()
                .ToListAsync();
@@ -96,7 +96,7 @@
 
         public async Task<T> GetByIdAsync<T>(int id)
         {
-            var cookingVessel = await this.cookingVesselRepository.All()
+            var cookingVessel = await this.cookingVesselRepository.AllAsNoTracking()
                .Where(x => x.Id == id)
                .To<T>()
                .FirstOrDefaultAsync();
