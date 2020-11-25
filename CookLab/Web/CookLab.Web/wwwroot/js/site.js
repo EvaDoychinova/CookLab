@@ -1,8 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Show Uploaded file names
+document.querySelector(".custom-file-input").onchange = function () {
+    document.querySelector(".custom-file-label").textContent = Array.from(this.files).map(x => x.name).join(", ");
+}
 
-// Write your JavaScript code.
-
+// Make Cooking Vessel Create form dynamic
 function cookingVesselFunctionalCreateForm() {
 
     const functionalSelect = document.getElementById("Form");
@@ -137,6 +138,7 @@ function cookingVesselFunctionalCreateForm() {
     });
 }
 
+// Make Recipe Create Form dynamically add ingredients
 function recipeIngredientsDynamicSelectList() {
     let btn = document.getElementById('btn-add-ingredient');
 
@@ -174,6 +176,7 @@ function recipeIngredientsDynamicSelectList() {
     });
 }
 
+// Make Recipe Details Form Show and Hide Nutrition
 function showNutritionInfoForRecipe() {
     let btn = document.getElementById('showNutritionInfo');
     let nutritionInfo = document.getElementById('nutritin-info-list-item');

@@ -1,6 +1,7 @@
 ﻿namespace CookLab.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookLab.Common;
@@ -72,37 +73,41 @@
 
         public async Task<IActionResult> All(int id = 1)
         {
+            int itemsPerPage = 9;
             var recipes = await this.recipesService.GetAllAsync<RecipeViewModel>();
             this.ViewData["Title"] = PageTitles.RecipeAllPageTitle;
             this.ViewData["Action"] = nameof(this.All);
-            return this.View(this.CreateListViewModel(recipes, id));
+            return this.View(this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
         public async Task<IActionResult> AllByCategory([FromQuery]int categoryId, int id = 1)
         {
+            int itemsPerPage = 9;
             var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(categoryId);
             var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(categoryId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllByCategoryPageTitle, category.Name);
 
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
         public async Task<IActionResult> AllCreatedBy([FromQuery]string userId, int id = 1)
         {
+            int itemsPerPage = 9;
             var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
             var user = await this.userManager.FindByIdAsync(userId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
 
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
         public async Task<IActionResult> AllMy(int id = 1)
         {
+            int itemsPerPage = 9;
             var userId = this.userManager.GetUserId(this.User);
             var recipes = await this.recipesService.GetAllByUserAsync<RecipeViewModel>(userId);
             this.ViewData["Title"] = PageTitles.RecipeAllMyPageTitle;
             this.ViewData["Action"] = nameof(this.AllMy);
-            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id));
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
         public async Task<IActionResult> Details(string id)
@@ -148,14 +153,16 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        private RecipesListViewModel CreateListViewModel(ICollection<RecipeViewModel> recipes, int id)
+        private RecipesListViewModel CreateListViewModel(IEnumerable<RecipeViewModel> recipes, int id, int itemsPerPage)
         {
             return new RecipesListViewModel
             {
-                Recipes = recipes,
+                Recipes = recipes
+                        .Skip((id - 1) * itemsPerPage)
+                        .Take(itemsPerPage),
                 CurrentPage = id,
-                ItemsCount = recipes.Count,
-                ItemsPerPage = 9,
+                ItemsCount = recipes.Count(),
+                ItemsPerPage = itemsPerPage,
             };
         }
     }

@@ -8,8 +8,8 @@
     this.ViewData["Title"] = Model.Name;
 }
 
-<div class="container-fluid p-0 row h-100 align-items-center justify-content-center text-center">
-    <div class="col-md-10 col-lg-10 align-self-end">
+<div class="container-fluid p-0 row h-100 align-items-center justify-content-center text-center m-0">
+    <div class="col-md-10 col-lg-10 align-self-end my-lg-5 mb-4">
         <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
         <div class=" row justify-content-between col-lg-10 mx-auto">
             <a class="text-white bg-transparent" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-userId="@Model.CreatorId">Author: @Model.Creator.UserName</a>

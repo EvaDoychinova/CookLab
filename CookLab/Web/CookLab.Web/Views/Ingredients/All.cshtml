@@ -1,31 +1,32 @@
 ﻿@using CookLab.Common
 @using CookLab.Models.ViewModels.Ingredients
 
-@model IngredinetsListViewModel
+@model IngredientsListViewModel
 
 @{
     this.ViewData["Title"] = PageTitles.IngredientsAllPagetitle;
 }
 
-<div class="container-fluid p-0 text-center">
+<div class="container-fluid p-0 pb-3 text-center ">
     <div class="text-center my-lg-5 mb-5">
         <h2 class="section-heading">@ViewData["Title"]</h2>
         <h5 class="section-subheading">Which ingredients to you want to see?</h5>
     </div>
     <a class="btn btn-secondary mb-5" asp-area="" asp-controller="Ingredients" asp-action="Create">Create new ingredient</a>
 
-    <ul class="list-group col-md-6 mx-auto">
+    <ul class="list-group col-md-6 mx-auto p-0">
         <li class="list-group-item list-group-label-item">Ingredient</li>
         @foreach (var ingredient in Model.Ingredients)
         {
-            <li class="list-group-item d-flex flex-row justify-content-between">
-                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Ingredients" asp-action="Details" asp-route-id="@ingredient.Id">@ingredient.Name</a>
+            <li class="list-group-item d-flex flex-row justify-content-between py-1">
+                <a class="text-secondary" asp-area="" asp-controller="Ingredients" asp-action="Details" asp-route-id="@ingredient.Id">@ingredient.Name</a>
                 @if (ingredient.NutritionPer100Grams == null)
                 {
-                    <a class="btn btn-primary" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
+                    <a class="btn btn-primary py-1" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@ingredient.Id">Add Nutrition Info</a>
                 }
             </li>
         }
     </ul>
-
 </div>
+
+<partial name="_PaginationPartial" model="@Model"/>

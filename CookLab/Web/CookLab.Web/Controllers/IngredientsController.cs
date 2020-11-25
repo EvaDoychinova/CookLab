@@ -34,13 +34,19 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
+            var itemsPerPage = 15;
             var ingredients = await this.ingredientsService.GetAllAsync<IngredientViewModel>();
 
-            var viewModel = new IngredinetsListViewModel
+            var viewModel = new IngredientsListViewModel
             {
-                Ingredients = ingredients,
+                Ingredients = ingredients
+                            .Skip((id - 1) * itemsPerPage)
+                            .Take(itemsPerPage),
+                CurrentPage = id,
+                ItemsCount = ingredients.Count(),
+                ItemsPerPage = itemsPerPage,
             };
 
             return this.View(viewModel);

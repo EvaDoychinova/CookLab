@@ -4,6 +4,6 @@
 
     public class RecipesListViewModel : PaginationViewModel
     {
-        public ICollection<RecipeViewModel> Recipes { get; set; }
+        public IEnumerable<RecipeViewModel> Recipes { get; set; }
     }
 }

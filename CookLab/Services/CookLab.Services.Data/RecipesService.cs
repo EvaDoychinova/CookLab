@@ -179,9 +179,9 @@
             return recipeWithNutrition.Id;
         }
 
-        public async Task<ICollection<T>> GetAllAsync<T>()
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var recipes = await this.recipesRepository.All()
+            var recipes = await this.recipesRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn)
                 .To<T>()
                 .ToListAsync();
@@ -191,7 +191,7 @@
 
         public async Task<T> GetByIdAsync<T>(string id)
         {
-            var recipe = await this.recipesRepository.All()
+            var recipe = await this.recipesRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
@@ -199,20 +199,20 @@
             return recipe;
         }
 
-        public async Task<ICollection<T>> GetAllByCategoryAsync<T>(int categoryId)
+        public async Task<IEnumerable<T>> GetAllByCategoryAsync<T>(int categoryId)
         {
-            var recipes = await this.recipesRepository.All()
+            var recipes = await this.recipesRepository.AllAsNoTracking()
                 .Where(x => x.Categories
-                             .Any(y => y.CategoryId == categoryId))
+                .Any(y => y.CategoryId == categoryId))
                 .To<T>()
                 .ToListAsync();
 
             return recipes;
         }
 
-        public async Task<ICollection<T>> GetAllByCreatorAsync<T>(string userId)
+        public async Task<IEnumerable<T>> GetAllByCreatorAsync<T>(string userId)
         {
-            var recipes = await this.recipesRepository.All()
+            var recipes = await this.recipesRepository.AllAsNoTracking()
                 .Where(x => x.CreatorId == userId)
                 .To<T>()
                 .ToListAsync();
@@ -220,11 +220,11 @@
             return recipes;
         }
 
-        public async Task<ICollection<T>> GetAllByUserAsync<T>(string userId)
+        public async Task<IEnumerable<T>> GetAllByUserAsync<T>(string userId)
         {
-            var recipes = await this.recipesRepository.All()
+            var recipes = await this.recipesRepository.AllAsNoTracking()
                 .Where(x => x.Users
-                             .Any(y => y.UserId == userId))
+                .Any(y => y.UserId == userId))
                 .To<T>()
                 .ToListAsync();
 

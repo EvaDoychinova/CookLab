@@ -2,16 +2,18 @@
 
 @model PaginationViewModel
 
-<div>
+<div class="my-3">
     <ul class="pagination justify-content-center">
         @if (1 < Model.CurrentPage - 3)
         {
-            <li class="page-item"><a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="1"></a></li>
+            <li class="page-item">
+        <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="1">1</a>
+            </li>
         }
         <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>} ">
             <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.PreviousPage">Prev</a>
         </li>
-        @for (int i = Model.CurrentPage - 3; i < Model.CurrentPage; i++)
+        @for (int i = Model.CurrentPage - 2; i < Model.CurrentPage; i++)
         {
             @if (i > 0)
             {
@@ -23,9 +25,9 @@
         <li class="page-item active" aria-current="page">
             <a class="page-link">@Model.CurrentPage <span class="sr-only">(current)</span></a>
         </li>
-        @for (int i = Model.CurrentPage + 1; i < Model.CurrentPage + 4; i++)
+        @for (int i = Model.CurrentPage + 1; i < Model.CurrentPage + 3; i++)
         {
-            @if (i < Model.TotalPagesCount)
+            @if (i <= Model.TotalPagesCount)
             {
                 <li class="page-item">
                     <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@i">@i</a>
@@ -37,7 +39,9 @@
         </li>
         @if (Model.TotalPagesCount > Model.CurrentPage + 3)
         {
-            <li class="page-item"><a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.TotalPagesCount"></a></li>
+            <li class="page-item">
+                <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.TotalPagesCount">@Model.TotalPagesCount</a>
+            </li>
         }
     </ul>
 </div>
