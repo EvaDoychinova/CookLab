@@ -55,8 +55,6 @@
             this.nutritionsService = nutritionsService;
         }
 
-        public INutritionsService NutritionsService { get; }
-
         public async Task<string> CreateAsync(string userId, RecipeInputModel inputModel, string rootPath)
         {
             if (this.recipesRepository.All().Any(x => x.Name == inputModel.Name))
@@ -417,39 +415,50 @@
             recipe.DeletedOn = DateTime.UtcNow;
             this.recipesRepository.Update(recipe);
 
-            foreach (var ingredient in recipe.Ingredients)
+            var recipeIngredients = await this.ingredientRecipeRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
+
+            foreach (var ingredient in recipeIngredients)
             {
                 ingredient.IsDeleted = true;
                 ingredient.DeletedOn = DateTime.UtcNow;
-
                 this.ingredientRecipeRepository.Update(ingredient);
             }
 
-            foreach (var image in recipe.Images)
+            var recipeImages = await this.recipeImageRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
+
+            foreach (var image in recipeImages)
             {
                 image.IsDeleted = true;
                 image.DeletedOn = DateTime.UtcNow;
-
                 this.recipeImageRepository.Update(image);
             }
 
-            foreach (var category in recipe.Categories)
+            var recipeCategories = await this.categoryRecipesRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
+
+            foreach (var category in recipeCategories)
             {
                 category.IsDeleted = true;
                 category.DeletedOn = DateTime.UtcNow;
-
                 this.categoryRecipesRepository.Update(category);
             }
 
-            foreach (var user in recipe.Users)
+            var recipeUsers = await this.userRecipeRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
+
+            foreach (var user in recipeUsers)
             {
                 user.IsDeleted = true;
                 user.DeletedOn = DateTime.UtcNow;
-
                 this.userRecipeRepository.Update(user);
             }
 
-            this.recipesRepository.Update(recipe);
             await this.recipesRepository.SaveChangesAsync();
             await this.ingredientRecipeRepository.SaveChangesAsync();
             await this.recipeImageRepository.SaveChangesAsync();

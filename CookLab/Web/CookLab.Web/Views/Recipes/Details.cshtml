@@ -138,25 +138,28 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                                      .GroupBy(x => x.PartOfRecipe)
-                                      .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
-                                      {
-                                          IngredientName = y.Ingredient.Name,
-                                          WeightInGrams = y.WeightInGrams,
-                                      })))
+                                    .GroupBy(x => x.PartOfRecipe)
+                                    .OrderBy(x => x.Key)
+                                    .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
+                                    {
+                                        IngredientName = y.Ingredient.Name,
+                                        WeightInGrams = y.WeightInGrams,
+                                    })))
 
                         {
                             <li>
                                 @if (part.Key.ToString() != "All")
                                 {
-                                    <h5 class="border-bottom text-left px-4">@part.Key.ToString()</h5>
+                                    <h5 class="text-left px-4 pt-3">
+                                        <span class="border-bottom">@part.Key.ToString()</span>
+                                    </h5>
                                 }
                                 <ul class="list-group">
                                     @foreach (var ingredient in part.Value)
                                     {
                                         <li class="d-flex flex-row justify-content-between border-bottom">
                                             <span>
-                                                <i class=" fas fa-check-circle"></i>
+                                                <i class=" fas fa-check-circle i-hoverable i-clickable"></i>
                                                 <span class="pl-2">@ingredient.IngredientName</span>
                                             </span>
                                             <span>@ingredient.WeightInGramsToString gr</span>
