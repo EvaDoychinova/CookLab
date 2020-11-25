@@ -237,3 +237,7 @@ a {
 .recipe-preparation {
     word-break: break-all;
 }
+
+.bg-white-transparent {
+    background-color: #fff9;
+}
