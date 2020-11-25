@@ -98,7 +98,7 @@
         private double CalculateNutritionElementPer100GramsForRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)
         {
             var nutritionElement = ingredients
-                .Sum(x => x.WeightInGrams * (double)x.Ingredient.NutritionPer100Grams
+                .Sum(x => x.WeightInGrams / 100 * (double)x.Ingredient.NutritionPer100Grams
                                                         .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
 
             // var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
