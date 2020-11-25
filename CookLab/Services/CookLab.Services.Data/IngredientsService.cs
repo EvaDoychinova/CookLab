@@ -19,16 +19,13 @@
     {
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IDeletableEntityRepository<Nutrition> nutritionsRepository;
-        private readonly INutritionsService nutritionsService;
 
         public IngredientsService(
             IDeletableEntityRepository<Ingredient> ingredientRepository,
-            IDeletableEntityRepository<Nutrition> nutritionsRepository,
-            INutritionsService nutritionsService)
+            IDeletableEntityRepository<Nutrition> nutritionsRepository)
         {
             this.ingredientRepository = ingredientRepository;
             this.nutritionsRepository = nutritionsRepository;
-            this.nutritionsService = nutritionsService;
         }
 
         public async Task<string> CreateAsync(IngredientInputModel inputModel)
@@ -52,7 +49,7 @@
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            var ingredients = await this.ingredientRepository.All()
+            var ingredients = await this.ingredientRepository.AllAsNoTracking()
                 .OrderBy(x => x.Name)
                 .To<T>()
                 .ToListAsync();
@@ -62,7 +59,7 @@
 
         public async Task<T> GetByIdAsync<T>(string id)
         {
-            var ingredient = await this.ingredientRepository.All()
+            var ingredient = await this.ingredientRepository.AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
