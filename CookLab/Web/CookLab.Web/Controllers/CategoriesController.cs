@@ -1,6 +1,6 @@
 ﻿namespace CookLab.Web.Controllers
 {
-    using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookLab.Models.InputModels.Categories;
@@ -43,13 +43,19 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
+            int itemsPerPage = 12;
             var categories = await this.categoriesService.GetAllAsync<CategoryViewModel>();
 
             var viewModel = new CategoriesListViewModel
             {
-                Categories = categories,
+                Categories = categories
+                            .Skip((id - 1) * itemsPerPage)
+                            .Take(itemsPerPage),
+                CurrentPage = id,
+                ItemsCount = categories.Count(),
+                ItemsPerPage = itemsPerPage,
             };
 
             return this.View(viewModel);
