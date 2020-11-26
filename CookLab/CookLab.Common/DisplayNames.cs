@@ -50,7 +50,7 @@
 
             public const string SelectedIngredientsWeightDisplayName = "Weight";
 
-            public const string SelectedIngredientsPartOfRecipe = "Part of Recipe";
+            public const string SelectedIngredientsPartOfRecipeDisplayName = "Part of Recipe";
 
             public const string CookingVesselDisplayName = "Cooking vessel";
 

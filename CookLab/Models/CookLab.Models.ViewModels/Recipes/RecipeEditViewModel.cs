@@ -20,7 +20,7 @@
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.RecipesValidations;
 
-    public class RecipeEditViewModel : IMapFrom<Recipe>, IHaveCustomMappings
+    public class RecipeEditViewModel : IMapFrom<Recipe>
     {
         public string Id { get; set; }
 
@@ -29,20 +29,24 @@
         [Display(Name = RecipeNameDisplayName)]
         public string Name { get; set; }
 
+        public TimeSpan PreparationTime { get; set; }
+
         [Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
         [Display(Name = PreparationTimeDisplayName)]
-        public int PreparationTime { get; set; }
+
+        public int PreparationTimeInMinutes => (int)Math.Ceiling( this.PreparationTime.TotalMinutes);
+
+        public TimeSpan CookingTime { get; set; }
 
         [Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
         [Display(Name = CookingTimeDisplayName)]
-        public int CookingTime { get; set; }
+        public int CookingTimeInMinutes => (int)Math.Ceiling(this.CookingTime.TotalMinutes);
 
         [Required(ErrorMessage = RequiredInputFieldError)]
         [Range(PortionsMinValue, PortionsMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = PortionsDisplayName)]
         public int Portions { get; set; }
 
-        [Required(ErrorMessage = RequiredInputFieldError)]
         public ICollection<ImageRecipeViewModel> Images { get; set; }
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
@@ -51,10 +55,10 @@
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         [Display(Name = SelectedCategoriesDisplayName)]
-        public ICollection<CategoryViewModel> CategoriesCategory { get; set; }
+        public IList<int> CategoriesCategoryId { get; set; }
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
-        public ICollection<RecipeIngredientViewModel> Ingredients { get; set; }
+        public IList<RecipeIngredientEditViewModel> Ingredients { get; set; }
 
         [Required(ErrorMessage = RequiredInputFieldError)]
         [StringLength(PreparationMaxLength, MinimumLength = PreparationMinLength, ErrorMessage = StringLengthError)]
@@ -64,7 +68,6 @@
         [Display(Name = NotesDisplayName)]
         public string Notes { get; set; }
 
-        [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]
         [AllowedImageExtensions]
         [ImageMaxSize(ImageFileMaxSize)]
@@ -76,16 +79,5 @@
         public IEnumerable<SelectListItem> CategoriesToSelect { get; set; }
 
         public IEnumerable<SelectListItem> IngredientsToSelect { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Recipe, RecipeEditViewModel>().ForMember(
-                m => m.PreparationTime,
-                opt => opt.MapFrom(x => (int)x.PreparationTime.TotalMinutes));
-
-            configuration.CreateMap<Recipe, RecipeEditViewModel>().ForMember(
-                m => m.CookingTime,
-                opt => opt.MapFrom(x => (int)x.CookingTime.TotalMinutes));
-        }
     }
 }

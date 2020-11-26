@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label asp-for="Portions"></label>
-            <input type="number" asp-for="Portions" class="form-control" placeholder="0" value='null' />
+            <input type="number" asp-for="Portions" class="form-control" placeholder="0" value="null" />
             <span asp-validation-for="Portions" class="text-danger"></span>
         </div>
 
@@ -46,40 +46,39 @@
             <span asp-validation-for="SelectedCategories" class="text-danger"></span>
         </div>
 
-        <div class="form-group d-flex flex-row row">
-            <div class="col-6">
-                <label asp-for="SelectedIngredients[0].IngredientId"></label>
-                <div id="ingredient-name-container">
-                    <div class="form-group">
-                        <select asp-for="SelectedIngredients[0].IngredientId" asp-items="Model.Ingredients"
-                                class="form-control select-ingredients">
-                            <option></option>
-                        </select>
-                        <span asp-validation-for="SelectedIngredients[0].IngredientId" class="text-danger"></span>
-                    </div>
+        <div class="form-group" id="all-ingredients-container">
+            <div class="row ingredient-labels">
+                <div class="col-7">
+                    <label asp-for="SelectedIngredients[0].IngredientId"></label>
+                </div>
+                <div class=" col-2">
+                    <label asp-for="SelectedIngredients[0].WeightInGrams"></label>
+                </div>
+                <div class="col-3">
+                    <label asp-for="SelectedIngredients[0].PartOfRecipe"></label>
                 </div>
             </div>
 
-            <div class="col-3">
-                <label asp-for="SelectedIngredients[0].WeightInGrams"></label>
-                <div id="ingredient-weight-container">
-                    <div class="form-group">
-                        <input type="number" step="any" asp-for="SelectedIngredients[0].WeightInGrams" class=" form-control" placeholder="0" />
-                        <span asp-validation-for="SelectedIngredients[0].WeightInGrams" class="text-danger"></span>
-                    </div>
+            <div class="row ingredient-container">
+                <div class="form-group col-7">
+                    <select asp-for="SelectedIngredients[0].IngredientId" asp-items="Model.Ingredients"
+                            class="form-control select-ingredients">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="SelectedIngredients[0].IngredientId" class="text-danger"></span>
                 </div>
-            </div>
 
-            <div class="col-3">
-                <label asp-for="SelectedIngredients[0].PartOfRecipe"></label>
-                <div id="ingredient-part-container">
-                    <div class="form-group">
-                        <select asp-for="SelectedIngredients[0].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
-                                class="form-control select-partOfRecipe">
-                            <option></option>
-                        </select>
-                        <span asp-validation-for="SelectedIngredients[0].PartOfRecipe" class="text-danger"></span>
-                    </div>
+                <div class="form-group col-2">
+                    <input type="number" step="any" asp-for="SelectedIngredients[0].WeightInGrams" class=" form-control" placeholder="0" />
+                    <span asp-validation-for="SelectedIngredients[0].WeightInGrams" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-3">
+                    <select asp-for="SelectedIngredients[0].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
+                            class="form-control select-partOfRecipe">
+                        <option></option>
+                    </select>
+                    <span asp-validation-for="SelectedIngredients[0].PartOfRecipe" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -119,6 +118,7 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script>document.onload = recipeIngredientsDynamicSelectList();</script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>document.onload = showUploadedFilesNames();</script>
+    <script>document.onload = recipeIngredientsDynamicSelectListOnCreate();</script>
 } 

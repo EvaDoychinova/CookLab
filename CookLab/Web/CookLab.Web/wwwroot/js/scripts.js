@@ -63,7 +63,6 @@
 
 
 // Select2 library
-$.fn.select2.defaults.set("theme", "default");
 
 $(document).ready(function () {
 
@@ -74,7 +73,6 @@ $(document).ready(function () {
 
     $('.select-multiple-categories').select2({
         placeholder: 'Choose one or more categories...',
-        closeOnSelect: false
     });
 
     $('.select-ingredients').select2({

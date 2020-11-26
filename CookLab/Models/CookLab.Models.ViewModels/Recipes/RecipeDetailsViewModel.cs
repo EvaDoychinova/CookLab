@@ -27,11 +27,11 @@
 
         public TimeSpan PreparationTime { get; set; }
 
-        public int PreparationTimeInMinutes => (int)this.PreparationTime.TotalMinutes;
+        public int PreparationTimeInMinutes => (int)Math.Ceiling(this.PreparationTime.TotalMinutes);
 
         public TimeSpan CookingTime { get; set; }
 
-        public int CookingTimeInMinutes => (int)this.CookingTime.TotalMinutes;
+        public int CookingTimeInMinutes => (int)Math.Ceiling(this.CookingTime.TotalMinutes);
 
         public int Portions { get; set; }
 
