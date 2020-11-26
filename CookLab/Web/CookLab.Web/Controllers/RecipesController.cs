@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Web.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -80,7 +81,7 @@
             return this.View(this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
-        public async Task<IActionResult> AllByCategory([FromQuery]int categoryId, int id = 1)
+        public async Task<IActionResult> AllByCategory([FromQuery] int categoryId, int id = 1)
         {
             int itemsPerPage = 9;
             var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(categoryId);
@@ -90,7 +91,7 @@
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
-        public async Task<IActionResult> AllCreatedBy([FromQuery]string userId, int id = 1)
+        public async Task<IActionResult> AllCreatedBy([FromQuery] string userId, int id = 1)
         {
             int itemsPerPage = 9;
             var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
@@ -121,6 +122,9 @@
         public async Task<IActionResult> Edit(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
+            recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeAsync();
+            recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeAsync();
+            recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
 
             return this.View(recipe);
         }
@@ -130,6 +134,12 @@
         {
             if (!this.ModelState.IsValid)
             {
+                viewModel.PreparationTimeInMinutes = (int)Math.Ceiling(viewModel.PreparationTime.TotalMinutes);
+                viewModel.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTimeInMinutes);
+                viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeAsync();
+                viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeAsync();
+                viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
+
                 return this.View(viewModel);
             }
 

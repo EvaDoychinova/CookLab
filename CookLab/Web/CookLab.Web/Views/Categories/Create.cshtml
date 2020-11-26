@@ -22,7 +22,7 @@
 
         <div class="form-group input-group">
             <label asp-for="Image" class="custom-file-label"></label>
-            <input asp-for="Image" class="custom-file-input"/>
+            <input asp-for="Image" class="custom-file-input" />
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
 
@@ -31,6 +31,7 @@
     </form>
 </div>
 
-@section Scripts{ 
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>document.onload = showUploadedFilesNames();</script>
 }

@@ -158,6 +158,12 @@ main a {
     width: 500px;
 }
 
+.img-container-recipe {
+    position: relative;
+    border-radius: 10px;
+    height: 200px;
+}
+
 .image-category {
     position: absolute;
     width: inherit;
@@ -194,7 +200,7 @@ a.navbar-brand {
 
 .card-img-container {
     overflow: hidden;
-    min-height:150px;
+    min-height: 150px;
     min-width: 150px;
     max-height: 250px;
     max-width: 250px;
@@ -202,25 +208,25 @@ a.navbar-brand {
 }
 
 .carousel-item {
-   height:300px;
-   overflow:hidden;
-   text-align:center;
-   position:relative;
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
 }
 
 .carousel-img {
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 a {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #desiredPortions {
-    width:3rem;
+    width: 3rem;
 }
 
 .i-hoverable {
@@ -228,11 +234,11 @@ a {
     transition: all 0.3s ease-out;
 }
 
-.i-hoverable:hover {
-    cursor: pointer;
-    color: #f4623a;
-    transform: scale(1.25);
-}
+    .i-hoverable:hover {
+        cursor: pointer;
+        color: #f4623a;
+        transform: scale(1.25);
+    }
 
 .recipe-preparation {
     word-break: break-all;

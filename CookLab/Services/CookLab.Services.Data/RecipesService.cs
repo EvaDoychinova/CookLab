@@ -251,8 +251,8 @@
             }
 
             recipe.Name = viewModel.Name;
-            recipe.PreparationTime = TimeSpan.FromMinutes(viewModel.PreparationTime);
-            recipe.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTime);
+            recipe.PreparationTime = TimeSpan.FromMinutes(viewModel.PreparationTimeInMinutes);
+            recipe.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTimeInMinutes);
             recipe.Portions = viewModel.Portions;
             recipe.Preparation = viewModel.Preparation;
             recipe.Notes = viewModel.Notes;
@@ -287,20 +287,20 @@
 
             await this.categoryRecipesRepository.SaveChangesAsync();
 
-            foreach (var recipeCategory in viewModel.CategoriesCategory)
+            foreach (var categoryId in viewModel.CategoriesCategoryId)
             {
                 var category = this.categoryRepository.All()
-                    .FirstOrDefault(x => x.Id == recipeCategory.Id);
+                    .FirstOrDefault(x => x.Id == categoryId);
 
                 if (category == null)
                 {
                     throw new NullReferenceException(
-                    string.Format(ExceptionMessages.CategoryMissing, recipeCategory.Id));
+                    string.Format(ExceptionMessages.CategoryMissing, categoryId));
                 }
 
                 var categoryRecipe = new CategoryRecipe
                 {
-                    CategoryId = recipeCategory.Id,
+                    CategoryId = categoryId,
                     RecipeId = recipe.Id,
                 };
 
@@ -341,30 +341,35 @@
                 ingredient.Recipies.Add(ingredientRecipe);
             }
 
-            var imagesBeforeEdit = this.recipeImageRepository.All()
+            if (viewModel.ImagesToSelect != null)
+            {
+                var imagesBeforeEdit = this.recipeImageRepository.All()
                 .Where(x => x.RecipeId == recipe.Id);
 
-            foreach (var image in imagesBeforeEdit)
-            {
-                this.recipeImageRepository.HardDelete(image);
-            }
-
-            await this.recipeImageRepository.SaveChangesAsync();
-
-            foreach (var fileImage in viewModel.ImagesToSelect)
-            {
-                var image = new RecipeImage();
-                image.ImageUrl = $"/assets/img/recipes/{image.Id}.jpg";
-                image.RecipeId = recipe.Id;
-
-                string imagePath = rootPath + image.ImageUrl;
-
-                using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+                foreach (var image in imagesBeforeEdit)
                 {
-                    await fileImage.CopyToAsync(stream);
+                    this.recipeImageRepository.HardDelete(image);
                 }
 
-                recipe.Images.Add(image);
+                await this.recipeImageRepository.SaveChangesAsync();
+
+                foreach (var fileImage in viewModel.ImagesToSelect)
+                {
+                    var image = new RecipeImage();
+                    image.ImageUrl = $"/assets/img/recipes/{image.Id}.jpg";
+                    image.RecipeId = recipe.Id;
+
+                    string imagePath = rootPath + image.ImageUrl;
+
+                    using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await fileImage.CopyToAsync(stream);
+                    }
+
+                    recipe.Images.Add(image);
+                }
+
+                await this.recipeImageRepository.SaveChangesAsync();
             }
 
             this.recipesRepository.Update(recipe);
@@ -374,7 +379,6 @@
             await this.categoryRepository.SaveChangesAsync();
             await this.ingredientRecipeRepository.SaveChangesAsync();
             await this.ingredientRepository.SaveChangesAsync();
-            await this.recipeImageRepository.SaveChangesAsync();
 
             var nutrition = this.nutritionRepository.All()
                 .FirstOrDefault(x => x.RecipeId == recipe.Id);

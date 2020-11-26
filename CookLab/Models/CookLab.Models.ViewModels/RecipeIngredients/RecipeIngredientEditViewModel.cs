@@ -1,19 +1,24 @@
-﻿namespace CookLab.Models.InputModels.RecipeIngredients
+﻿namespace CookLab.Models.ViewModels.RecipeIngredients
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
+    using CookLab.Data.Models;
     using CookLab.Data.Models.Enums;
+    using CookLab.Services.Mapping;
 
     using static CookLab.Common.DisplayNames.RecipesDisplayNames;
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.RecipesIngredientsValidations;
 
-    public class RecipeIngredientInputModel
+    public class RecipeIngredientEditViewModel : IMapFrom<RecipeIngredient>
     {
+        public string Id { get; set; }
+
         [Required(ErrorMessage = RequiredSelectFiledError)]
         [Display(Name = SelectedIngredientsNameDisplayName)]
         public string IngredientId { get; set; }
+
+        public string IngredientName { get; set; }
 
         [Range(WeightMinLength, WeightMaxLength, ErrorMessage = InvalidRangeError)]
         [Display(Name = SelectedIngredientsWeightDisplayName)]

@@ -1,6 +1,11 @@
 ﻿// Show Uploaded file names
-document.querySelector(".custom-file-input").onchange = function () {
-    document.querySelector(".custom-file-label").textContent = Array.from(this.files).map(x => x.name).join(", ");
+function showUploadedFilesNames() {
+    let fileInput = document.querySelector(".custom-file-input");
+
+    fileInput.addEventListener('change', (e) => {
+        let fileOutput = document.querySelector(".custom-file-label");
+        fileOutput.textContent = Array.from(fileInput.files).map(x => x.name).join(", ");
+    });
 }
 
 // Make Cooking Vessel Create form dynamic
@@ -139,40 +144,72 @@ function cookingVesselFunctionalCreateForm() {
 }
 
 // Make Recipe Create Form dynamically add ingredients
-function recipeIngredientsDynamicSelectList() {
+function recipeIngredientsDynamicSelectListOnCreate() {
     let btn = document.getElementById('btn-add-ingredient');
 
-    let divAllIngredientsNames = document.getElementById('ingredient-name-container');
-    let divAllIngredientsWeight = document.getElementById('ingredient-weight-container');
-    let divAllIngredientsParts = document.getElementById('ingredient-part-container');
+    let allIngredientsContainer = document.getElementById('all-ingredients-container');
 
-    let ingredientNameTags = divAllIngredientsNames.firstElementChild.innerHTML;
-    let ingredientWeightTags = divAllIngredientsWeight.firstElementChild.innerHTML;
-    let ingredientPartTags = divAllIngredientsParts.firstElementChild.innerHTML;
+    let ingredientContainer = document.querySelector('div.ingredient-container');
+    let ingredientContainerContent = ingredientContainer.innerHTML;
 
     let index = 1;
 
     btn.addEventListener('click', (e) => {
-
-        let newIngredientName = ingredientNameTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
-        let newNameDiv = document.createElement('div');
-        newNameDiv.classList.add('form-group');
-        newNameDiv.innerHTML = newIngredientName;
-        divAllIngredientsNames.appendChild(newNameDiv);
-
-        let newIngredientWeight = ingredientWeightTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
-        let newWeightDiv = document.createElement('div');
-        newWeightDiv.classList.add('form-group');
-        newWeightDiv.innerHTML = newIngredientWeight;
-        divAllIngredientsWeight.appendChild(newWeightDiv);
-
-        let newIngredientPart = ingredientPartTags.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
-        let newPartDiv = document.createElement('div');
-        newPartDiv.classList.add('form-group');
-        newPartDiv.innerHTML = newIngredientPart;
-        divAllIngredientsParts.appendChild(newPartDiv);
+        let newIngredientContainerContent = ingredientContainerContent.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
+        let newIngredientContainer = document.createElement('div');
+        newIngredientContainer.classList.add('row');
+        newIngredientContainer.classList.add('ingredient-container');
+        newIngredientContainer.insertAdjacentHTML("beforeend",newIngredientContainerContent);
+        allIngredientsContainer.appendChild(newIngredientContainer);
 
         index++;
+
+        $('.select-ingredients').select2({
+            placeholder: 'Choose ingredient...'
+        });
+
+        $('.select-partOfRecipe').select2({
+            placeholder: 'Part of recipe...'
+        });
+    });
+}
+
+// Make Recipe Edit Form dynamically change ingredients
+function recipeIngredientsDynamicSelectListOnEdit() {
+    $('.select-ingredients').select2({
+        placeholder: 'Choose ingredient...'
+    });
+
+    $('.select-partOfRecipe').select2({
+        placeholder: 'Part of recipe...'
+    });
+
+    let btn = document.getElementById('btn-add-ingredient');
+
+    let allIngredientsContainer = document.getElementById('all-ingredients-container');
+
+    let ingredientContainer = document.querySelector('div.ingredient-container');
+    let ingredientContainerContent = ingredientContainer.innerHTML;
+
+    let index = 1;
+
+    btn.addEventListener('click', (e) => {
+        let newIngredientContainerContent = ingredientContainerContent.replace(/_0_/g, `_${index}_`).replace(/\[0\]/g, `[${index}]`);
+        let newIngredientContainer = document.createElement('div');
+        newIngredientContainer.classList.add('row');
+        newIngredientContainer.classList.add('ingredient-container');
+        newIngredientContainer.insertAdjacentHTML("beforeend", newIngredientContainerContent);
+        allIngredientsContainer.appendChild(newIngredientContainer);
+
+        index++;
+
+        $('.select-ingredients').select2({
+            placeholder: 'Choose ingredient...'
+        });
+
+        $('.select-partOfRecipe').select2({
+            placeholder: 'Part of recipe...'
+        });
     });
 }
 
@@ -180,7 +217,7 @@ function recipeIngredientsDynamicSelectList() {
 function showNutritionInfoForRecipe() {
     let btn = document.getElementById('showNutritionInfo');
     let nutritionInfo = document.getElementById('nutritin-info-list-item');
-    nutritionInfo.style.display='none';
+    nutritionInfo.style.display = 'none';
 
     btn.addEventListener('click', (e) => {
         if (nutritionInfo.style.display == 'none') {
@@ -190,4 +227,17 @@ function showNutritionInfoForRecipe() {
             nutritionInfo.style.display = 'none';
         }
     });
+}
+
+function showSelectedCategories() {
+    let selectedCategories = document.getElementsByClassName('select-multiple-categories')[0];
+
+    let selectCategories = document.getElementsByClassName('select-multiple-categories')[0];
+    let options = selectCategories.children;
+
+    Array.from(options).forEach(x => {
+        if (x.value =='null') {
+            x.setAttribute('selected', 'selected');
+        }
+    })
 }

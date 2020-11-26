@@ -1,1 +1,135 @@
-﻿
+﻿@using CookLab.Common
+@using CookLab.Data.Models.Enums;
+@using CookLab.Models.ViewModels.Recipes;
+
+@model RecipeEditViewModel
+
+@{
+    this.ViewData["Title"] = string.Format(PageTitles.RecipeEditPageTitle, Model.Name);
+    this.ViewData["Ingredients"] = Model.Ingredients.OrderBy(x => x.PartOfRecipe).ThenBy(x => x.IngredientName);
+}
+
+<div class="container d-flex flex-column align-items-center mb-md-3">
+    <h2 class="text-center my-md-3">@this.ViewData["Title"]</h2>
+
+    @*<div class="col-10 row d-flex flex-row flex-wrap row-cols-md-2 justify-content-center">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-9 col-md-5 overflow-hidden img-container-recipe m-3 ">
+                <img src="@image.ImageUrl" class="img-fluid image-category" />
+            </div>
+        }
+    </div>*@
+
+    <form asp-controller="Recipes" asp-action="Edit" method="post" class="form row d-flex flex-column col-md-9" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PreparationTimeInMinutes"></label>
+            <input asp-for="PreparationTimeInMinutes" class="form-control" />
+            <span asp-validation-for="PreparationTimeInMinutes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CookingTimeInMinutes"></label>
+            <input asp-for="CookingTimeInMinutes" class="form-control" />
+            <span asp-validation-for="CookingTimeInMinutes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Portions"></label>
+            <input asp-for="Portions" class="form-control" />
+            <span asp-validation-for="Portions" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoriesCategoryId"></label>
+            <select asp-for="CategoriesCategoryId" asp-items="Model.CategoriesToSelect"
+                    class="form-control select-multiple-categories" multiple="multiple">
+            </select>
+            <span asp-validation-for="CategoriesCategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" id="all-ingredients-container">
+            <div class="row ingredient-labels">
+                <div class="col-7">
+                    <label asp-for="@Model.Ingredients[0].IngredientId"></label>
+                </div>
+                <div class=" col-2">
+                    <label asp-for="@Model.Ingredients[0].WeightInGrams"></label>
+                </div>
+                <div class="col-3">
+                    <label asp-for="@Model.Ingredients[0].PartOfRecipe"></label>
+                </div>
+            </div>
+
+            @for (int i = 0; i < Model.Ingredients.Count; i++)
+            {
+                <div class="row ingredient-container">
+                    <div class="form-group col-7">
+                        <select asp-for="@Model.Ingredients[i].IngredientId" asp-items="Model.IngredientsToSelect"
+                                class="form-control select-ingredients">
+                        </select>
+                        <span asp-validation-for="@Model.Ingredients[i].IngredientId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-2">
+                        <input type="number" step="any" asp-for="@Model.Ingredients[i].WeightInGrams" class=" form-control" placeholder="0" />
+                        <span asp-validation-for="@Model.Ingredients[i].WeightInGrams" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-3">
+                        <select asp-for="@Model.Ingredients[i].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
+                                class="form-control select-partOfRecipe">
+                        </select>
+                        <span asp-validation-for="@Model.Ingredients[i].PartOfRecipe" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <button class=" btn btn-secondary" id="btn-add-ingredient">Add new ingredient</button>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Preparation"></label>
+            <textarea asp-for="Preparation" class="form-control" placeholder=""></textarea>
+            <span asp-validation-for="Preparation" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Notes"></label>
+            <textarea asp-for="Notes" class="form-control" placeholder=""></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CookingVesselId"></label>
+            <select asp-for="CookingVesselId" asp-items="Model.CookingVesselsToSelect" class="form-control select-cookingVessel">
+                <option></option>
+            </select>
+            <span asp-validation-for="CookingVesselId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group input-group">
+            <label asp-for="ImagesToSelect" class="custom-file-label"></label>
+            <input asp-for="ImagesToSelect" class="custom-file-input" multiple />
+            <span asp-validation-for="ImagesToSelect" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>document.onload = showUploadedFilesNames();</script>
+    <script>document.onload = recipeIngredientsDynamicSelectListOnEdit();</script>
+} 

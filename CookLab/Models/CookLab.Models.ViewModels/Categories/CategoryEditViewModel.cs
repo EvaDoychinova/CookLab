@@ -23,7 +23,6 @@
 
         public string ImageUrl { get; set; }
 
-        [Required(ErrorMessage = RequiredInputFieldError)]
         [DataType(DataType.Upload)]
         [AllowedImageExtensions]
         [ImageMaxSize(ImageFileMaxSize)]

@@ -1,9 +1,13 @@
 ﻿namespace CookLab.Models.ViewModels.RecipeIngredients
 {
+    using System.ComponentModel.DataAnnotations;
+
     using CookLab.Data.Models;
     using CookLab.Data.Models.Enums;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Mapping;
+
+    using static CookLab.Common.DisplayNames.RecipesDisplayNames;
 
     public class RecipeIngredientViewModel : IMapFrom<RecipeIngredient>
     {
