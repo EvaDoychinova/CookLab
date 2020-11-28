@@ -17,6 +17,6 @@
 
         Task DeleteAsync(int id);
 
-        Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeAsync();
+        Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeCreateAsync();
     }
 }

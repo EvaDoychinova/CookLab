@@ -20,6 +20,6 @@
 
         Task DeleteAsync(string id);
 
-        Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeAsync();
+        Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeCreateAsync();
     }
 }

@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoMapper;
-
     using CookLab.Data.Models;
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.RecipeImages;
@@ -29,18 +27,25 @@
         [Display(Name = RecipeNameDisplayName)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = RequiredInputFieldError)]
+        //[Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
+        [Display(Name = PreparationTimeDisplayName)]
+        [DataType(DataType.Duration)]
         public TimeSpan PreparationTime { get; set; }
 
-        [Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
-        [Display(Name = PreparationTimeDisplayName)]
+        //[Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
+        //[Display(Name = PreparationTimeDisplayName)]
+        //public int PreparationTimeInMinutes => (int)this.PreparationTime.TotalMinutes == 0 ? this.PreparationTimeInMinutes : (int)Math.Ceiling(this.PreparationTime.TotalMinutes);
 
-        public int PreparationTimeInMinutes => (int)Math.Ceiling( this.PreparationTime.TotalMinutes);
-
+        [Required(ErrorMessage = RequiredInputFieldError)]
+        //[Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
+        [Display(Name = CookingTimeDisplayName)]
+        [DataType(DataType.Duration)]
         public TimeSpan CookingTime { get; set; }
 
-        [Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
-        [Display(Name = CookingTimeDisplayName)]
-        public int CookingTimeInMinutes => (int)Math.Ceiling(this.CookingTime.TotalMinutes);
+        //[Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
+        //[Display(Name = CookingTimeDisplayName)]
+        //public int CookingTimeInMinutes => (int)this.CookingTime.TotalMinutes==0 ? this.CookingTimeInMinutes : (int)Math.Ceiling(this.CookingTime.TotalMinutes);
 
         [Required(ErrorMessage = RequiredInputFieldError)]
         [Range(PortionsMinValue, PortionsMaxValue, ErrorMessage = InvalidRangeError)]
@@ -55,7 +60,7 @@
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         [Display(Name = SelectedCategoriesDisplayName)]
-        public IList<int> CategoriesCategoryId { get; set; }
+        public IList<CategoryInRecipeEditViewModel> CategoriesCategory { get; set; }
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         public IList<RecipeIngredientEditViewModel> Ingredients { get; set; }
@@ -79,5 +84,16 @@
         public IEnumerable<SelectListItem> CategoriesToSelect { get; set; }
 
         public IEnumerable<SelectListItem> IngredientsToSelect { get; set; }
+
+        //public void CreateMappings(IProfileExpression configuration)
+        //{
+        //    configuration.CreateMap<Recipe, RecipeEditViewModel>().ForMember(
+        //        x => x.CookingTime,
+        //        opt => opt.MapFrom(y => (int)Math.Ceiling(y.CookingTime.TotalMinutes)));
+
+        //    configuration.CreateMap<Recipe, RecipeEditViewModel>().ForMember(
+        //        x => x.PreparationTime,
+        //        opt => opt.MapFrom(y => (int)Math.Ceiling(y.PreparationTime.TotalMinutes)));
+        //}
     }
 }

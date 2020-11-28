@@ -9,6 +9,7 @@
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Recipes;
     using CookLab.Models.ViewModels.Categories;
+    using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Data;
 
@@ -22,6 +23,7 @@
         private readonly ICategoriesService categoriesService;
         private readonly IIngredientsService ingredientsService;
         private readonly ICookingVesselsService cookingVesselsService;
+        private readonly ICategoryRecipeService categoryRecipeService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -30,6 +32,7 @@
             ICategoriesService categoriesService,
             IIngredientsService ingredientsService,
             ICookingVesselsService cookingVesselsService,
+            ICategoryRecipeService categoryRecipeService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
@@ -37,6 +40,7 @@
             this.categoriesService = categoriesService;
             this.ingredientsService = ingredientsService;
             this.cookingVesselsService = cookingVesselsService;
+            this.categoryRecipeService = categoryRecipeService;
             this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -45,9 +49,9 @@
         {
             var recipe = new RecipeInputModel
             {
-                Categories = await this.categoriesService.GetAllCategoriesForRecipeAsync(),
-                Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeAsync(),
-                CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync(),
+                Categories = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync(),
+                Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync(),
+                CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync(),
             };
 
             return this.View(recipe);
@@ -58,9 +62,9 @@
         {
             if (!this.ModelState.IsValid)
             {
-                inputModel.Categories = await this.categoriesService.GetAllCategoriesForRecipeAsync();
-                inputModel.Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeAsync();
-                inputModel.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
+                inputModel.Categories = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
+                inputModel.Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
+                inputModel.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
 
                 return this.View(inputModel);
             }
@@ -114,7 +118,7 @@
         public async Task<IActionResult> Details(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeDetailsViewModel>(id);
-            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
+            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
 
             return this.View(recipe);
         }
@@ -122,9 +126,11 @@
         public async Task<IActionResult> Edit(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
-            recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeAsync();
-            recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeAsync();
-            recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
+            var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(id);
+            //recipe.CategoriesCategoryId = categories.Select(x => x.CategoryId).ToList();
+            recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
+            recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
+            recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
 
             return this.View(recipe);
         }
@@ -134,11 +140,11 @@
         {
             if (!this.ModelState.IsValid)
             {
-                viewModel.PreparationTimeInMinutes = (int)Math.Ceiling(viewModel.PreparationTime.TotalMinutes);
-                viewModel.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTimeInMinutes);
-                viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeAsync();
-                viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeAsync();
-                viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeAsync();
+                var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(viewModel.Id);
+                //viewModel.CategoriesCategoryId = categories.Select(x => x.CategoryId).ToList();
+                viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
+                viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
+                viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
 
                 return this.View(viewModel);
             }
@@ -146,7 +152,7 @@
             var rootPath = this.webHostEnvironment.WebRootPath;
             await this.recipesService.EditAsync(viewModel, rootPath);
 
-            return this.RedirectToAction(nameof(this.Details));
+            return this.RedirectToAction(nameof(this.Details), new { id = viewModel.Id });
         }
 
         public async Task<IActionResult> Delete(string id)

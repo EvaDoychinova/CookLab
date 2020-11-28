@@ -83,19 +83,19 @@ body {
 }
 
 main a {
-    background-color: #fff9;
+    background-color: #ffffff99;
     border-radius: 5px;
     padding: 3px 5px;
 }
 
 .nav {
-    background-color: #fff9;
+    background-color: #ffffff99;
     border-radius: 5px;
 }
 
 #email-verification.btn-link {
     padding: 2px 6px;
-    background-color: #fff9;
+    background-color: #ffffff99;
     margin-top: 5px;
 }
 
@@ -121,7 +121,7 @@ main a {
 }
 
 .portfolio-box-caption {
-    color: #fffc;
+    color: #ffffffcc;
     padding: 3px 5px;
     margin: 0;
     border-radius: 5px;
@@ -245,5 +245,5 @@ a {
 }
 
 .bg-white-transparent {
-    background-color: #fff9;
+    background-color: #ffffff99;
 }

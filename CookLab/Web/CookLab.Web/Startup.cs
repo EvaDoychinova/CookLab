@@ -76,6 +76,7 @@
             services.AddTransient<IIngredientsService, IngredientsService>();
             services.AddTransient<INutritionsService, NutritionsService>();
             services.AddTransient<ICookingVesselsService, CookingVesselsService>();
+            services.AddTransient<ICategoryRecipeService, CategoryRecipeService>();
             services.AddTransient<IRecipesService, RecipesService>();
         }
 
