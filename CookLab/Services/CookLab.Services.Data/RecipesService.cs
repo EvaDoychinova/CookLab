@@ -251,8 +251,8 @@
             }
 
             recipe.Name = viewModel.Name;
-            recipe.PreparationTime = TimeSpan.FromMinutes(viewModel.PreparationTimeInMinutes);
-            recipe.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTimeInMinutes);
+            recipe.PreparationTime = viewModel.PreparationTime;
+            recipe.CookingTime = viewModel.CookingTime;
             recipe.Portions = viewModel.Portions;
             recipe.Preparation = viewModel.Preparation;
             recipe.Notes = viewModel.Notes;
@@ -287,20 +287,20 @@
 
             await this.categoryRecipesRepository.SaveChangesAsync();
 
-            foreach (var categoryId in viewModel.CategoriesCategoryId)
+            foreach (var categoryModel in viewModel.CategoriesCategory)
             {
                 var category = this.categoryRepository.All()
-                    .FirstOrDefault(x => x.Id == categoryId);
+                    .FirstOrDefault(x => x.Id == categoryModel.Id);
 
                 if (category == null)
                 {
                     throw new NullReferenceException(
-                    string.Format(ExceptionMessages.CategoryMissing, categoryId));
+                    string.Format(ExceptionMessages.CategoryMissing, categoryModel.Id));
                 }
 
                 var categoryRecipe = new CategoryRecipe
                 {
-                    CategoryId = categoryId,
+                    CategoryId = categoryModel.Id,
                     RecipeId = recipe.Id,
                 };
 

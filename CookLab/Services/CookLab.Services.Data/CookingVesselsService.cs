@@ -143,7 +143,7 @@
             await this.recipesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeCreateAsync()
         {
             var cookingVesselsViewModel = await this.GetAllAsync<CookingVesselRecipeViewModel>();
 

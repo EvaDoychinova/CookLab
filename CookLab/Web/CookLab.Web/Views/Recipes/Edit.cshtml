@@ -13,13 +13,13 @@
     <h2 class="text-center my-md-3">@this.ViewData["Title"]</h2>
 
     @*<div class="col-10 row d-flex flex-row flex-wrap row-cols-md-2 justify-content-center">
-        @foreach (var image in Model.Images)
-        {
-            <div class="col-9 col-md-5 overflow-hidden img-container-recipe m-3 ">
-                <img src="@image.ImageUrl" class="img-fluid image-category" />
-            </div>
-        }
-    </div>*@
+            @foreach (var image in Model.Images)
+            {
+                <div class="col-9 col-md-5 overflow-hidden img-container-recipe m-3 ">
+                    <img src="@image.ImageUrl" class="img-fluid image-category" />
+                </div>
+            }
+        </div>*@
 
     <form asp-controller="Recipes" asp-action="Edit" method="post" class="form row d-flex flex-column col-md-9" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,15 +31,15 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="PreparationTimeInMinutes"></label>
-            <input asp-for="PreparationTimeInMinutes" class="form-control" />
-            <span asp-validation-for="PreparationTimeInMinutes" class="text-danger"></span>
+            <label asp-for="PreparationTime"></label>
+            <input asp-for="PreparationTime" class="form-control" />
+            <span asp-validation-for="PreparationTime" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="CookingTimeInMinutes"></label>
-            <input asp-for="CookingTimeInMinutes" class="form-control" />
-            <span asp-validation-for="CookingTimeInMinutes" class="text-danger"></span>
+            <label asp-for="CookingTime"></label>
+            <input asp-for="CookingTime" class="form-control" />
+            <span asp-validation-for="CookingTime" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -49,11 +49,11 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="CategoriesCategoryId"></label>
-            <select asp-for="CategoriesCategoryId" asp-items="Model.CategoriesToSelect"
+            <label asp-for="CategoriesCategory"></label>
+            <select asp-for="CategoriesCategory" asp-items="Model.CategoriesToSelect"
                     class="form-control select-multiple-categories" multiple="multiple">
             </select>
-            <span asp-validation-for="CategoriesCategoryId" class="text-danger"></span>
+            <span asp-validation-for="CategoriesCategory" class="text-danger"></span>
         </div>
 
         <div class="form-group" id="all-ingredients-container">
@@ -128,8 +128,40 @@
     </form>
 </div>
 
+
+
 @section Scripts{
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>document.onload = showUploadedFilesNames();</script>
     <script>document.onload = recipeIngredientsDynamicSelectListOnEdit();</script>
-} 
+    <script>
+        @*var categories =@Model.CategoriesCategory;
+    $("#CategoriesCategory").select2('data', Array.from(categories).map(x => { id: x.Id, text: x.Name }));*@
+
+        //// Set up the Select2 control
+        //$('#CategoriesCategory').select2({
+        //    ajax: {
+        //        url: '/api/categories'
+        //    }
+        //});
+
+        //// Fetch the preselected item, and add to the control
+        //var studentSelect = $('#CategoriesCategory');
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '/api/students/s/' + studentId
+        //}).then(function (data) {
+        //    // create the option and append to Select2
+        //    var option = new Option(data.full_name, data.id, true, true);
+        //    studentSelect.append(option).trigger('change');
+
+        //    // manually trigger the `select2:select` event
+        //    studentSelect.trigger({
+        //        type: 'select2:select',
+        //        params: {
+        //            data: data
+        //        }
+        //    });
+        //});
+    </script>
+}

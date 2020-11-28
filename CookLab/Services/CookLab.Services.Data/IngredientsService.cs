@@ -132,7 +132,7 @@
             await this.nutritionsRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeCreateAsync()
         {
             var ingredientsViewModel = await this.GetAllAsync<IngredientRecipeViewModel>();
 

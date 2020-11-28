@@ -140,7 +140,7 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeCreateAsync()
         {
             var categoriesViewModel = await this.GetAllAsync<CategoryInRecipeViewModel>();
 
