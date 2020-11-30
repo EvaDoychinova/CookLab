@@ -289,8 +289,8 @@
 
             foreach (var categoryModel in viewModel.CategoriesCategory)
             {
-                var category = this.categoryRepository.All()
-                    .FirstOrDefault(x => x.Id == categoryModel.Id);
+                var category = await this.categoryRepository.All()
+                    .FirstOrDefaultAsync(x => x.Id == categoryModel.Id);
 
                 if (category == null)
                 {
@@ -380,29 +380,15 @@
             await this.ingredientRecipeRepository.SaveChangesAsync();
             await this.ingredientRepository.SaveChangesAsync();
 
-            var nutrition = this.nutritionRepository.All()
-                .FirstOrDefault(x => x.RecipeId == recipe.Id);
+            var nutrition = await this.nutritionRepository.All()
+                .FirstOrDefaultAsync(x => x.RecipeId == recipe.Id);
 
             if (nutrition != null)
             {
                 this.nutritionRepository.HardDelete(nutrition);
             }
 
-            if (recipe.Ingredients.Count > 0)
-            {
-                var nutritions = this.nutritionRepository.All()
-                    .ToList()
-                    .Where(x => recipe.Ingredients.Any(y => y.IngredientId == x.IngredientId));
-
-                if (nutritions.Any(x => x == null))
-                {
-                    recipe.Nutrition = null;
-                }
-                else
-                {
-                    await this.nutritionsService.CalculateNutritionForRecipeAsync(recipe.Id);
-                }
-            }
+            await this.nutritionsService.CalculateNutritionForRecipeAsync(recipe.Id);
         }
 
         public async Task DeleteAsync(string id)
@@ -415,9 +401,7 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.RecipeMissing, id));
             }
 
-            recipe.IsDeleted = true;
-            recipe.DeletedOn = DateTime.UtcNow;
-            this.recipesRepository.Update(recipe);
+            this.recipesRepository.Delete(recipe);
 
             var recipeIngredients = await this.ingredientRecipeRepository.All()
                 .Where(x => x.RecipeId == recipe.Id)
@@ -425,9 +409,7 @@
 
             foreach (var ingredient in recipeIngredients)
             {
-                ingredient.IsDeleted = true;
-                ingredient.DeletedOn = DateTime.UtcNow;
-                this.ingredientRecipeRepository.Update(ingredient);
+                this.ingredientRecipeRepository.Delete(ingredient);
             }
 
             var recipeImages = await this.recipeImageRepository.All()
@@ -436,9 +418,7 @@
 
             foreach (var image in recipeImages)
             {
-                image.IsDeleted = true;
-                image.DeletedOn = DateTime.UtcNow;
-                this.recipeImageRepository.Update(image);
+                this.recipeImageRepository.Delete(image);
             }
 
             var recipeCategories = await this.categoryRecipesRepository.All()
@@ -447,9 +427,7 @@
 
             foreach (var category in recipeCategories)
             {
-                category.IsDeleted = true;
-                category.DeletedOn = DateTime.UtcNow;
-                this.categoryRecipesRepository.Update(category);
+                this.categoryRecipesRepository.Delete(category);
             }
 
             var recipeUsers = await this.userRecipeRepository.All()
@@ -458,9 +436,7 @@
 
             foreach (var user in recipeUsers)
             {
-                user.IsDeleted = true;
-                user.DeletedOn = DateTime.UtcNow;
-                this.userRecipeRepository.Update(user);
+                this.userRecipeRepository.Delete(user);
             }
 
             await this.recipesRepository.SaveChangesAsync();
