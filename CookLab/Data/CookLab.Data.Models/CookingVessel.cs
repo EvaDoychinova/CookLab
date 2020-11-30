@@ -8,7 +8,7 @@
 
     using static CookLab.Common.ModelsValidations.CookingVesselValidations;
 
-    public class CookingVessel : BaseModel<int>
+    public class CookingVessel : BaseDeletableModel<int>
     {
         public CookingVessel()
         {

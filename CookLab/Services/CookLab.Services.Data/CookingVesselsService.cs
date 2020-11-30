@@ -17,11 +17,11 @@
 
     public class CookingVesselsService : ICookingVesselsService
     {
-        private readonly IRepository<CookingVessel> cookingVesselRepository;
+        private readonly IDeletableEntityRepository<CookingVessel> cookingVesselRepository;
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
 
         public CookingVesselsService(
-            IRepository<CookingVessel> cookingVesselRepository,
+            IDeletableEntityRepository<CookingVessel> cookingVesselRepository,
             IDeletableEntityRepository<Recipe> recipesRepository)
         {
             this.cookingVesselRepository = cookingVesselRepository;
@@ -129,12 +129,15 @@
                 .FirstOrDefault(x => Math.Round(x.Area, -2) == Math.Round(cookingVessel.Area, -2));
             }
 
-            var recipes = cookingVessel.Recipes.ToList();
+            var recipes = await this.recipesRepository.All()
+                            .Where(x => x.CookingVesselId == cookingVessel.Id)
+                            .ToListAsync();
 
             foreach (var recipe in recipes)
             {
                 recipe.CookingVessel = alternativeCookingVessel;
                 recipe.CookingVesselId = alternativeCookingVessel.Id;
+                recipe.ModifiedOn = DateTime.UtcNow;
                 this.recipesRepository.Update(recipe);
             }
 
@@ -143,7 +146,7 @@
             await this.recipesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsForRecipeCreateAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsSelectListAsync()
         {
             var cookingVesselsViewModel = await this.GetAllAsync<CookingVesselRecipeViewModel>();
 

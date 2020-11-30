@@ -48,9 +48,9 @@
         {
             var recipe = new RecipeInputModel
             {
-                Categories = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync(),
-                Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync(),
-                CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync(),
+                Categories = await this.categoriesService.GetAllCategoriesSelectListAsync(),
+                Ingredients = await this.ingredientsService.GetAllIngredientsSelectListAsync(),
+                CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync(),
             };
 
             return this.View(recipe);
@@ -61,9 +61,9 @@
         {
             if (!this.ModelState.IsValid)
             {
-                inputModel.Categories = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
-                inputModel.Ingredients = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
-                inputModel.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
+                inputModel.Categories = await this.categoriesService.GetAllCategoriesSelectListAsync();
+                inputModel.Ingredients = await this.ingredientsService.GetAllIngredientsSelectListAsync();
+                inputModel.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
 
                 return this.View(inputModel);
             }
@@ -117,7 +117,7 @@
         public async Task<IActionResult> Details(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeDetailsViewModel>(id);
-            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
+            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
 
             return this.View(recipe);
         }
@@ -126,9 +126,9 @@
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
             recipe.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(id);
-            recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
-            recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
-            recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
+            recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesSelectListAsync();
+            recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsSelectListAsync();
+            recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
 
             return this.View(recipe);
         }
@@ -140,9 +140,9 @@
             {
                 var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(viewModel.Id);
                 viewModel.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(viewModel.Id);
-                viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
-                viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
-                viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
+                viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesSelectListAsync();
+                viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsSelectListAsync();
+                viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
 
                 return this.View(viewModel);
             }

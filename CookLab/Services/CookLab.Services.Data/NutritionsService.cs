@@ -17,15 +17,18 @@
     {
         private readonly IDeletableEntityRepository<Nutrition> nutritionRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
+        private readonly IDeletableEntityRepository<RecipeIngredient> recipeIngredientsRepository;
         private readonly IDeletableEntityRepository<Recipe> recipeRepository;
 
         public NutritionsService(
             IDeletableEntityRepository<Nutrition> nutritionRepository,
             IDeletableEntityRepository<Ingredient> ingredientRepository,
+            IDeletableEntityRepository<RecipeIngredient> recipeIngredientsRepository,
             IDeletableEntityRepository<Recipe> recipeRepository)
         {
             this.nutritionRepository = nutritionRepository;
             this.ingredientRepository = ingredientRepository;
+            this.recipeIngredientsRepository = recipeIngredientsRepository;
             this.recipeRepository = recipeRepository;
         }
 
@@ -39,6 +42,7 @@
                 Proteins = inputModel.Proteins,
                 Fibres = inputModel.Fibres,
                 IngredientId = ingredientId,
+                RecipeId = null,
             };
 
             await this.nutritionRepository.AddAsync(nutrition);
@@ -48,41 +52,78 @@
                 .FirstOrDefaultAsync();
 
             ingredient.NutritionPer100Grams = nutrition;
+            ingredient.ModifiedOn = DateTime.UtcNow;
             this.ingredientRepository.Update(ingredient);
+
             await this.nutritionRepository.SaveChangesAsync();
             await this.ingredientRepository.SaveChangesAsync();
+
+            var recipes = await this.recipeRepository.All()
+                .Where(x => x.Ingredients.Any(x => x.IngredientId == ingredientId))
+                .ToListAsync();
+
+            if (recipes.Count > 0)
+            {
+                foreach (var recipe in recipes)
+                {
+                    await this.CalculateNutritionForRecipeAsync(recipe.Id);
+                }
+            }
+
             return nutrition.Id;
         }
 
-        public async Task<string> CalculateNutritionForRecipeAsync(string recipeId)
+        public async Task CalculateNutritionForRecipeAsync(string recipeId)
         {
-            var recipe = this.recipeRepository.All()
-                .Where(x => x.Id == recipeId)
-                .FirstOrDefault();
+            var recipe = await this.recipeRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == recipeId);
 
-            if (recipe == null)
+            if (recipe is null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.RecipeMissing, recipeId));
             }
 
-            var nutrition = new Nutrition
+            var recipeIngredients = await this.recipeIngredientsRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
+
+            if (!recipeIngredients.Any(x => x.Ingredient.NutritionPer100Grams == null))
             {
-                Calories = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Calories"),
-                Carbohydrates = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Carbohydrates"),
-                Fats = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Fats"),
-                Proteins = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Proteins"),
-                Fibres = this.CalculateNutritionElementPer100GramsForRecipe(recipe.Ingredients, "Fibres"),
-                RecipeId = recipeId,
-                IngredientId = null,
-            };
+                var initialNutrition = await this.nutritionRepository.All()
+                    .FirstOrDefaultAsync(x => x.RecipeId == recipeId);
 
-            recipe.Nutrition = nutrition;
-            await this.nutritionRepository.AddAsync(nutrition);
-            await this.nutritionRepository.SaveChangesAsync();
+                if (initialNutrition != null)
+                {
+                    initialNutrition.Calories = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Calories");
+                    initialNutrition.Carbohydrates = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Carbohydrates");
+                    initialNutrition.Fats = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Fats");
+                    initialNutrition.Proteins = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Proteins");
+                    initialNutrition.Fibres = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Fibres");
+                    initialNutrition.ModifiedOn = DateTime.UtcNow;
 
-            this.recipeRepository.Update(recipe);
-            await this.recipeRepository.SaveChangesAsync();
-            return nutrition.Id;
+                    this.nutritionRepository.Update(initialNutrition);
+                }
+                else
+                {
+                    var newNutrition = new Nutrition
+                    {
+                        Calories = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Calories"),
+                        Carbohydrates = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Carbohydrates"),
+                        Fats = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Fats"),
+                        Proteins = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Proteins"),
+                        Fibres = this.CalculateNutritionElementForWholeRecipe(recipeIngredients, "Fibres"),
+                        RecipeId = recipeId,
+                        IngredientId = null,
+                    };
+
+                    await this.nutritionRepository.AddAsync(newNutrition);
+                    recipe.Nutrition = newNutrition;
+                }
+
+                await this.nutritionRepository.SaveChangesAsync();
+                this.recipeRepository.Update(recipe);
+                await this.recipeRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<T> ShowNutritionAsync<T>(string ingredientId = null, string recipeId = null)
@@ -95,7 +136,7 @@
             return nutrition;
         }
 
-        private double CalculateNutritionElementPer100GramsForRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)
+        private double CalculateNutritionElementForWholeRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)
         {
             var nutritionElement = ingredients
                 .Sum(x => x.WeightInGrams / 100 * (double)x.Ingredient.NutritionPer100Grams

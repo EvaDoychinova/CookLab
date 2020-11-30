@@ -19,13 +19,19 @@
     {
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IDeletableEntityRepository<Nutrition> nutritionsRepository;
+        private readonly IDeletableEntityRepository<Recipe> recipesRepository;
+        private readonly INutritionsService nutritionsService;
 
         public IngredientsService(
             IDeletableEntityRepository<Ingredient> ingredientRepository,
-            IDeletableEntityRepository<Nutrition> nutritionsRepository)
+            IDeletableEntityRepository<Nutrition> nutritionsRepository,
+            IDeletableEntityRepository<Recipe> recipesRepository,
+            INutritionsService nutritionsService)
         {
             this.ingredientRepository = ingredientRepository;
             this.nutritionsRepository = nutritionsRepository;
+            this.recipesRepository = recipesRepository;
+            this.nutritionsService = nutritionsService;
         }
 
         public async Task<string> CreateAsync(IngredientInputModel inputModel)
@@ -85,7 +91,8 @@
             ingredient.Name = viewModel.Name;
             ingredient.VolumeInMlPer100Grams = viewModel.VolumeInMlPer100Grams;
 
-            var nutrition = ingredient.NutritionPer100Grams;
+            var nutrition = await this.nutritionsRepository.All()
+                .FirstOrDefaultAsync(x => x.IngredientId == ingredient.Id);
 
             if (nutrition != null)
             {
@@ -96,6 +103,18 @@
                 nutrition.Fibres = viewModel.NutritionPer100Grams.Fibres;
                 nutrition.ModifiedOn = DateTime.UtcNow;
                 this.nutritionsRepository.Update(nutrition);
+
+                var recipes = await this.recipesRepository.All()
+                        .Where(x => x.Ingredients.Any(y => y.IngredientId == ingredient.Id))
+                        .ToListAsync();
+
+                if (recipes.Count > 0)
+                {
+                    foreach (var recipe in recipes)
+                    {
+                        await this.nutritionsService.CalculateNutritionForRecipeAsync(recipe.Id);
+                    }
+                }
             }
 
             ingredient.ModifiedOn = DateTime.UtcNow;
@@ -114,25 +133,20 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, id));
             }
 
-            ingredient.IsDeleted = true;
-            ingredient.DeletedOn = DateTime.UtcNow;
-
-            var nutrition = ingredient.NutritionPer100Grams;
+            var nutrition = await this.nutritionsRepository.All()
+                .FirstOrDefaultAsync(x => x.IngredientId == ingredient.Id);
 
             if (nutrition != null)
             {
-                nutrition.IsDeleted = true;
-                nutrition.DeletedOn = DateTime.UtcNow;
-
-                this.nutritionsRepository.Update(nutrition);
+                this.nutritionsRepository.Delete(nutrition);
             }
 
-            this.ingredientRepository.Update(ingredient);
+            this.ingredientRepository.Delete(ingredient);
             await this.ingredientRepository.SaveChangesAsync();
             await this.nutritionsRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllIngredientsForRecipeCreateAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllIngredientsSelectListAsync()
         {
             var ingredientsViewModel = await this.GetAllAsync<IngredientRecipeViewModel>();
 

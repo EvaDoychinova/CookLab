@@ -92,7 +92,11 @@
                 throw new ArgumentException(ExceptionMessages.CategoryAlreadyExists, viewModel.Name);
             }
 
-            var imageUrl = viewModel.ImageUrl;
+            var imageUrl = this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id)
+                .GetAwaiter()
+                .GetResult()
+                .ImageUrl;
 
             if (viewModel.Image != null)
             {
@@ -123,24 +127,19 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, id));
             }
 
-            category.IsDeleted = true;
-            category.DeletedOn = DateTime.UtcNow;
-
             if (category.Recipes.Count > 0)
             {
                 foreach (var recipe in category.Recipes)
                 {
-                    recipe.IsDeleted = true;
-                    recipe.DeletedOn = DateTime.UtcNow;
-                    this.recipeCategoriesRepository.Update(recipe);
+                    this.recipeCategoriesRepository.Delete(recipe);
                 }
             }
 
-            this.categoriesRepository.Update(category);
+            this.categoriesRepository.Delete(category);
             await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetAllCategoriesForRecipeCreateAsync()
+        public async Task<IEnumerable<SelectListItem>> GetAllCategoriesSelectListAsync()
         {
             var categoriesViewModel = await this.GetAllAsync<CategoryInRecipeViewModel>();
 
