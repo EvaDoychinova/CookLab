@@ -24,6 +24,7 @@
             var categories = await this.categoryRecipeRepository.AllAsNoTracking()
                 .Where(x => x.RecipeId == recipeId)
                 .OrderBy(x => x.Category.Name)
+                .Select(x => x.Category)
                 .To<T>()
                 .ToListAsync();
 
