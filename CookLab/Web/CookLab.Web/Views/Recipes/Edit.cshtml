@@ -6,7 +6,8 @@
 
 @{
     this.ViewData["Title"] = string.Format(PageTitles.RecipeEditPageTitle, Model.Name);
-    this.ViewData["Ingredients"] = Model.Ingredients.OrderBy(x => x.PartOfRecipe).ThenBy(x => x.IngredientName);
+    var ingredients = Model.Ingredients.OrderBy(x => x.PartOfRecipe).ThenBy(x => x.IngredientName).ToList();
+    var categories = Json.Serialize(Model.CategoriesCategory);
 }
 
 <div class="container d-flex flex-column align-items-center mb-md-3">
@@ -69,26 +70,26 @@
                 </div>
             </div>
 
-            @for (int i = 0; i < Model.Ingredients.Count; i++)
+            @for (int i = 0; i < ingredients.Count; i++)
             {
                 <div class="row ingredient-container">
                     <div class="form-group col-7">
-                        <select asp-for="@Model.Ingredients[i].IngredientId" asp-items="Model.IngredientsToSelect"
+                        <select asp-for="@ingredients[i].IngredientId" asp-items="Model.IngredientsToSelect"
                                 class="form-control select-ingredients">
                         </select>
-                        <span asp-validation-for="@Model.Ingredients[i].IngredientId" class="text-danger"></span>
+                        <span asp-validation-for="@ingredients[i].IngredientId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group col-2">
-                        <input type="number" step="any" asp-for="@Model.Ingredients[i].WeightInGrams" class=" form-control" placeholder="0" />
-                        <span asp-validation-for="@Model.Ingredients[i].WeightInGrams" class="text-danger"></span>
+                        <input type="number" step="any" asp-for="@ingredients[i].WeightInGrams" class=" form-control" placeholder="0" />
+                        <span asp-validation-for="@ingredients[i].WeightInGrams" class="text-danger"></span>
                     </div>
 
                     <div class="form-group col-3">
-                        <select asp-for="@Model.Ingredients[i].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
+                        <select asp-for="@ingredients[i].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
                                 class="form-control select-partOfRecipe">
                         </select>
-                        <span asp-validation-for="@Model.Ingredients[i].PartOfRecipe" class="text-danger"></span>
+                        <span asp-validation-for="@ingredients[i].PartOfRecipe" class="text-danger"></span>
                     </div>
                 </div>
             }
@@ -128,40 +129,9 @@
     </form>
 </div>
 
-
-
 @section Scripts{
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>document.onload = showUploadedFilesNames();</script>
     <script>document.onload = recipeIngredientsDynamicSelectListOnEdit();</script>
-    <script>
-        @*var categories =@Model.CategoriesCategory;
-    $("#CategoriesCategory").select2('data', Array.from(categories).map(x => { id: x.Id, text: x.Name }));*@
-
-        //// Set up the Select2 control
-        //$('#CategoriesCategory').select2({
-        //    ajax: {
-        //        url: '/api/categories'
-        //    }
-        //});
-
-        //// Fetch the preselected item, and add to the control
-        //var studentSelect = $('#CategoriesCategory');
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/api/students/s/' + studentId
-        //}).then(function (data) {
-        //    // create the option and append to Select2
-        //    var option = new Option(data.full_name, data.id, true, true);
-        //    studentSelect.append(option).trigger('change');
-
-        //    // manually trigger the `select2:select` event
-        //    studentSelect.trigger({
-        //        type: 'select2:select',
-        //        params: {
-        //            data: data
-        //        }
-        //    });
-        //});
-    </script>
+    <script>document.onload = preselectCategoriesForRecipeEdit(@categories) </script>
 }

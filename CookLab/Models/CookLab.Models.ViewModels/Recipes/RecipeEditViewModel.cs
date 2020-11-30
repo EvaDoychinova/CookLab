@@ -60,7 +60,7 @@
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         [Display(Name = SelectedCategoriesDisplayName)]
-        public IList<CategoryInRecipeEditViewModel> CategoriesCategory { get; set; }
+        public IEnumerable<CategoryInRecipeEditViewModel> CategoriesCategory { get; set; }
 
         [Required(ErrorMessage = RequiredSelectFiledError)]
         public IList<RecipeIngredientEditViewModel> Ingredients { get; set; }

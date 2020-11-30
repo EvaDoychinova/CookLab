@@ -1,6 +1,5 @@
 ﻿namespace CookLab.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -126,8 +125,7 @@
         public async Task<IActionResult> Edit(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
-            var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(id);
-            //recipe.CategoriesCategoryId = categories.Select(x => x.CategoryId).ToList();
+            recipe.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(id);
             recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
             recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
             recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();
@@ -141,7 +139,7 @@
             if (!this.ModelState.IsValid)
             {
                 var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(viewModel.Id);
-                //viewModel.CategoriesCategoryId = categories.Select(x => x.CategoryId).ToList();
+                viewModel.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(viewModel.Id);
                 viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesForRecipeCreateAsync();
                 viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsForRecipeCreateAsync();
                 viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsForRecipeCreateAsync();

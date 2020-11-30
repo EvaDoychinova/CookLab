@@ -229,15 +229,7 @@ function showNutritionInfoForRecipe() {
     });
 }
 
-function showSelectedCategories() {
-    let selectedCategories = document.getElementsByClassName('select-multiple-categories')[0];
-
-    let selectCategories = document.getElementsByClassName('select-multiple-categories')[0];
-    let options = selectCategories.children;
-
-    Array.from(options).forEach(x => {
-        if (x.value =='null') {
-            x.setAttribute('selected', 'selected');
-        }
-    })
+// Preselect Categories for Recipe Edit Form
+function preselectCategoriesForRecipeEdit(categories) {
+    $("#CategoriesCategory").val(Array.from(categories).map(x => x.id));
 }
