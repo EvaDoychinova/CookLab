@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using CookLab.Data.Models;
+    using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Models.ViewModels.RecipeImages;
@@ -17,13 +18,13 @@
 
         public int Portions { get; set; }
 
-        public virtual ICollection<CategoryRecipeViewModel> Categories { get; set; }
+        public ICollection<CategoryRecipeViewModel> Categories { get; set; }
 
         public NutritionViewModel Nutrition { get; set; }
 
-        public virtual ICollection<ImageRecipeViewModel> Images { get; set; }
+        public ICollection<ImageRecipeViewModel> Images { get; set; }
 
-        public virtual ICollection<RecipeIngredientViewModel> Ingredients { get; set; }
+        public ICollection<RecipeIngredientViewModel> Ingredients { get; set; }
 
         public string Preparation { get; set; }
 

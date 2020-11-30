@@ -25,45 +25,47 @@
 
         <div class="form-group">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control"/>
+            <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Diameter"></label>
-            <input type="number" step="any" asp-for="Diameter" class="form-control"/>
+            <input type="number" step="any" asp-for="Diameter" class="form-control" />
             <span asp-validation-for="Diameter" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="SideA"></label>
-            <input type="number" step="any" asp-for="SideA" class="form-control"/>
+            <input type="number" step="any" asp-for="SideA" class="form-control" />
             <span asp-validation-for="SideA" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="SideB"></label>
-            <input type="number" step="any" asp-for="SideB" class="form-control"/>
+            <input type="number" step="any" asp-for="SideB" class="form-control" />
             <span asp-validation-for="SideB" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Height"></label>
-            <input type="number" step="any" asp-for="Height" class="form-control"/>
+            <input type="number" step="any" asp-for="Height" class="form-control" />
             <span asp-validation-for="Height" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Area"></label>
-            <input type="number" step="any" asp-for="Area" class="form-control"/>
+            <input type="number" step="any" asp-for="Area" class="form-control" />
             <span asp-validation-for="Area" class="text-danger"></span>
         </div>
 
-        <input type="submit" value="Create cooking vessel" class="btn btn-primary align-self-stretch my-3" />
+        <div class=" row">
+            <input type="submit" value="Create" class="btn btn-primary col m-3" />
+            <a class="btn btn-secondary col m-3" asp-controller="CookingVessels" asp-action="All">Back</a>
+        </div>
     </form>
 </div>
 
 @section Scripts{
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script>document.onload = cookingVesselFunctionalCreateForm();</script>
 } 

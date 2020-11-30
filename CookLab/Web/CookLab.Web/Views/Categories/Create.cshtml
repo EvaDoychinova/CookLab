@@ -26,12 +26,14 @@
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />
+        <div class=" form-group row">
+            <input type="submit" value="Create" class="btn btn-primary col m-3" />
+            <a class="btn btn-secondary col m-3" asp-controller="Categories" asp-action="All">Back</a>
+        </div>
 
     </form>
 </div>
 
 @section Scripts{
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>document.onload = showUploadedFilesNames();</script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
 }

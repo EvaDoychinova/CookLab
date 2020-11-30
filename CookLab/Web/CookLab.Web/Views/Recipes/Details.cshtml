@@ -105,7 +105,7 @@
                                 <i class="fas fa-arrow-circle-down i-hoverable"></i>
                             </a>
                         </li>
-                        <li id="nutritin-info-list-item">
+                        <li id="nutrition-info-list-item">
                             <ul class="list-unstyled">
                                 <li class="py-2 ml-5">
                                     <span class="pl-2">Calories: @((Model.Nutrition.Calories / Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) kcal </span>
@@ -138,13 +138,13 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                                    .GroupBy(x => x.PartOfRecipe)
-                                    .OrderBy(x => x.Key)
-                                    .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
-                                    {
-                                        IngredientName = y.Ingredient.Name,
-                                        WeightInGrams = y.WeightInGrams,
-                                    })))
+                                   .GroupBy(x => x.PartOfRecipe)
+                                   .OrderBy(x => x.Key)
+                                   .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
+                                   {
+                                       IngredientName = y.Ingredient.Name,
+                                       WeightInGrams = y.WeightInGrams,
+                                   })))
 
                         {
                             <li>
@@ -172,14 +172,19 @@
                 </div>
             </div>
 
-            <div class="mx-auto my-3 p-0">
+            <div class=" col-sm-8 mx-sm-auto my-3 p-0">
                 <div class="mx-auto my-3 p-0">
                     <h4 class="py-2">
                         <i class="fas fa-mortar-pestle"></i>
                         <span class="pl-3 border-bottom pb-2">Preparation steps</span>
                     </h4>
                     <div class="text-wrap">
-                        <p class="recipe-preparation">@Model.Preparation</p>
+                        <ol class="p-3">
+                            @foreach (var step in Model.Preparation.Split("\r\n", StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li class="recipe-preparation text-left">@step</li>
+                            }
+                        </ol>
                     </div>
                 </div>
 
@@ -207,6 +212,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>document.onload = showNutritionInfoForRecipe();</script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
 }

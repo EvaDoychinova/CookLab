@@ -5,6 +5,6 @@
 
     public interface ICategoryRecipeService
     {
-        Task<IEnumerable<T>> GetAllCategoriesForRecipeAsync<T>(string recipeId);
+        Task<IList<int>> GetAllCategoriesForRecipeAsync(string recipeId);
     }
 }

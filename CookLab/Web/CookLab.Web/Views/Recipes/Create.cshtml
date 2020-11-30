@@ -113,12 +113,15 @@
             <span asp-validation-for="Images" class="text-danger"></span>
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <div class=" form-group row">
+            <input type="submit" value="Create" class="btn btn-primary col m-3" />
+            <a class="btn btn-secondary col m-3" asp-controller="Recipes" asp-action="All">Back</a>
+        </div>
     </form>
 </div>
 
 @section Scripts{
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>document.onload = showUploadedFilesNames();</script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/dynamic-add-ingredients.js" asp-append-version="true"></script>
     <script>document.onload = recipeIngredientsDynamicSelectListOnCreate();</script>
 } 
