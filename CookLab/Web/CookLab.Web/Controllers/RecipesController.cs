@@ -125,7 +125,7 @@
         public async Task<IActionResult> Edit(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
-            recipe.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(id);
+            recipe.CategoriesCategoryId = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync(id);
             recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesSelectListAsync();
             recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsSelectListAsync();
             recipe.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
@@ -138,8 +138,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var categories = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryRecipeEditViewModel>(viewModel.Id);
-                viewModel.CategoriesCategory = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync<CategoryInRecipeEditViewModel>(viewModel.Id);
+                viewModel.CategoriesCategoryId = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync(viewModel.Id);
                 viewModel.CategoriesToSelect = await this.categoriesService.GetAllCategoriesSelectListAsync();
                 viewModel.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsSelectListAsync();
                 viewModel.CookingVesselsToSelect = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();

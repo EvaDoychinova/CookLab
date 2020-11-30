@@ -5,6 +5,7 @@
     using System.Globalization;
 
     using CookLab.Data.Models;
+    using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Models.ViewModels.Nutritions;
@@ -15,9 +16,6 @@
     using CookLab.Services.Mapping;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
-
-    using static CookLab.Common.ErrorMessages;
-    using static CookLab.Common.ModelsValidations.RecipesValidations;
 
     public class RecipeDetailsViewModel : IMapFrom<Recipe>
     {

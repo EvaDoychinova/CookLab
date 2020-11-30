@@ -287,20 +287,20 @@
 
             await this.categoryRecipesRepository.SaveChangesAsync();
 
-            foreach (var categoryModel in viewModel.CategoriesCategory)
+            foreach (var categoryId in viewModel.CategoriesCategoryId)
             {
                 var category = await this.categoryRepository.All()
-                    .FirstOrDefaultAsync(x => x.Id == categoryModel.Id);
+                    .FirstOrDefaultAsync(x => x.Id == categoryId);
 
                 if (category == null)
                 {
                     throw new NullReferenceException(
-                    string.Format(ExceptionMessages.CategoryMissing, categoryModel.Id));
+                    string.Format(ExceptionMessages.CategoryMissing, categoryId));
                 }
 
                 var categoryRecipe = new CategoryRecipe
                 {
-                    CategoryId = categoryModel.Id,
+                    CategoryId = categoryId,
                     RecipeId = recipe.Id,
                 };
 

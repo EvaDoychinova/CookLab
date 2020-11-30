@@ -26,7 +26,10 @@
             <span asp-validation-for="VolumeInMlPer100Grams" class="text-danger"></span>
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary align-self-stretch" />
+        <div class=" form-group row">
+            <input type="submit" value="Create" class="btn btn-primary col m-3" />
+            <a class="btn btn-secondary col m-3" asp-controller="Ingredients" asp-action="All">Back</a>
+        </div>
 
     </form>
 </div>

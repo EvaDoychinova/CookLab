@@ -62,10 +62,8 @@
 })(jQuery); // End of use strict
 
 
-// Select2 library
-
 $(document).ready(function () {
-
+    // Select2 library
     $('.select-cookingVessel').select2({
         placeholder: 'Choose a cooking vessel...',
         allowClear: true
@@ -82,15 +80,22 @@ $(document).ready(function () {
     $('.select-partOfRecipe').select2({
         placeholder: 'Part of recipe...'
     });
-});
 
-// Enable Popovers
-$(document).ready(function () {
+    // Enable Popovers
     $('[data-toggle="popover"]').popover();
-});
 
-// Enable Tooltips
-$(document).ready(function () {
+    // Enable Tooltips
     $('[data-toggle="tooltip"]').tooltip();
-});
 
+    // Autosize textarea fields
+    const tx = document.getElementsByTagName('textarea');
+    for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+        tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    }
+});

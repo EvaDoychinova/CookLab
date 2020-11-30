@@ -19,13 +19,12 @@
             this.categoryRecipeRepository = categoryRecipeRepository;
         }
 
-        public async Task<IEnumerable<T>> GetAllCategoriesForRecipeAsync<T>(string recipeId)
+        public async Task<IList<int>> GetAllCategoriesForRecipeAsync(string recipeId)
         {
             var categories = await this.categoryRecipeRepository.AllAsNoTracking()
                 .Where(x => x.RecipeId == recipeId)
                 .OrderBy(x => x.Category.Name)
-                .Select(x => x.Category)
-                .To<T>()
+                .Select(x => x.Category.Id)
                 .ToListAsync();
 
             return categories;
