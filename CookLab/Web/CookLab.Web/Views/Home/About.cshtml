@@ -1,3 +1,9 @@
-﻿<h1>@this.ViewData["Title"]</h1>
+﻿@using CookLab.Common;
+
+@{ 
+    this.ViewData["Title"] = PageTitles.AboutPageTitle;
+}
+
+<h1>@this.ViewData["Title"]</h1>
 
 <p>Here is the place where we tell you a lot of often boring and unnecessary information about us!</p>

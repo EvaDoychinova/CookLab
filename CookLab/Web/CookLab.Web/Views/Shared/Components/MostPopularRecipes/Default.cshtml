@@ -1,0 +1,30 @@
+﻿@using System.Globalization
+@using CookLab.Models.ViewModels.SideBar
+
+@model SideBarRecipeListViewModel
+
+<div>
+    <div>
+        <h4>Most Popular Recipes</h4>
+    </div>
+
+    <div>
+        <ul class="list-unstyled">
+            @foreach (var recipe in Model.SideBarRecipes)
+            {
+                <li class="media">
+                    <div class="img-container-sidebar mr-3">
+                        <img src="@recipe.Images.First().ImageUrl" class="img-fluid img-sidebar">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">@recipe.Name</h5>
+                        <div>
+                            <a>@string.Join(", ", recipe.Categories.Select(x=>x.Category.Name))</a>
+                            <a>@recipe.CreatedOn.ToString("d", CultureInfo.InvariantCulture)</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

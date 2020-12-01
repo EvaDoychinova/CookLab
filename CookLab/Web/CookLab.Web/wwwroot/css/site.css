@@ -164,6 +164,22 @@ main a {
     height: 200px;
 }
 
+.img-container-sidebar {
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    height: 80px;
+    width: 80px;
+}
+
+.img-sidebar {
+    position: absolute;
+    width: inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .image-category {
     position: absolute;
     width: inherit;
@@ -200,10 +216,8 @@ a.navbar-brand {
 
 .card-img-container {
     overflow: hidden;
-    min-height: 150px;
-    min-width: 150px;
-    max-height: 250px;
-    max-width: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 5px;
 }
 

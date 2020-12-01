@@ -22,11 +22,11 @@
         [Display(Name = RecipeNameDisplayName)]
         public string Name { get; set; }
 
-        [Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
+        [Range(MinPreparationTimeInMinutes, MaxPreparationTimeInMinutes, ErrorMessage = InvalidRangeError)]
         [Display(Name = PreparationTimeDisplayName)]
         public int PreparationTime { get; set; }
 
-        [Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
+        [Range(MinCookingTimeInMinutes, MaxCookingTimeInMinutes, ErrorMessage = InvalidRangeError)]
         [Display(Name = CookingTimeDisplayName)]
         public int CookingTime { get; set; }
 

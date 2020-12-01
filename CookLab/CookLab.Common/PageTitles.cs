@@ -4,8 +4,8 @@
     {
         // Home Page Titles
         public const string HomePageTitle = "Home";
+        public const string AboutPageTitle = "About";
         public const string PrivacyPageTitle = "Privacy Policy";
-        public const string DefaultPageTitle = "Default";
 
         // Categories Page Titles
         public const string CategoriesAllPageTitle = "List of Categories";
