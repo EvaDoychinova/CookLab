@@ -13,14 +13,14 @@
 <div class="container d-flex flex-column align-items-center mb-md-3">
     <h2 class="text-center my-md-3">@this.ViewData["Title"]</h2>
 
-    @*<div class="col-10 row d-flex flex-row flex-wrap row-cols-md-2 justify-content-center">
-            @foreach (var image in Model.Images)
-            {
-                <div class="col-9 col-md-5 overflow-hidden img-container-recipe m-3 ">
-                    <img src="@image.ImageUrl" class="img-fluid image-category" />
-                </div>
-            }
-        </div>*@
+    <div class="col-10 row d-flex flex-row flex-wrap row-cols-md-2 justify-content-center">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-9 col-md-5 overflow-hidden img-container-recipe m-3 ">
+                <img src="@image.ImageUrl" class="img-fluid image-category" />
+            </div>
+        }
+    </div>
 
     <form asp-controller="Recipes" asp-action="Edit" method="post" class="form row d-flex flex-column col-md-9" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>

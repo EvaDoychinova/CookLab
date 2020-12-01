@@ -1,0 +1,14 @@
+﻿@{ 
+    this.ViewData["RecipesCount"] = 5;
+}
+
+<div class="row">
+    <main role="main" class="main-masthead col-md-9">
+        @this.RenderBody()
+    </main>
+
+    <aside class="col-md-3 bg-light text-dark">
+        <vc:latest-recipes count="@int.Parse(this.ViewData["RecipesCount"].ToString())"></vc:latest-recipes>
+        <vc:most-popular-recipes count="@int.Parse(this.ViewData["RecipesCount"].ToString())"></vc:most-popular-recipes>
+    </aside>
+</div>

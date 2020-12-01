@@ -28,7 +28,7 @@
         public string Name { get; set; }
 
         [Required(ErrorMessage = RequiredInputFieldError)]
-        //[Range(MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
+        [Range(typeof(TimeSpan), MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
         [Display(Name = PreparationTimeDisplayName)]
         [DataType(DataType.Duration)]
         public TimeSpan PreparationTime { get; set; }
@@ -38,7 +38,7 @@
         //public int PreparationTimeInMinutes => (int)this.PreparationTime.TotalMinutes == 0 ? this.PreparationTimeInMinutes : (int)Math.Ceiling(this.PreparationTime.TotalMinutes);
 
         [Required(ErrorMessage = RequiredInputFieldError)]
-        //[Range(MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
+        [Range(typeof(TimeSpan), MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
         [Display(Name = CookingTimeDisplayName)]
         [DataType(DataType.Duration)]
         public TimeSpan CookingTime { get; set; }

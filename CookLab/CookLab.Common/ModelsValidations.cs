@@ -1,5 +1,9 @@
 ﻿namespace CookLab.Common
 {
+    using System;
+    using System.Globalization;
+    using System.Linq.Expressions;
+
     public static class ModelsValidations
     {
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg", ".gif" };
@@ -68,11 +72,17 @@
             public const int NameMinLength = 3;
             public const int NameMaxLength = 100;
 
-            public const int MinPreparationTime = 5;
-            public const int MaxPreparationTime = 2 * 24 * 60;
+            public const int MinPreparationTimeInMinutes = 5;
+            public const int MaxPreparationTimeInMinutes = 2 * 24 * 60;
 
-            public const int MinCookingTime = 5;
-            public const int MaxCookingTime = 2 * 24 * 60;
+            public const string MinPreparationTime = "00:05:00";
+            public const string MaxPreparationTime = "48:00:00";
+
+            public const int MinCookingTimeInMinutes = 5;
+            public const int MaxCookingTimeInMinutes = 2 * 24 * 60;
+
+            public const string MinCookingTime = "00:05:00";
+            public const string MaxCookingTime = "48:00:00";
 
             public const int PortionsMinValue = 1;
             public const int PortionsMaxValue = 50;

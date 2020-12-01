@@ -6,28 +6,29 @@
 @{
     ViewData["Title"] = PageTitles.CategoriesAllPageTitle;
 }
+<main role="main" class="main-masthead">
+    <div class="container-fluid p-0 text-center">
+        <div class="text-center my-lg-5 mb-5">
+            <h2 class="section-heading">@ViewData["Title"]</h2>
+            <h5 class="section-subheading">What recipe are you looking for?</h5>
+        </div>
+        <a class="btn btn-secondary mb-3" asp-controller="Categories" asp-action="Create">Create new category</a>
+        <div class="row no-gutters">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-lg-4 col-sm-6 p-3">
+                    <a class="portfolio-box" asp-controller="Recipes" asp-action="AllByCategory" asp-route-categoryId="@category.Id">
+                        <img class="img-fluid portfolio-image" src="~/@category.ImageUrl" />
+                        <div class="portfolio-box-caption">
+                            <h5 class="project-name">@category.Name</h5>
+                        </div>
+                    </a>
+                    <a class="btn btn-primary position-absolute category-admin-details" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">Details</a>
+                </div>
 
-<div class="container-fluid p-0 text-center">
-    <div class="text-center my-lg-5 mb-5">
-        <h2 class="section-heading">@ViewData["Title"]</h2>
-        <h5 class="section-subheading">What recipe are you looking for?</h5>
+            }
+        </div>
     </div>
-    <a class="btn btn-secondary mb-3"  asp-controller="Categories" asp-action="Create">Create new category</a>
-    <div class="row no-gutters">
-        @foreach (var category in Model.Categories)
-        {
-            <div class="col-lg-4 col-sm-6 p-3">
-                <a class="portfolio-box" asp-controller="Recipes" asp-action="AllByCategory" asp-route-categoryId="@category.Id">
-                    <img class="img-fluid portfolio-image" src="~/@category.ImageUrl" />
-                    <div class="portfolio-box-caption">
-                        <h5 class="project-name">@category.Name</h5>
-                    </div>
-                </a>
-                <a class="btn btn-primary position-absolute category-admin-details" asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">Details</a>
-            </div>
+</main>
 
-        }
-    </div>
-</div>
-
-<partial name="_PaginationPartial" model="@Model"/>
+<partial name="_PaginationPartial" model="@Model" />
