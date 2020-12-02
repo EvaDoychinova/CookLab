@@ -78,6 +78,7 @@
             services.AddTransient<ICookingVesselsService, CookingVesselsService>();
             services.AddTransient<ICategoryRecipeService, CategoryRecipeService>();
             services.AddTransient<IRecipesService, RecipesService>();
+            services.AddTransient<IUserRecipesService, UserRecipesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

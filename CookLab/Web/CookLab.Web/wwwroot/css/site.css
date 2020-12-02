@@ -293,20 +293,16 @@ span.created-on {
 }
 
 a.author-recipe {
-    font-size: 0.85rem;
-    color: #343a40;
+    font-size: 1rem;
+    color: white;
     transition: all 0.3s ease-out;
 }
 
     a.author-recipe:hover {
         color: #f4623a;
         text-decoration: none;
-        font-size: 0.95rem;
+        font-size: 1.1rem;
     }
-
-aside.sidebar {
-    background-color: #ffffffcc;
-}
 
 a.recipe-title {
     transition: all 0.3s ease-out;
@@ -325,10 +321,26 @@ a.recipe-title {
 }
 
 a.dropdown-item {
-    color: white;
-    transition: all 0.3s ease-out;
+    
 }
 
     a.dropdown-item:hover {
-        color: #f4623a;
+        
     }
+
+#dropdownRecipes .dropdown-item.nav-link {
+    color: #212529 !important;
+    transition: all 0.3s ease-out;
+}
+
+    #dropdownRecipes .dropdown-item.nav-link:hover {
+        color: #f4623a !important;
+    }
+
+    #dropdownRecipes .dropdown-item.nav-link:active {
+        color: #212529 !important;
+    }
+
+.bg-custom {
+    background-color: #ffffffcc;
+}
