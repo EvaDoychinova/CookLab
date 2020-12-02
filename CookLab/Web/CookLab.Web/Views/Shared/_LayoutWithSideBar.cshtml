@@ -1,14 +1,19 @@
-﻿@{ 
+﻿@{
+    this.Layout = "_LayoutMain";
     this.ViewData["RecipesCount"] = 5;
 }
 
 <div class="row">
-    <main role="main" class="main-masthead col-md-9">
+    <main role="main" class="main-masthead col-md-7 col-lg-9">
         @this.RenderBody()
     </main>
 
-    <aside class="col-md-3 bg-light text-dark">
+    <aside class="col-md-5 col-lg-3 text-dark rounded my-md-5 sidebar">
         <vc:latest-recipes count="@int.Parse(this.ViewData["RecipesCount"].ToString())"></vc:latest-recipes>
         <vc:most-popular-recipes count="@int.Parse(this.ViewData["RecipesCount"].ToString())"></vc:most-popular-recipes>
     </aside>
 </div>
+
+@section Scripts{
+    @await this.RenderSectionAsync("Scripts", required: false)
+}

@@ -3,8 +3,8 @@
 
 @model SideBarRecipeListViewModel
 
-<div>
-    <div>
+<div class="most-popular-recipes">
+    <div class="my-4">
         <h4>Most Popular Recipes</h4>
     </div>
 
@@ -12,16 +12,15 @@
         <ul class="list-unstyled">
             @foreach (var recipe in Model.SideBarRecipes)
             {
-                <li class="media">
-                    <div class="img-container-sidebar mr-3">
+                <li class="media py-2 align-items-stretch">
+                    <a asp-area="" asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id"
+                       class="img-container-sidebar mr-3">
                         <img src="@recipe.Images.First().ImageUrl" class="img-fluid img-sidebar">
-                    </div>
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">@recipe.Name</h5>
-                        <div>
-                            <a>@string.Join(", ", recipe.Categories.Select(x=>x.Category.Name))</a>
-                            <a>@recipe.CreatedOn.ToString("d", CultureInfo.InvariantCulture)</a>
-                        </div>
+                    </a>
+                    <div class="media-body position-relative justify-content-between">
+                        <a asp-area="" asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id"
+                           class="mt-0 mb-1 text-primary h5 recipe-title">@recipe.Name</a>
+                        <span class="d-block created-on position-relative">@recipe.CreatedOn.ToString("d", CultureInfo.InvariantCulture)</span>
                     </div>
                 </li>
             }

@@ -4,8 +4,8 @@
     using System.Collections.Generic;
 
     using CookLab.Data.Models;
-    using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.RecipeImages;
+    using CookLab.Models.ViewModels.Users;
     using CookLab.Services.Mapping;
 
     public class SideBarRecipeViewModel : IMapFrom<Recipe>
@@ -16,7 +16,7 @@
 
         public IEnumerable<ImageRecipeViewModel> Images { get; set; }
 
-        public IEnumerable<CategoryRecipeViewModel> Categories { get; set; }
+        public UserViewModel Creator { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }

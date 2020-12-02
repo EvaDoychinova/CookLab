@@ -154,8 +154,12 @@ main a {
 .img-container {
     position: relative;
     border-radius: 10px;
-    height: 250px;
-    width: 500px;
+    min-height: 150px;
+    height:calc(50vh);
+    max-height: 250px;
+    min-width:250px;
+    width:100%;
+    max-width: 500px;
 }
 
 .img-container-recipe {
@@ -180,9 +184,8 @@ main a {
     transform: translate(-50%,-50%);
 }
 
-.image-category {
+.img-category {
     position: absolute;
-    width: inherit;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -215,10 +218,20 @@ a.navbar-brand {
 }
 
 .card-img-container {
+    position: relative;
     overflow: hidden;
-    width: 200px;
+    min-width: 150px;
+    width: 100%;
+    max-width: 250px;
     height: 200px;
     border-radius: 5px;
+}
+
+.card-img-bottom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .carousel-item {
@@ -238,6 +251,10 @@ a.navbar-brand {
 a {
     cursor: pointer;
 }
+
+    a:hover {
+        text-decoration: none;
+    }
 
 #desiredPortions {
     width: 3rem;
@@ -260,4 +277,49 @@ a {
 
 .bg-white-transparent {
     background-color: #ffffff99;
+}
+
+.sidebar-recipe-info {
+    bottom: 0;
+}
+
+.most-popular-recipes {
+    border-top: 5px double #f4623a;
+}
+
+span.created-on {
+    font-size: 0.85rem;
+    bottom: 0;
+}
+
+a.author-recipe {
+    font-size: 0.85rem;
+    color: #343a40;
+    transition: all 0.3s ease-out;
+}
+
+    a.author-recipe:hover {
+        color: #f4623a;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+aside.sidebar {
+    background-color: #ffffffcc;
+}
+
+a.recipe-title {
+    transition: all 0.3s ease-out;
+}
+
+    a.recipe-title:hover {
+        font-size: 1.3rem;
+    }
+
+.container-fluid {
+    width: 100% !important;
+}
+
+.card {
+max-width:310px;
 }
