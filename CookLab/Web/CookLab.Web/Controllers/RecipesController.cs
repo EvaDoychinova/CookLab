@@ -104,6 +104,17 @@
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
+        public async Task<IActionResult> AllCreatedByMe(int id = 1)
+        {
+            int itemsPerPage = 9;
+            var userId = this.userManager.GetUserId(this.User);
+            var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
+            this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
+
+            return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
+        }
+
         public async Task<IActionResult> AllMy(int id = 1)
         {
             int itemsPerPage = 9;
