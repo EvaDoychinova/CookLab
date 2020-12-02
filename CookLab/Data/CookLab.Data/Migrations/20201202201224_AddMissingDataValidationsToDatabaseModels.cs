@@ -51,7 +51,7 @@
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "CookingVessels",
-                maxLength: 20,
+                maxLength: 40,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");

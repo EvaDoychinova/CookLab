@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="AdministratorInputModels\" />
-    <Folder Include="CategoryRecipes\" />
   </ItemGroup>
 
 </Project>

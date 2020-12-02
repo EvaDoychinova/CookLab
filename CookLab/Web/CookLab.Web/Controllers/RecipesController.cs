@@ -8,7 +8,6 @@
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Recipes;
     using CookLab.Models.ViewModels.Categories;
-    using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Data;
 

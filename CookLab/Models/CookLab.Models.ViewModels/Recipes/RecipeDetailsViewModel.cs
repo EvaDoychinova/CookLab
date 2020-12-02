@@ -5,7 +5,6 @@
     using System.Globalization;
 
     using CookLab.Data.Models;
-    using CookLab.Models.ViewModels.Categories;
     using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Models.ViewModels.Nutritions;
@@ -49,7 +48,7 @@
 
         public string CreatorId { get; set; }
 
-        public UserViewModel Creator { get; set; }
+        public string CreatorUserName { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

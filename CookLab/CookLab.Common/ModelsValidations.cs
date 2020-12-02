@@ -50,6 +50,7 @@
 
             public const int NameMinValue = 3;
             public const int NameMaxValue = 20;
+            public const int DatabaseNameMaxValue = 40;
 
             public const double DiameterMinValue = 1;
             public const double DiameterMaxValue = 100;
