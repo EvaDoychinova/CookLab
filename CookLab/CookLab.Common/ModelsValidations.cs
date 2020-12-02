@@ -98,8 +98,8 @@
 
         public static class RecipesIngredientsValidations
         {
-            public const double WeightMinLength = 0.5;
-            public const double WeightMaxLength = 10 * 1000;
+            public const double WeightMinValue = 0.5;
+            public const double WeightMaxValue = 10 * 1000;
 
             public const int PartOfRecipeMinValue = 0;
             public const int PartOfRecipeMaxValue = 8;

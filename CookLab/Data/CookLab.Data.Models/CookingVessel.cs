@@ -16,8 +16,10 @@
         }
 
         [Required]
+        [MaxLength(NameMaxValue)]
         public string Name { get; set; }
 
+        [Range(FormMinValue, FormMaxValue)]
         public PanForm Form { get; set; }
 
         [Range(DiameterMinValue, DiameterMaxValue)]
@@ -29,15 +31,12 @@
         [Range(SideMinValue, SideMaxValue)]
         public double? SideB { get; set; }
 
-        [Required]
         [Range(HeightMinValue, HeightMaxValue)]
         public double Height { get; set; }
 
-        [Required]
         [Range(AreaMinValue, AreaMaxValue)]
         public double Area { get; set; }
 
-        [Required]
         [Range(VolumeMinValue, VolumeMaxValue)]
         public double Volume { get; set; }
 

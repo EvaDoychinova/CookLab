@@ -15,7 +15,7 @@
         [Display(Name = SelectedIngredientsNameDisplayName)]
         public string IngredientId { get; set; }
 
-        [Range(WeightMinLength, WeightMaxLength, ErrorMessage = InvalidRangeError)]
+        [Range(WeightMinValue, WeightMaxValue, ErrorMessage = InvalidRangeError)]
         [Display(Name = SelectedIngredientsWeightDisplayName)]
         public double WeightInGrams { get; set; }
 
