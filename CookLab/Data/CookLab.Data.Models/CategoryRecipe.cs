@@ -13,7 +13,6 @@
 
         public virtual Recipe Recipe { get; set; }
 
-        [Required]
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
 

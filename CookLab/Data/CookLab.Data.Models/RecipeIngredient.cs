@@ -7,6 +7,8 @@
     using CookLab.Data.Common.Models;
     using CookLab.Data.Models.Enums;
 
+    using static CookLab.Common.ModelsValidations.RecipesIngredientsValidations;
+
     public class RecipeIngredient : BaseDeletableModel<string>
     {
         public RecipeIngredient()
@@ -26,8 +28,10 @@
 
         public virtual Recipe Recipe { get; set; }
 
+        [Range(WeightMinValue, WeightMaxValue)]
         public double WeightInGrams { get; set; }
 
+        [Range(PartOfRecipeMinValue, PartOfRecipeMaxValue)]
         public IngredientPartOfRecipe PartOfRecipe { get; set; }
     }
 }

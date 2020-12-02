@@ -17,6 +17,7 @@
         }
 
         [Required]
+        [MaxLength(NameMaxValue)]
         public string Name { get; set; }
 
         [Range(VolumeMinValue, VolumeMaxValue)]

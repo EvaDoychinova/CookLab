@@ -5,6 +5,8 @@
 
     using CookLab.Data.Common.Models;
 
+    using static CookLab.Common.ModelsValidations.CategoriesValidations;
+
     public class Category : BaseDeletableModel<int>
     {
         public Category()
@@ -13,6 +15,7 @@
         }
 
         [Required]
+        [MaxLength(NameMaxValue)]
         public string Name { get; set; }
 
         [Required]
