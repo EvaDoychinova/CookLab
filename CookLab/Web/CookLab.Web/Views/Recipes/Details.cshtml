@@ -9,11 +9,11 @@
     this.ViewData["Title"] = Model.Name;
 }
 
-<div class="container-fluid p-0 row h-100 align-items-center justify-content-center text-center m-0">
-    <div class="col-md-10 col-lg-10 align-self-end mt-lg-5">
+<div class="container-fluid p-0 text-center m-0 mb-4 rounded">
+    <div class="col-md-10 col-lg-10 mt-lg-5 mx-auto">
         <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
         <div class=" row justify-content-between col-lg-10 mx-auto">
-            <a class="text-white bg-transparent" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-userId="@Model.CreatorId">
+            <a class="bg-transparent author-recipe" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-userId="@Model.CreatorId">
                 <i class="fas fa-pen-fancy"></i>
                 <span class="pl-2">Author: @Model.Creator.UserName</span>
             </a>
@@ -24,9 +24,9 @@
         </div>
         <hr class="divider mb-4" />
     </div>
-    <div class="col-lg-10 align-self-baseline">
+    <div class="col-lg-11 mx-auto">
         <div class="row justify-content-between align-items-start">
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -57,21 +57,28 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <div class="col-sm-8 col-md-12 text-center mx-auto my-4 py-2 border-top border-bottom">
-                    <span>@Model.Users.Count</span>
-                    <i class="fas fa-heart i-hoverable" id="likeRecipe"></i>
-                    @if (Model.Users.Any(x => x.UserUserName == this.User.Identity.Name))
-                    {
-                        <span>Recipe is in your list</span>
-                    }
-                    else
-                    {
-                        <span>Add recipe to your list</span>
-                    }
+                <div class="col-sm-8 col-md-12 text-center mx-auto my-4 py-2 border-top border-bottom position-relative">
+                    <span id="usersCount">@Model.Users.Count</span>
+                    <span class="position-relative" id="addOrRemoveSpan">
+                        @if (Model.Users.Any(x => x.UserUserName == this.User.Identity.Name))
+                        {
+                            <a class="bg-transparent text-white" id="removeRecipe">
+                                <i class="fas fa-heart-broken i-hoverable"></i>
+                            </a>
+                            <span>Remove from list</span>
+                        }
+                        else
+                        {
+                            <a class="bg-transparent text-white" id="addRecipe">
+                                <i class="fas fa-heart i-hoverable"></i>
+                            </a>
+                            <span>Add to list</span>
+                        }
+                    </span>
                 </div>
             </div>
 
-            <div class="col-sm-8 mx-sm-auto mx-md-0 col-md-6 col-lg-5 my-3">
+            <div class="mx-sm-auto mx-lg-0 col-sm-8 col-md-10 col-lg-6 col-xl-5 my-3">
                 <ul class="list-group list-unstyled align-items-stretch text-left list-inline">
                     <li class="border-top p-2 border-bottom mb-3">
                         <i class="fas fa-clock"></i>
@@ -131,7 +138,7 @@
         </div>
 
         <div class="justify-content-between align-items-start">
-            <div class=" col-sm-8 mx-sm-auto my-3 p-0">
+            <div class=" col-sm-8 col-md col-lg-10 col-xl-8 mx-sm-auto my-3 p-0">
                 <h4 class="py-2">
                     <i class="fas fa-clipboard-list"></i>
                     <span class="pl-3 border-bottom pb-2">Ingredients</span>
@@ -139,13 +146,13 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                                   .GroupBy(x => x.PartOfRecipe)
-                                   .OrderBy(x => x.Key)
-                                   .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
-                                   {
-                                       IngredientName = y.Ingredient.Name,
-                                       WeightInGrams = y.WeightInGrams,
-                                   })))
+                 .GroupBy(x => x.PartOfRecipe)
+                 .OrderBy(x => x.Key)
+                 .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
+                 {
+                     IngredientName = y.Ingredient.Name,
+                     WeightInGrams = y.WeightInGrams,
+                 })))
 
                         {
                             <li>
@@ -173,7 +180,7 @@
                 </div>
             </div>
 
-            <div class=" col-sm-8 mx-sm-auto my-3 p-0">
+            <div class=" col-sm-8 col-md col-lg-10 col-xl-8 mx-sm-auto my-3 p-0">
                 <div class="mx-auto my-3 p-0">
                     <h4 class="py-2">
                         <i class="fas fa-mortar-pestle"></i>
@@ -205,13 +212,16 @@
         </div>
 
         <div class="row flex-wrap flex-sm-nowrap col-md-9 col-lg-9 mx-auto justify-content-between p-0">
-            <a class="btn btn-primary col-5 col-sm-3 m-1 m-md-2 my-auto" asp-area="" asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-            <a class="btn btn-danger col-5 col-sm-3 m-1 m-md-2 my-auto" asp-area="" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            <a class="btn btn-primary col-5 col-sm-3 m-1 my-md-auto" asp-area="" asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-danger col-5 col-sm-3 m-1 my-md-auto" asp-area="" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             <a class="btn btn-secondary col-12 mt-3 mt-sm-1 col-sm-5 m-1 m-md-2" asp-area="" asp-controller="Recipes" asp-action="All">Back to Recipes</a>
         </div>
     </div>
 </div>
+<form method="post" id="antiForgeryForm"></form>
 
 @section Scripts{
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/ajax.js" asp-append-version="true"></script>
+    <script>document.onload = addOrRemoveRecipeFromUserList("@Model.Id");</script>
 }

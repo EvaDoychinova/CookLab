@@ -4,5 +4,10 @@
 
     public interface IUserRecipesService
     {
+        Task AddRecipeToUserListAsync(string userId, string recipeId);
+
+        Task RemoveRecipeFromUserListAsync(string userId, string recipeId);
+
+        Task<int> GetUsersForRecipeAsync(string recipeId);
     }
 }

@@ -12,9 +12,9 @@
                 <a class="nav-link dropdown-toggle js-scroll-trigger" href="#" role="button" id="dropdownMyRecipesLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Recipes</a>
 
-                <div class="dropdown-menu bg-transparent border-0" aria-labelledby="dropdownMyRecipesLink">
-                    <a class="dropdown-item rounded" asp-area="" asp-controller="Recipes" asp-action="AllCreatedByMe">My List</a>
-                    <a class="dropdown-item rounded" asp-area="" asp-controller="Recipes" asp-action="AllMy">Created By Me</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMyRecipesLink" id="dropdownRecipes">
+                    <a class="dropdown-item rounded nav-link" asp-area="" asp-controller="Recipes" asp-action="AllCreatedByMe">Created By Me</a>
+                    <a class="dropdown-item rounded nav-link" asp-area="" asp-controller="Recipes" asp-action="AllMy">My List</a>
                 </div>
             </div>
         </li>
