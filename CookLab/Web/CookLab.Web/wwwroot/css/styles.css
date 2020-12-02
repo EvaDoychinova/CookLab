@@ -553,7 +553,7 @@ pre {
 .container-lg,
 .container-md,
 .container-sm {
-    width: 100%;
+    width: 90%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -562,25 +562,33 @@ pre {
 
 @media (min-width: 576px) {
     .container-sm, .container {
-        max-width: 540px;
+        min-width: 540px;
+        width: 90%;
+        max-width: 720px;
     }
 }
 
 @media (min-width: 768px) {
     .container-md, .container-sm, .container {
-        max-width: 720px;
+        min-width: 720px;
+        width: 90%;
+        max-width: 960px;
     }
 }
 
 @media (min-width: 992px) {
     .container-lg, .container-md, .container-sm, .container {
-        max-width: 960px;
+        min-width: 960px;
+        width: 90%;
+        max-width: 1140px;
     }
 }
 
 @media (min-width: 1200px) {
     .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 1140px;
+        min-width: 1140px;
+        width: 90%;
+        max-width: 1800px;
     }
 }
 
