@@ -321,11 +321,9 @@ a.recipe-title {
 }
 
 a.dropdown-item {
-    
 }
 
     a.dropdown-item:hover {
-        
     }
 
 #dropdownRecipes .dropdown-item.nav-link {
@@ -343,4 +341,39 @@ a.dropdown-item {
 
 .bg-custom {
     background-color: #ffffffcc;
+}
+
+.img-container-httpError {
+    position: relative;
+    border-radius: 10px;
+    min-height: 200px;
+    max-height: 400px;
+    min-width: 200px;
+    width: 100%;
+    max-width: 400px;
+}
+
+@media (min-width: 576px) {
+    .img-container-httpError {
+        min-height: 300px;
+    }
+}
+
+@media (min-width: 768px) {
+    .img-container-httpError {
+        min-height: 350px;
+    }
+}
+
+@media (min-width: 992px) {
+    .img-container-httpError {
+        min-height: 400px;
+    }
+}
+
+.img-httpError {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

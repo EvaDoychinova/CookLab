@@ -6,6 +6,7 @@
         public const string HomePageTitle = "Home";
         public const string AboutPageTitle = "About";
         public const string PrivacyPageTitle = "Privacy Policy";
+        public const string HttpErrorPageTitle = "Page not found";
 
         // Categories Page Titles
         public const string CategoriesAllPageTitle = "List of Categories";

@@ -57,12 +57,22 @@
         {
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientViewModel>(id);
 
+            if (ingredient == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(ingredient);
         }
 
         public async Task<IActionResult> Edit(string id)
         {
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientEditViewModel>(id);
+
+            if (ingredient == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(ingredient);
         }
@@ -82,6 +92,11 @@
         public async Task<IActionResult> Delete(string id)
         {
             var ingredient = await this.ingredientsService.GetByIdAsync<IngredientDeleteViewModel>(id);
+
+            if (ingredient == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(ingredient);
         }

@@ -9,7 +9,6 @@
     using CookLab.Data.Repositories;
     using CookLab.Data.Seeding;
     using CookLab.Models.ViewModels;
-    using CookLab.Services;
     using CookLab.Services.Data;
     using CookLab.Services.Mapping;
     using CookLab.Services.Messaging;
@@ -105,6 +104,7 @@
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

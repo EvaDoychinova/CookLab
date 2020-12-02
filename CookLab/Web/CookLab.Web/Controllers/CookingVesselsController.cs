@@ -58,12 +58,22 @@
         {
             var cookingVessel = await this.cookingVesselsService.GetByIdAsync<CookingVesselViewModel>(id);
 
+            if (cookingVessel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(cookingVessel);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             var cookingVessel = await this.cookingVesselsService.GetByIdAsync<CookingVesselDeleteViewModel>(id);
+
+            if (cookingVessel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(cookingVessel);
         }

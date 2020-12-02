@@ -5,7 +5,6 @@
 
     using CookLab.Data.Models;
     using CookLab.Models.ViewModels.RecipeImages;
-    using CookLab.Models.ViewModels.Users;
     using CookLab.Services.Mapping;
 
     public class SideBarRecipeViewModel : IMapFrom<Recipe>

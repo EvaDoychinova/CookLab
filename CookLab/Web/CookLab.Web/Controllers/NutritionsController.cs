@@ -49,19 +49,5 @@
 
             return this.RedirectToAction("Details", "Ingredients", new { id = id });
         }
-
-        public async Task<IActionResult> IngredientNutrition(string id)
-        {
-            var nutrition = await this.nutritionsService.ShowNutritionAsync<NutritionViewModel>(id, null);
-
-            return this.View("Details", nutrition);
-        }
-
-        public async Task<IActionResult> RecipeNutrition(string id)
-        {
-            var nutrition = await this.nutritionsService.ShowNutritionAsync<NutritionViewModel>(null, id);
-
-            return this.View("Details", nutrition);
-        }
     }
 }

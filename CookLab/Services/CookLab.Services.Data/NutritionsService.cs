@@ -126,23 +126,12 @@
             }
         }
 
-        public async Task<T> ShowNutritionAsync<T>(string ingredientId = null, string recipeId = null)
-        {
-            var nutrition = await this.nutritionRepository.All()
-                .Where(x => x.IngredientId == ingredientId && x.RecipeId == recipeId)
-                .To<T>()
-                .FirstOrDefaultAsync();
-
-            return nutrition;
-        }
-
         private double CalculateNutritionElementForWholeRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)
         {
             var nutritionElement = ingredients
                 .Sum(x => x.WeightInGrams / 100 * (double)x.Ingredient.NutritionPer100Grams
                                                         .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
 
-            // var nutritionElementPer100Grams = nutritionElement / ingredients.Sum(x => x.WeightInGrams);
             return nutritionElement;
         }
     }

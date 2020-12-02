@@ -127,14 +127,25 @@
         public async Task<IActionResult> Details(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeDetailsViewModel>(id);
-            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
 
+            if (recipe == null)
+            {
+                return this.NotFound();
+            }
+
+            recipe.CookingVessels = await this.cookingVesselsService.GetAllCookingVesselsSelectListAsync();
             return this.View(recipe);
         }
 
         public async Task<IActionResult> Edit(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeEditViewModel>(id);
+
+            if (recipe == null)
+            {
+                return this.NotFound();
+            }
+
             recipe.CategoriesCategoryId = await this.categoryRecipeService.GetAllCategoriesForRecipeAsync(id);
             recipe.CategoriesToSelect = await this.categoriesService.GetAllCategoriesSelectListAsync();
             recipe.IngredientsToSelect = await this.ingredientsService.GetAllIngredientsSelectListAsync();
@@ -165,6 +176,11 @@
         public async Task<IActionResult> Delete(string id)
         {
             var recipe = await this.recipesService.GetByIdAsync<RecipeDeleteViewModel>(id);
+
+            if (recipe == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(recipe);
         }
