@@ -16,7 +16,7 @@
         }
 
         [Required]
-        [MaxLength(NameMaxValue)]
+        [MaxLength(DatabaseNameMaxValue)]
         public string Name { get; set; }
 
         [Range(FormMinValue, FormMaxValue)]

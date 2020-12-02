@@ -6,6 +6,7 @@
     using CookLab.Models.InputModels.Ingredients;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Services.Data;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class IngredientsController : BaseController

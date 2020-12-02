@@ -16,8 +16,6 @@
 
         public IEnumerable<ImageRecipeViewModel> Images { get; set; }
 
-        public UserViewModel Creator { get; set; }
-
         public DateTime CreatedOn { get; set; }
     }
 }
