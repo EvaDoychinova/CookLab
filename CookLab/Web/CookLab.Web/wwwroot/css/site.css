@@ -155,10 +155,10 @@ main a {
     position: relative;
     border-radius: 10px;
     min-height: 150px;
-    height:calc(50vh);
+    height: calc(50vh);
     max-height: 250px;
-    min-width:250px;
-    width:100%;
+    min-width: 250px;
+    width: 100%;
     max-width: 500px;
 }
 
@@ -321,5 +321,14 @@ a.recipe-title {
 }
 
 .card {
-max-width:310px;
+    max-width: 310px;
 }
+
+a.dropdown-item {
+    color: white;
+    transition: all 0.3s ease-out;
+}
+
+    a.dropdown-item:hover {
+        color: #f4623a;
+    }
