@@ -37,9 +37,7 @@
             }
 
             var rootPath = this.webHostEnvironment.WebRootPath;
-
             await this.categoriesService.CreateAsync(inputModel, rootPath);
-
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -65,12 +63,22 @@
         {
             var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(id);
 
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(category);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var category = await this.categoriesService.GetByIdAsync<CategoryEditViewModel>(id);
+
+            if (category == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(category);
         }
@@ -84,15 +92,18 @@
             }
 
             var rootPath = this.webHostEnvironment.WebRootPath;
-
             await this.categoriesService.EditAsync(viewModel, rootPath);
-
             return this.RedirectToAction(nameof(this.Details), new { id = viewModel.Id });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             var category = await this.categoriesService.GetByIdAsync<CategoryDeleteViewModel>(id);
+
+            if (category == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(category);
         }
@@ -101,7 +112,6 @@
         public async Task<IActionResult> Delete(CategoryDeleteViewModel viewModel)
         {
             await this.categoriesService.DeleteAsync(viewModel.Id);
-
             return this.RedirectToAction(nameof(this.All));
         }
     }

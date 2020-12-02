@@ -11,7 +11,6 @@
     using CookLab.Models.ViewModels.RecipeImages;
     using CookLab.Models.ViewModels.RecipeIngredients;
     using CookLab.Models.ViewModels.UserRecipes;
-    using CookLab.Models.ViewModels.Users;
     using CookLab.Services.Mapping;
 
     using Microsoft.AspNetCore.Mvc.Rendering;

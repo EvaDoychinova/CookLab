@@ -1,0 +1,26 @@
+﻿@using CookLab.Common
+@using CookLab.Models.ViewModels
+
+@model HttpErrorViewModel
+@{ this.ViewData["Title"] = PageTitles.HttpErrorPageTitle; }
+
+<div class="container d-flex flex-column align-items-center mt-n5 mt-lg-0">
+    <h1 class="text-wrap text-center pt-lg-3">@this.ViewData["Title"]: @Model.StatusCode</h1>
+    <h3 class="text-wrap text-center">We are sorry for that!</h3>
+    <div class="img-container-httpError rounded overflow-hidden my-3">
+        <img src="~/assets/img/httpErrorImage.jpg" alt="Not found page" class="img-fluid img-httpError">
+    </div>
+    <div class="container d-flex flex-column align-items-center">
+        <p class="text-center">
+            We are sorry, the page you requested could not be found. Please go back to the homepage or use the contact form. Thank your for your understanding!
+        </p>
+        <div class="row justify-content-center align-items-center p-0">
+            <a class="btn btn-primary m-3" asp-controller="Home" asp-action="Index">
+                <span class="label label-primary">Home</span>
+            </a>
+            <a class="btn btn-primary m-3" asp-controller="Contacts" asp-action="Index">
+                <span class="label label-primary">Contact</span>
+            </a>
+        </div>
+    </div>
+</div>
