@@ -105,5 +105,22 @@
             public const int PartOfRecipeMinValue = 0;
             public const int PartOfRecipeMaxValue = 8;
         }
+
+        public static class ContactsValidations
+        {
+            public const int NameMinLength = 2;
+            public const int NameMaxLength = 50;
+
+            public const int EmailMaxLength = 100;
+
+            public const int TitleMinLength = 5;
+            public const int TitleMaxLength = 100;
+
+            public const int MessageMinLength = 5;
+            public const int MessageMaxLength = int.MaxValue;
+
+            public const int IpAddressMinLength = (4 * 1) + 3;
+            public const int IpAddressMaxLength = (8 * 4) + 7;
+        }
     }
 }

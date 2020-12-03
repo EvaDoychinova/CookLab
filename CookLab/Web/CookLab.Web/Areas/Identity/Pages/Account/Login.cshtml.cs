@@ -13,6 +13,8 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
 
+    using static CookLab.Common.DisplayNames.UserDisplayNames;
+
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
@@ -43,6 +45,7 @@
         public class InputModel
         {
             [Required]
+            [Display(Name = UserUsername)]
             public string UserName { get; set; }
 
             [Required]

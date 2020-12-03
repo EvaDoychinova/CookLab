@@ -1,0 +1,55 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using CookLab.Models.InputModels.ContactForms
+
+@model ContactFormInputModel
+
+@{
+    this.ViewData["Title"] = PageTitles.ContactsIndexPageTitle;
+}
+
+<div class="col-md-8 col-lg-6 col-xl-5 m-auto">
+    <h2>@this.ViewData["Title"]</h2>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <p>
+            By pressing the button "Send us a message" you confirm that are aware of our
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">privacy policy</a>
+            and agree with it.
+        </p>
+        <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+        <input type="submit" class="btn btn-primary" value="Send us a message" />
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

@@ -1,0 +1,13 @@
+﻿@{
+    this.ViewData["Title"] = PageTitles.ThankYouPageTitle;
+}
+
+<div class="container m-auto">
+    <div>
+        <h1 class="text-center">@this.ViewData["Title"]</h1>
+        <h4 class="text-center">Please expect a reply at the email address you provided!</h4>
+    </div>
+    <div class="m-5 text-center">
+        <a class="btn btn-xl btn-primary" asp-controller="Home" asp-action="Index">Back to homepage</a>
+    </div>
+</div>

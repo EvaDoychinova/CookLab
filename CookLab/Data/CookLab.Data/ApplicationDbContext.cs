@@ -30,6 +30,8 @@
 
         public DbSet<CategoryRecipe> CategoryRecipes { get; set; }
 
+        public DbSet<ContactForm> Contacts { get; set; }
+
         public DbSet<CookingVessel> CookingVessels { get; set; }
 
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -41,6 +43,8 @@
         public DbSet<RecipeImage> RecipeImages { get; set; }
 
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+
+        public DbSet<UserRecipe> UserRecipes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
 
     using CookLab.Data.Models;
+
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,8 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+
+    using static CookLab.Common.DisplayNames.UserDisplayNames;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -48,7 +51,7 @@
         {
             [Required]
             [StringLength(30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [Display(Name = "UserName")]
+            [Display(Name = UserUsername)]
             public string UserName { get; set; }
 
             [Required]

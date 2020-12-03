@@ -36,5 +36,9 @@
         public const string RecipeAllMyPageTitle = "My Recipes List";
         public const string RecipeEditPageTitle = "Edit Recipe {0}";
         public const string RecipeDeletePageTitle = "Delete Recipe {0}";
+
+        // Contacts Page Titles
+        public const string ContactsIndexPageTitle = "Contact us";
+        public const string ThankYouPageTitle = "Thank you for contacting us!";
     }
 }
