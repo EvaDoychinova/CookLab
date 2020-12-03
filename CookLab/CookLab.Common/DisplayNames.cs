@@ -2,6 +2,11 @@
 {
     public static class DisplayNames
     {
+        public static class UserDisplayNames
+        {
+            public const string UserUsername = "Username";
+        }
+
         public static class CategoriesDisplayNames
         {
             public const string CategoryName = "Category name";
@@ -57,6 +62,17 @@
             public const string NotesDisplayName = "Additional information";
 
             public const string ImagesDisplayName = "Choose images...";
+        }
+
+        public static class ContactsDisplayNames
+        {
+            public const string NameDisplayName = "Your name:";
+
+            public const string EmailDisplayName = "Your e-mail address:";
+
+            public const string TitleDisplayName = "Subject:";
+
+            public const string MessageDisplayName = "Message:";
         }
     }
 }
