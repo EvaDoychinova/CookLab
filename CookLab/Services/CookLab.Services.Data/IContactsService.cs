@@ -6,6 +6,6 @@
 
     public interface IContactsService
     {
-        Task SendEmailToAdminAsync(ContactFormInputModel inputModel, string ipAddress);
+        Task SendEmailToAdminAsync(ContactFormInputModel inputModel);
     }
 }

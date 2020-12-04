@@ -30,8 +30,7 @@
                 return this.View(inputModel);
             }
 
-            var ipAddress = this.Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            await this.contactsService.SendEmailToAdminAsync(inputModel, ipAddress);
+            await this.contactsService.SendEmailToAdminAsync(inputModel);
 
             this.TempData[GlobalConstants.RedirectedFromContactForm] = true;
             return this.RedirectToAction(nameof(this.ThankYou));
