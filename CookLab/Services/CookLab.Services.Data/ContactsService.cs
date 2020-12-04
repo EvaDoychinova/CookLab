@@ -21,7 +21,7 @@
             this.emailSender = emailSender;
         }
 
-        public async Task SendEmailToAdminAsync(ContactFormInputModel inputModel, string ipAddress)
+        public async Task SendEmailToAdminAsync(ContactFormInputModel inputModel)
         {
             var contactForm = new ContactForm
             {
@@ -29,7 +29,6 @@
                 Email = inputModel.Email,
                 Title = inputModel.Title,
                 Message = inputModel.Message,
-                Id = ipAddress,
             };
 
             await this.contactsRepository.AddAsync(contactForm);
@@ -42,5 +41,10 @@
                 contactForm.Title,
                 contactForm.Message);
         }
+
+        //public async Task AddUserToAdminUserList(string email)
+        //{
+
+        //}
     }
 }

@@ -252,8 +252,8 @@
             }
 
             recipe.Name = viewModel.Name;
-            recipe.PreparationTime = viewModel.PreparationTime;
-            recipe.CookingTime = viewModel.CookingTime;
+            recipe.PreparationTime = TimeSpan.FromMinutes(viewModel.PreparationTime);
+            recipe.CookingTime = TimeSpan.FromMinutes(viewModel.CookingTime);
             recipe.Portions = viewModel.Portions;
             recipe.Preparation = viewModel.Preparation;
             recipe.Notes = viewModel.Notes;

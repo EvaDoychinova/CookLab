@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using CookLab.Data.Common.Models;
@@ -8,6 +9,11 @@
 
     public class ContactForm : BaseDeletableModel<string>
     {
+        public ContactForm()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
@@ -24,8 +30,8 @@
         [MaxLength(MessageMaxLength)]
         public string Message { get; set; }
 
-        [Required]
-        [MaxLength(IpAddressMaxLength)]
-        public string IpAddress { get; set; }
+        //[Required]
+        //[MaxLength(IpAddressMaxLength)]
+        //public string IpAddress { get; set; }
     }
 }
