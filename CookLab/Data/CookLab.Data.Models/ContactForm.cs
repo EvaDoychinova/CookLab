@@ -29,9 +29,5 @@
         [Required]
         [MaxLength(MessageMaxLength)]
         public string Message { get; set; }
-
-        //[Required]
-        //[MaxLength(IpAddressMaxLength)]
-        //public string IpAddress { get; set; }
     }
 }

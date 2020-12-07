@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookLab.Data.Migrations
+﻿namespace CookLab.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddContactFormEntityToDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,7 +66,7 @@ namespace CookLab.Data.Migrations
                     Email = table.Column<string>(maxLength: 100, nullable: false),
                     Title = table.Column<string>(maxLength: 100, nullable: false),
                     Message = table.Column<string>(maxLength: 2147483647, nullable: false),
-                    IpAddress = table.Column<string>(maxLength: 39, nullable: false)
+                    IpAddress = table.Column<string>(maxLength: 39, nullable: false),
                 },
                 constraints: table =>
                 {
