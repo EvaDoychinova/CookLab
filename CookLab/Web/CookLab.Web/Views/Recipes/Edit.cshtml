@@ -75,6 +75,7 @@
                     <div class="form-group col-7">
                         <select asp-for="@ingredients[i].IngredientId" asp-items="Model.IngredientsToSelect"
                                 class="form-control select-ingredients">
+                            <option></option>
                         </select>
                         <span asp-validation-for="@ingredients[i].IngredientId" class="text-danger"></span>
                     </div>
@@ -87,6 +88,7 @@
                     <div class="form-group col-3">
                         <select asp-for="@ingredients[i].PartOfRecipe" asp-items="@Html.GetEnumSelectList<IngredientPartOfRecipe>()"
                                 class="form-control select-partOfRecipe">
+                            <option></option>
                         </select>
                         <span asp-validation-for="@ingredients[i].PartOfRecipe" class="text-danger"></span>
                     </div>
@@ -95,7 +97,7 @@
         </div>
 
         <div class="form-group">
-            <button class=" btn btn-secondary" id="btn-add-ingredient">Add new ingredient</button>
+            <input type="button" class="btn btn-secondary" id="btn-add-ingredient" value="Add new ingredient"/>
         </div>
 
         <div class="form-group">

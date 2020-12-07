@@ -35,16 +35,11 @@
             await this.contactsRepository.SaveChangesAsync();
 
             await this.emailSender.SendEmailAsync(
-                contactForm.Email,
-                contactForm.Name,
                 GlobalConstants.AdinistratorEmail,
+                contactForm.Name,
+                contactForm.Email,
                 contactForm.Title,
                 contactForm.Message);
         }
-
-        //public async Task AddUserToAdminUserList(string email)
-        //{
-
-        //}
     }
 }
