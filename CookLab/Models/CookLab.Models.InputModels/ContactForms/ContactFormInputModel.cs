@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CookLab.Web.Infrastructure.Attributes;
+
     using static CookLab.Common.DisplayNames.ContactsDisplayNames;
     using static CookLab.Common.ErrorMessages;
     using static CookLab.Common.ModelsValidations.ContactsValidations;
@@ -27,5 +29,8 @@
         [StringLength(MessageMaxLength, MinimumLength = MessageMinLength, ErrorMessage = StringLengthError)]
         [Display(Name = MessageDisplayName)]
         public string Message { get; set; }
+
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }
