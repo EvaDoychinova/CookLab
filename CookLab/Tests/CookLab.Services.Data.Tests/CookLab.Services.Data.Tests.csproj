@@ -31,4 +31,10 @@
     <ProjectReference Include="..\..\Services\CookLab.Services.Data\CookLab.Services.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

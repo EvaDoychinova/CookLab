@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ICategoryRecipeService
+    public interface ICategoryRecipesService
     {
         Task<IList<int>> GetAllCategoriesForRecipeAsync(string recipeId);
     }
