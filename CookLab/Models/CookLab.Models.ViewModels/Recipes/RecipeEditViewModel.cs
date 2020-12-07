@@ -28,21 +28,9 @@
         [Display(Name = RecipeNameDisplayName)]
         public string Name { get; set; }
 
-        //[Required(ErrorMessage = RequiredInputFieldError)]
-        //[Range(typeof(TimeSpan), MinPreparationTime, MaxPreparationTime, ErrorMessage = InvalidRangeError)]
-        //[Display(Name = PreparationTimeDisplayName)]
-        //[DataType(DataType.Duration)]
-        //public TimeSpan PreparationTime { get; set; }
-
         [Range(MinPreparationTimeInMinutes, MaxPreparationTimeInMinutes, ErrorMessage = InvalidRangeError)]
         [Display(Name = PreparationTimeDisplayName)]
         public int PreparationTime { get; set; }
-
-        //[Required(ErrorMessage = RequiredInputFieldError)]
-        //[Range(typeof(TimeSpan), MinCookingTime, MaxCookingTime, ErrorMessage = InvalidRangeError)]
-        //[Display(Name = CookingTimeDisplayName)]
-        //[DataType(DataType.Duration)]
-        //public TimeSpan CookingTime { get; set; }
 
         [Range(MinCookingTimeInMinutes, MaxCookingTimeInMinutes, ErrorMessage = InvalidRangeError)]
         [Display(Name = CookingTimeDisplayName)]
