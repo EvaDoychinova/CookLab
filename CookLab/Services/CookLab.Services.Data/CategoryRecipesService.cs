@@ -6,15 +6,14 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-    using CookLab.Services.Mapping;
 
     using Microsoft.EntityFrameworkCore;
 
-    public class CategoryRecipeService : ICategoryRecipeService
+    public class CategoryRecipesService : ICategoryRecipesService
     {
         private readonly IDeletableEntityRepository<CategoryRecipe> categoryRecipeRepository;
 
-        public CategoryRecipeService(IDeletableEntityRepository<CategoryRecipe> categoryRecipeRepository)
+        public CategoryRecipesService(IDeletableEntityRepository<CategoryRecipe> categoryRecipeRepository)
         {
             this.categoryRecipeRepository = categoryRecipeRepository;
         }
@@ -24,7 +23,7 @@
             var categories = await this.categoryRecipeRepository.AllAsNoTracking()
                 .Where(x => x.RecipeId == recipeId)
                 .OrderBy(x => x.Category.Name)
-                .Select(x => x.Category.Id)
+                .Select(x => x.CategoryId)
                 .ToListAsync();
 
             return categories;

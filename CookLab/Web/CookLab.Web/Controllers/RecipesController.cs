@@ -21,7 +21,7 @@
         private readonly ICategoriesService categoriesService;
         private readonly IIngredientsService ingredientsService;
         private readonly ICookingVesselsService cookingVesselsService;
-        private readonly ICategoryRecipeService categoryRecipeService;
+        private readonly ICategoryRecipesService categoryRecipeService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -30,7 +30,7 @@
             ICategoriesService categoriesService,
             IIngredientsService ingredientsService,
             ICookingVesselsService cookingVesselsService,
-            ICategoryRecipeService categoryRecipeService,
+            ICategoryRecipesService categoryRecipeService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment webHostEnvironment)
         {
