@@ -10,6 +10,7 @@
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Categories;
     using CookLab.Models.ViewModels.Categories;
+    using CookLab.Services.Data.Tests.AsyncClasses;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
 
@@ -19,8 +20,9 @@
 
     public class CategoriesServiceTests
     {
-        private const string CategoryTestName = "Test";
-        private const string TestImageName = "TestCategory.jpg";
+        private const string TestCategoryName = "Test";
+        private const string TestImageUrl = "~/Test.jpg";
+        private const string TestImageName = "Test.jpg";
         private const string TestImageContentType = "image/jpg";
 
         [Fact]
@@ -47,7 +49,7 @@
             await service.CreateAsync(
                 new CategoryInputModel
                 {
-                    Name = CategoryTestName,
+                    Name = TestCategoryName,
                     Image = file,
                 },
                 string.Empty);
@@ -81,7 +83,7 @@
             await Assert.ThrowsAsync<ArgumentException>(async () => await service.CreateAsync(
                 new CategoryInputModel
                 {
-                    Name = CategoryTestName,
+                    Name = TestCategoryName,
                     Image = file,
                 },
                 string.Empty));
@@ -90,17 +92,18 @@
         [Fact]
         public async Task DoesCategoryGetAllWorkCorrectly()
         {
-            var list = new List<Category>
+            var list = new TestAsyncEnumerable<Category>(new List<Category>
             {
                 new Category
                 {
-                    Name = CategoryTestName,
+                    Id = 1,
+                    Name = TestCategoryName,
+                    ImageUrl = TestImageUrl,
                 },
-            };
-            var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>();
-            mockCategoryRepo.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockCategoryRepo.Setup(x => x.AddAsync(It.IsAny<Category>()))
-                    .Callback((Category category) => list.Add(category));
+            }).AsQueryable();
+
+            var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>(MockBehavior.Strict);
+            mockCategoryRepo.Setup(x => x.AllAsNoTracking()).Returns(list);
 
             var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
 
@@ -108,7 +111,8 @@
 
             var categories = await service.GetAllAsync<CategoryViewModel>();
             var categoryName = categories.FirstOrDefault().Name;
-            Assert.Equal(CategoryTestName, categoryName);
+            var count = categories.Count();
+            Assert.Equal(1, count);
         }
     }
 }

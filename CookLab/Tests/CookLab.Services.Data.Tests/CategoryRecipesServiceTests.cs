@@ -6,8 +6,7 @@
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
-
-    using Microsoft.EntityFrameworkCore;
+    using CookLab.Services.Data.Tests.AsyncClasses;
 
     using Moq;
 
@@ -15,12 +14,12 @@
 
     public class CategoryRecipesServiceTests
     {
-        public const string TestRecipeId = "4ae46bcd-5469-4e92-bf1e-f105fe11c79a";
+        public const string TestRecipeId = "TestRecipeId";
 
         [Fact]
         public async Task DoesGetAllCategoriesForRecipeAsyncWorkCorrectly()
         {
-            var list = new List<CategoryRecipe>
+            var list = new TestAsyncEnumerable<CategoryRecipe>(new List<CategoryRecipe>
             {
                 new CategoryRecipe
                 {
@@ -40,19 +39,17 @@
                     },
                     RecipeId = TestRecipeId,
                 },
-            };
-
-            var categories = list.AsQueryable();
+            }).AsQueryable();
 
             var mockCategoryRecipesRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
-            mockCategoryRecipesRepo.Setup(x => x.AllAsNoTracking()).Returns(categories);
+            mockCategoryRecipesRepo.Setup(x => x.AllAsNoTracking()).Returns(list);
 
             var service = new CategoryRecipesService(mockCategoryRecipesRepo.Object);
 
-            var categoriesResult = service.GetAllCategoriesForRecipeAsync(TestRecipeId).GetAwaiter().GetResult();
+            var categoriesResult = await service.GetAllCategoriesForRecipeAsync(TestRecipeId);
 
-            Assert.Equal(1, categoriesResult.First());
             Assert.Equal(2, categoriesResult.Count);
+            Assert.Equal(1, categoriesResult[0]);
         }
     }
 }
