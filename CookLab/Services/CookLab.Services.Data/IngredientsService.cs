@@ -148,13 +148,12 @@
 
         public async Task<IEnumerable<SelectListItem>> GetAllIngredientsSelectListAsync()
         {
-            var ingredientsViewModel = await this.GetAllAsync<IngredientRecipeViewModel>();
+            var ingredients = await this.ingredientRepository.AllAsNoTracking()
+                    .OrderBy(x => x.Name)
+                    .Select(x => new SelectListItem(x.Name, x.Id))
+                    .ToListAsync();
 
-            var inredients = ingredientsViewModel
-                    .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                    .ToList();
-
-            return inredients;
+            return ingredients;
         }
     }
 }

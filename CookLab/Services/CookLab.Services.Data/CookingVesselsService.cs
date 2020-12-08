@@ -148,11 +148,10 @@
 
         public async Task<IEnumerable<SelectListItem>> GetAllCookingVesselsSelectListAsync()
         {
-            var cookingVesselsViewModel = await this.GetAllAsync<CookingVesselRecipeViewModel>();
-
-            var cookingVessels = cookingVesselsViewModel
+            var cookingVessels = await this.cookingVesselRepository.AllAsNoTracking()
+                    .OrderBy(x => x.Name)
                     .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                    .ToList();
+                    .ToListAsync();
 
             return cookingVessels;
         }
