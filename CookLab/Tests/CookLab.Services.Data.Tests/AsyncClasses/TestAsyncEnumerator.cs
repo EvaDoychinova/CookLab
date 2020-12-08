@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Services.Data.Tests.AsyncClasses
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -13,7 +14,7 @@
             this.inner = inner;
         }
 
-        public async Task DisposeAsync()
+        public async ValueTask DisposeAsync()
         {
             this.inner.Dispose();
         }
@@ -26,7 +27,7 @@
             }
         }
 
-        public async Task<bool> MoveNextAsync(CancellationToken cancellationToken)
+        public async ValueTask<bool> MoveNextAsync()
         {
             return await Task.FromResult(this.inner.MoveNext());
         }
