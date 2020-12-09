@@ -290,7 +290,7 @@
         [Fact]
         public async Task DoesIngredientsGetAllIngredientsSelectListAsyncWorkCorrectly()
         {
-            var list = new TestAsyncEnumerable<Ingredient>(new List<Ingredient>
+            var list = new List<Ingredient>
             {
                 new Ingredient
                 {
@@ -298,27 +298,9 @@
                   Name = TestIngredientName,
                   VolumeInMlPer100Grams = TestVolumeIngredient,
                 },
-            }).AsQueryable();
+            };
 
-            var mockIngredientRepo = new Mock<IDeletableEntityRepository<Ingredient>>(MockBehavior.Strict);
-            mockIngredientRepo.Setup(x => x.AllAsNoTracking())
-                .Returns(list);
-
-            var mockNutritionsRepo = new Mock<IDeletableEntityRepository<Nutrition>>();
-            var mockRecipeRepo = new Mock<IDeletableEntityRepository<Recipe>>();
-
-            var mockRecipeIngredientRepo = new Mock<IDeletableEntityRepository<RecipeIngredient>>();
-            var mockNutritionsService = new Mock<NutritionsService>(
-                mockNutritionsRepo.Object,
-                mockIngredientRepo.Object,
-                mockRecipeIngredientRepo.Object,
-                mockRecipeRepo.Object);
-
-            var service = new IngredientsService(
-                mockIngredientRepo.Object,
-                mockNutritionsRepo.Object,
-                mockRecipeRepo.Object,
-                mockNutritionsService.Object);
+            var service = this.CreateMockAndConfigureService(list, new List<Nutrition>(), new List<Recipe>());
 
             var ingredients = await service.GetAllIngredientsSelectListAsync();
             var count = ingredients.Count();
@@ -331,6 +313,8 @@
             var mockIngredientRepo = new Mock<IDeletableEntityRepository<Ingredient>>();
             mockIngredientRepo.Setup(x => x.All())
                 .Returns(list.AsQueryable());
+            mockIngredientRepo.Setup(x => x.AllAsNoTracking())
+                .Returns(new TestAsyncEnumerable<Ingredient>(list).AsQueryable());
             mockIngredientRepo.Setup(x => x.AddAsync(It.IsAny<Ingredient>()))
                 .Callback((Ingredient ingredient) => list.Add(ingredient));
             mockIngredientRepo.Setup(x => x.Delete(It.IsAny<Ingredient>()))

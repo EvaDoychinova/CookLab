@@ -25,94 +25,94 @@
         private const string TestImageName = "Test.jpg";
         private const string TestImageContentType = "image/jpg";
 
-        [Fact]
-        public async Task DoesCategoryCreateAsyncWorksCorrectly()
-        {
-            var list = new List<Category>();
-            var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>();
-            mockCategoryRepo.Setup(x => x.All())
-                .Returns(list.AsQueryable());
-            mockCategoryRepo.Setup(x => x.AddAsync(It.IsAny<Category>()))
-                .Callback((Category category) => list.Add(category));
+        //[Fact]
+        //public async Task DoesCategoryCreateAsyncWorksCorrectly()
+        //{
+        //    var list = new List<Category>();
+        //    var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>();
+        //    mockCategoryRepo.Setup(x => x.All())
+        //        .Returns(list.AsQueryable());
+        //    mockCategoryRepo.Setup(x => x.AddAsync(It.IsAny<Category>()))
+        //        .Callback((Category category) => list.Add(category));
 
-            var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
+        //    var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
 
-            var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
+        //    var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
 
-            using FileStream stream = File.OpenRead(TestImageName);
-            var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = TestImageContentType,
-            };
+        //    using FileStream stream = File.OpenRead(TestImageName);
+        //    var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
+        //    {
+        //        Headers = new HeaderDictionary(),
+        //        ContentType = TestImageContentType,
+        //    };
 
-            await service.CreateAsync(
-                new CategoryInputModel
-                {
-                    Name = TestCategoryName,
-                    Image = file,
-                },
-                string.Empty);
+        //    await service.CreateAsync(
+        //        new CategoryInputModel
+        //        {
+        //            Name = TestCategoryName,
+        //            Image = file,
+        //        },
+        //        string.Empty);
 
-            var count = mockCategoryRepo.Object.All().Count();
+        //    var count = mockCategoryRepo.Object.All().Count();
 
-            Assert.Equal(1, count);
-        }
+        //    Assert.Equal(1, count);
+        //}
 
-        [Fact]
-        public async Task DoesCategoryCreateAsyncThrowArgumentExceptionWhenCategoryExists()
-        {
-            var list = new List<Category>();
-            var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>();
-            mockCategoryRepo.Setup(x => x.All())
-                .Returns(list.AsQueryable());
-            mockCategoryRepo.Setup(x => x.AddAsync(It.IsAny<Category>()))
-                .Callback((Category category) => list.Add(category));
+        //[Fact]
+        //public async Task DoesCategoryCreateAsyncThrowArgumentExceptionWhenCategoryExists()
+        //{
+        //    var list = new List<Category>();
+        //    var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>();
+        //    mockCategoryRepo.Setup(x => x.All())
+        //        .Returns(list.AsQueryable());
+        //    mockCategoryRepo.Setup(x => x.AddAsync(It.IsAny<Category>()))
+        //        .Callback((Category category) => list.Add(category));
 
-            var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
+        //    var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
 
-            var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
+        //    var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
 
-            using FileStream stream = File.OpenRead(TestImageName);
-            var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = TestImageContentType,
-            };
+        //    using FileStream stream = File.OpenRead(TestImageName);
+        //    var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
+        //    {
+        //        Headers = new HeaderDictionary(),
+        //        ContentType = TestImageContentType,
+        //    };
 
-            await Assert.ThrowsAsync<ArgumentException>(async () => await service.CreateAsync(
-                new CategoryInputModel
-                {
-                    Name = TestCategoryName,
-                    Image = file,
-                },
-                string.Empty));
-        }
+        //    await Assert.ThrowsAsync<ArgumentException>(async () => await service.CreateAsync(
+        //        new CategoryInputModel
+        //        {
+        //            Name = TestCategoryName,
+        //            Image = file,
+        //        },
+        //        string.Empty));
+        //}
 
-        [Fact]
-        public async Task DoesCategoryGetAllWorkCorrectly()
-        {
-            var list = new TestAsyncEnumerable<Category>(new List<Category>
-            {
-                new Category
-                {
-                    Id = 1,
-                    Name = TestCategoryName,
-                    ImageUrl = TestImageUrl,
-                },
-            }).AsQueryable();
+        //[Fact]
+        //public async Task DoesCategoryGetAllWorkCorrectly()
+        //{
+        //    var list = new TestAsyncEnumerable<Category>(new List<Category>
+        //    {
+        //        new Category
+        //        {
+        //            Id = 1,
+        //            Name = TestCategoryName,
+        //            ImageUrl = TestImageUrl,
+        //        },
+        //    }).AsQueryable();
 
-            var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>(MockBehavior.Strict);
-            mockCategoryRepo.Setup(x => x.AllAsNoTracking()).Returns(list);
+        //    var mockCategoryRepo = new Mock<IDeletableEntityRepository<Category>>(MockBehavior.Strict);
+        //    mockCategoryRepo.Setup(x => x.AllAsNoTracking()).Returns(list);
 
-            var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
+        //    var mockCategoryRecipeRepo = new Mock<IDeletableEntityRepository<CategoryRecipe>>();
 
-            var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
+        //    var service = new CategoriesService(mockCategoryRepo.Object, mockCategoryRecipeRepo.Object);
 
-            var categories = await service.GetAllAsync<CategoryViewModel>();
-            var categoryName = categories.FirstOrDefault().Name;
-            var count = categories.Count();
-            Assert.Equal(1, count);
-        }
+        //    var categories = await service.GetAllAsync<CategoryViewModel>();
+        //    var categoryName = categories.FirstOrDefault().Name;
+        //    var count = categories.Count();
+        //    Assert.Equal(1, count);
+        //}
     }
 }
