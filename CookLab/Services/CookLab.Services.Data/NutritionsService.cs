@@ -32,7 +32,7 @@
             this.recipeRepository = recipeRepository;
         }
 
-        public async Task<string> AddNutritionToIngredientAsync(string ingredientId, NutritionInputModel inputModel)
+        public async Task<string> AddNutritionToIngredientAsync(NutritionInputModel inputModel)
         {
             var nutrition = new Nutrition
             {
@@ -41,15 +41,20 @@
                 Fats = inputModel.Fats,
                 Proteins = inputModel.Proteins,
                 Fibres = inputModel.Fibres,
-                IngredientId = ingredientId,
+                IngredientId = inputModel.IngredientId,
                 RecipeId = null,
             };
 
             await this.nutritionRepository.AddAsync(nutrition);
 
-            var ingredient = await this.ingredientRepository.All()
-                .Where(x => x.Id == ingredientId)
-                .FirstOrDefaultAsync();
+            var ingredient = this.ingredientRepository.All()
+                .Where(x => x.Id == inputModel.IngredientId)
+                .FirstOrDefault();
+
+            if (ingredient == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, inputModel.IngredientId));
+            }
 
             ingredient.NutritionPer100Grams = nutrition;
             ingredient.ModifiedOn = DateTime.UtcNow;
@@ -59,7 +64,7 @@
             await this.ingredientRepository.SaveChangesAsync();
 
             var recipes = await this.recipeRepository.All()
-                .Where(x => x.Ingredients.Any(x => x.IngredientId == ingredientId))
+                .Where(x => x.Ingredients.Any(x => x.IngredientId == inputModel.IngredientId))
                 .ToListAsync();
 
             if (recipes.Count > 0)
@@ -75,8 +80,8 @@
 
         public async Task CalculateNutritionForRecipeAsync(string recipeId)
         {
-            var recipe = await this.recipeRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == recipeId);
+            var recipe = this.recipeRepository.All()
+                .FirstOrDefault(x => x.Id == recipeId);
 
             if (recipe is null)
             {
@@ -89,8 +94,8 @@
 
             if (!recipeIngredients.Any(x => x.Ingredient.NutritionPer100Grams == null))
             {
-                var initialNutrition = await this.nutritionRepository.All()
-                    .FirstOrDefaultAsync(x => x.RecipeId == recipeId);
+                var initialNutrition = this.nutritionRepository.All()
+                    .FirstOrDefault(x => x.RecipeId == recipeId);
 
                 if (initialNutrition != null)
                 {
@@ -130,7 +135,8 @@
         {
             var nutritionElement = ingredients
                 .Sum(x => x.WeightInGrams / 100 * (double)x.Ingredient.NutritionPer100Grams
-                                                        .GetType().GetProperty(nutritionPart).GetValue(x.Ingredient.NutritionPer100Grams));
+                                                        .GetType().GetProperty(nutritionPart)
+                                                        .GetValue(x.Ingredient.NutritionPer100Grams));
 
             return nutritionElement;
         }

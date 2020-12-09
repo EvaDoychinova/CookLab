@@ -1,5 +1,7 @@
 ﻿namespace CookLab.Services.Data
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CookLab.Common;
@@ -11,18 +13,28 @@
     public class ContactsService : IContactsService
     {
         private readonly IDeletableEntityRepository<ContactForm> contactsRepository;
-        private readonly IEmailSender emailSender;
+        //private readonly IEmailSender emailSender;
 
         public ContactsService(
-            IDeletableEntityRepository<ContactForm> contactsRepository,
-            IEmailSender emailSender)
+            IDeletableEntityRepository<ContactForm> contactsRepository)
+            /*IEmailSender emailSender*/
         {
             this.contactsRepository = contactsRepository;
-            this.emailSender = emailSender;
+            //this.emailSender = emailSender;
         }
 
         public async Task SendEmailToAdminAsync(ContactFormInputModel inputModel)
         {
+            if (this.contactsRepository.All()
+                .Any(
+                x => x.Name == inputModel.Name &&
+                x.Email == inputModel.Email &&
+                x.Title == inputModel.Title &&
+                x.Message == inputModel.Message))
+            {
+                throw new ArgumentException(ExceptionMessages.ContactFormAlreadyExists);
+            }
+
             var contactForm = new ContactForm
             {
                 Name = inputModel.Name,
@@ -34,12 +46,12 @@
             await this.contactsRepository.AddAsync(contactForm);
             await this.contactsRepository.SaveChangesAsync();
 
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.AdinistratorEmail,
-                contactForm.Name,
-                contactForm.Email,
-                contactForm.Title,
-                contactForm.Message);
+            //await this.emailSender.SendEmailAsync(
+            //    GlobalConstants.AdinistratorEmail,
+            //    contactForm.Name,
+            //    contactForm.Email,
+            //    contactForm.Title,
+            //    contactForm.Message);
         }
     }
 }

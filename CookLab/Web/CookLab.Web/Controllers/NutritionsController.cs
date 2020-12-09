@@ -44,7 +44,7 @@
 
             if (ingredient.NutritionPer100Grams == null)
             {
-                await this.nutritionsService.AddNutritionToIngredientAsync(ingredient.Id, inputModel);
+                await this.nutritionsService.AddNutritionToIngredientAsync(inputModel);
             }
 
             return this.RedirectToAction("Details", "Ingredients", new { id = id });
