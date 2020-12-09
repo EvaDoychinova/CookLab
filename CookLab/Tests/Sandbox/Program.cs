@@ -24,29 +24,53 @@
 
     public static class Program
     {
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+            var a = 314.35;
+            var b = 356.23;
 
-            // Seed data on application startup
-            using (var serviceScope = serviceProvider.CreateScope())
+            double DoubleRound(double value, int digits)
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                if (digits >= 0)
+                {
+                    return Math.Round(value, digits);
+                }
+                else
+                {
+                    digits = Math.Abs(digits);
+                    double temp = value / Math.Pow(10, digits);
+                    temp = Math.Round(temp, 0);
+                    return temp * Math.Pow(10, digits);
+                }
             }
 
-            using (var serviceScope = serviceProvider.CreateScope())
-            {
-                serviceProvider = serviceScope.ServiceProvider;
+            Console.WriteLine(DoubleRound(a, 1));
+            Console.WriteLine(DoubleRound(a, -1));
+            Console.WriteLine(DoubleRound(a, -2));
+            Console.WriteLine(DoubleRound(b, -1));
+            Console.WriteLine(DoubleRound(b, -2));
 
-                return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
-                    opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
-                    _ => 255);
-            }
+            //Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+            //var serviceCollection = new ServiceCollection();
+            //ConfigureServices(serviceCollection);
+            //IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+
+            //// Seed data on application startup
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //    dbContext.Database.Migrate();
+            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            //}
+
+            //using (var serviceScope = serviceProvider.CreateScope())
+            //{
+            //    serviceProvider = serviceScope.ServiceProvider;
+
+            //    return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
+            //        opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
+            //        _ => 255);
+            //}
         }
 
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
