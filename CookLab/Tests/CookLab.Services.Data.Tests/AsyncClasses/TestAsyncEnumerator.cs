@@ -13,18 +13,17 @@
         {
             this.inner = inner;
         }
-
-        public async ValueTask DisposeAsync()
-        {
-            this.inner.Dispose();
-        }
-
         public T Current
         {
             get
             {
                 return this.inner.Current;
             }
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            this.inner.Dispose();
         }
 
         public async ValueTask<bool> MoveNextAsync()

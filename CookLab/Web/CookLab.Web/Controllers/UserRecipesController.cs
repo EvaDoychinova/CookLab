@@ -38,7 +38,7 @@
                 await this.userRecipesService.RemoveRecipeFromUserListAsync(userId, inputModel.RecipeId);
             }
 
-            var usersCount = await this.userRecipesService.GetUsersForRecipeAsync(inputModel.RecipeId);
+            var usersCount = this.userRecipesService.GetUsersForRecipe(inputModel.RecipeId);
 
             var response = new UserRecipeResponseModel
             {

@@ -5,6 +5,7 @@
     using System.Linq.Expressions;
     using System.Threading;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore.Query;
 
     internal class TestAsyncQueryProvider<TEntity> : IAsyncQueryProvider
@@ -45,6 +46,5 @@
         {
             return this.Execute<TResult>(expression);
         }
-
     }
 }
