@@ -75,8 +75,8 @@
 
         public async Task EditAsync(IngredientEditViewModel viewModel)
         {
-            var ingredient = await this.ingredientRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            var ingredient = this.ingredientRepository.All()
+                .FirstOrDefault(x => x.Id == viewModel.Id);
 
             if (ingredient == null)
             {
@@ -91,8 +91,8 @@
             ingredient.Name = viewModel.Name;
             ingredient.VolumeInMlPer100Grams = viewModel.VolumeInMlPer100Grams;
 
-            var nutrition = await this.nutritionsRepository.All()
-                .FirstOrDefaultAsync(x => x.IngredientId == ingredient.Id);
+            var nutrition = this.nutritionsRepository.All()
+                .FirstOrDefault(x => x.IngredientId == ingredient.Id);
 
             if (nutrition != null)
             {
@@ -125,16 +125,16 @@
 
         public async Task DeleteAsync(string id)
         {
-            var ingredient = await this.ingredientRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var ingredient = this.ingredientRepository.All()
+                .FirstOrDefault(x => x.Id == id);
 
             if (ingredient == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.IngredientMissing, id));
             }
 
-            var nutrition = await this.nutritionsRepository.All()
-                .FirstOrDefaultAsync(x => x.IngredientId == ingredient.Id);
+            var nutrition = this.nutritionsRepository.All()
+                .FirstOrDefault(x => x.IngredientId == ingredient.Id);
 
             if (nutrition != null)
             {

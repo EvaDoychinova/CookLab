@@ -41,10 +41,10 @@
 
             string name = (int)inputModel.Form switch
             {
-                1 => $"{inputModel.Form} {inputModel.Diameter}cm",
-                2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA} cm\xB2",
-                3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB} cm\xB2",
-                4 => $"{inputModel.Name} {inputModel.Area}cm\xB2",
+                1 => $"{inputModel.Form} {inputModel.Diameter}cm/{inputModel.Height}cm",
+                2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA} cm\xB2/{inputModel.Height}cm",
+                3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB} cm\xB2/{inputModel.Height}cm",
+                4 => $"{inputModel.Name} {inputModel.Area}cm\xB2/{inputModel.Height}cm",
                 _ => null,
             };
 
@@ -115,18 +115,27 @@
             }
 
             var alternativeCookingVessel = this.cookingVesselRepository.All()
-                .FirstOrDefault(x => Math.Round(x.Area, 0) == Math.Round(cookingVessel.Area, 0));
+                .FirstOrDefault(x =>
+                this.DoubleRound(x.Area, 0) == this.DoubleRound(cookingVessel.Area, 0) &&
+                x.Height >= cookingVessel.Height &&
+                x.Id!=cookingVessel.Id);
 
             if (alternativeCookingVessel == null)
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
-                .FirstOrDefault(x => Math.Round(x.Area, -1) == Math.Round(cookingVessel.Area, -1));
+                .FirstOrDefault(x =>
+                this.DoubleRound(x.Area, -1) == this.DoubleRound(cookingVessel.Area, -1) &&
+                x.Height >= cookingVessel.Height &&
+                x.Id != cookingVessel.Id);
             }
 
             if (alternativeCookingVessel == null)
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
-                .FirstOrDefault(x => Math.Round(x.Area, -2) == Math.Round(cookingVessel.Area, -2));
+                .FirstOrDefault(x =>
+                this.DoubleRound(x.Area, -2) == this.DoubleRound(cookingVessel.Area, -2) &&
+                x.Height >= cookingVessel.Height &&
+                x.Id != cookingVessel.Id);
             }
 
             var recipes = await this.recipesRepository.All()
@@ -135,10 +144,13 @@
 
             foreach (var recipe in recipes)
             {
-                recipe.CookingVessel = alternativeCookingVessel;
-                recipe.CookingVesselId = alternativeCookingVessel.Id;
-                recipe.ModifiedOn = DateTime.UtcNow;
-                this.recipesRepository.Update(recipe);
+                if (alternativeCookingVessel != null)
+                {
+                    recipe.CookingVessel = alternativeCookingVessel;
+                    recipe.CookingVesselId = alternativeCookingVessel.Id;
+                    recipe.ModifiedOn = DateTime.UtcNow;
+                    this.recipesRepository.Update(recipe);
+                }
             }
 
             this.cookingVesselRepository.Delete(cookingVessel);
@@ -154,6 +166,21 @@
                     .ToListAsync();
 
             return cookingVessels;
+        }
+
+        private double DoubleRound(double value, int digits)
+        {
+            if (digits >= 0)
+            {
+                return Math.Round(value, digits);
+            }
+            else
+            {
+                digits = Math.Abs(digits);
+                double temp = value / Math.Pow(10, digits);
+                temp = Math.Round(temp, 0);
+                return temp * Math.Pow(10, digits);
+            }
         }
     }
 }
