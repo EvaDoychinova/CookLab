@@ -140,8 +140,8 @@
             {
                 new Recipe
                 {
-                    Id=TestRecipeId,
-                    CookingVessel=list.First(x=>x.Id==TestId),
+                    Id = TestRecipeId,
+                    CookingVessel = list.First(x => x.Id == TestId),
                     CookingVesselId = TestId,
                 },
             };
@@ -228,7 +228,6 @@
                 {
                     recipesList.FirstOrDefault(x => x.Id == TestRecipeId).CookingVessel = recipe.CookingVessel;
                     recipesList.FirstOrDefault(x => x.Id == TestRecipeId).CookingVesselId = recipe.CookingVesselId;
-
                 });
 
             var service = new CookingVesselsService(mockCookingVesselsRepo.Object, mockRecipesRepo.Object);

@@ -26,10 +26,10 @@
 
         public async Task AddRecipeToUserListAsync(string userId, string recipeId)
         {
-            var userRecipe = await this.userRecipesRepository.AllWithDeleted()
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.RecipeId == recipeId);
+            var userRecipe = this.userRecipesRepository.AllWithDeleted()
+                .FirstOrDefault(x => x.UserId == userId && x.RecipeId == recipeId);
 
-            if (userRecipe != null)
+            if (userRecipe != null && userRecipe.IsDeleted == true)
             {
                 this.userRecipesRepository.Undelete(userRecipe);
             }
@@ -49,8 +49,8 @@
 
         public async Task RemoveRecipeFromUserListAsync(string userId, string recipeId)
         {
-            var userRecipe = await this.userRecipesRepository.All()
-                .FirstOrDefaultAsync(x => x.UserId == userId && x.RecipeId == recipeId);
+            var userRecipe = this.userRecipesRepository.All()
+                .FirstOrDefault(x => x.UserId == userId && x.RecipeId == recipeId);
 
             if (userRecipe != null)
             {
@@ -59,19 +59,19 @@
             }
         }
 
-        public async Task<int> GetUsersForRecipeAsync(string recipeId)
+        public int GetUsersForRecipe(string recipeId)
         {
-            var recipe = await this.recipeRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == recipeId);
+            var recipe = this.recipeRepository.All()
+                .FirstOrDefault(x => x.Id == recipeId);
 
             if (recipe == null)
             {
                 throw new NullReferenceException(string.Format(RecipeMissing, recipeId));
             }
 
-            var usersCount = await this.userRecipesRepository.All()
+            var usersCount = this.userRecipesRepository.All()
                 .Where(x => x.RecipeId == recipeId)
-                .CountAsync();
+                .Count();
 
             return usersCount;
         }

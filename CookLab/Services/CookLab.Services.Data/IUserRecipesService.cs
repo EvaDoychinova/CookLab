@@ -8,6 +8,6 @@
 
         Task RemoveRecipeFromUserListAsync(string userId, string recipeId);
 
-        Task<int> GetUsersForRecipeAsync(string recipeId);
+        int GetUsersForRecipe(string recipeId);
     }
 }
