@@ -1,5 +1,6 @@
 ﻿namespace CookLab.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -37,6 +38,7 @@
             }
 
             var rootPath = this.webHostEnvironment.WebRootPath;
+            Console.WriteLine(rootPath);
             await this.categoriesService.CreateAsync(inputModel, rootPath);
             return this.RedirectToAction(nameof(this.All));
         }

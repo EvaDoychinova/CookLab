@@ -20,36 +20,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using CookLab.Models.ViewModels.Recipes;
 
     public static class Program
     {
         public static void Main(string[] args)
         {
-            var a = 314.35;
-            var b = 356.23;
-
-            double DoubleRound(double value, int digits)
-            {
-                if (digits >= 0)
-                {
-                    return Math.Round(value, digits);
-                }
-                else
-                {
-                    digits = Math.Abs(digits);
-                    double temp = value / Math.Pow(10, digits);
-                    temp = Math.Round(temp, 0);
-                    return temp * Math.Pow(10, digits);
-                }
-            }
-
-            Console.WriteLine(DoubleRound(a, 1));
-            Console.WriteLine(DoubleRound(a, -1));
-            Console.WriteLine(DoubleRound(a, -2));
-            Console.WriteLine(DoubleRound(b, -1));
-            Console.WriteLine(DoubleRound(b, -2));
-
             //Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
             //var serviceCollection = new ServiceCollection();
             //ConfigureServices(serviceCollection);
