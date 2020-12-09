@@ -80,7 +80,7 @@
 
         public async Task EditAsync(CategoryEditViewModel viewModel, string rootPath)
         {
-            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            var category = this.categoriesRepository.All().FirstOrDefault(x => x.Id == viewModel.Id);
 
             if (category == null)
             {
@@ -93,9 +93,7 @@
             }
 
             var imageUrl = this.categoriesRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id)
-                .GetAwaiter()
-                .GetResult()
+                .FirstOrDefault(x => x.Id == viewModel.Id)
                 .ImageUrl;
 
             if (viewModel.Image != null)
@@ -120,16 +118,20 @@
 
         public async Task DeleteAsync(int id)
         {
-            var category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var category = this.categoriesRepository.All().FirstOrDefault(x => x.Id == id);
 
             if (category == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, id));
             }
 
-            if (category.Recipes.Count > 0)
+            var categoryRecipes = await this.recipeCategoriesRepository.AllAsNoTracking()
+                .Where(x => x.CategoryId == category.Id)
+                .ToListAsync();
+
+            if (categoryRecipes.Count > 0)
             {
-                foreach (var recipe in category.Recipes)
+                foreach (var recipe in categoryRecipes)
                 {
                     this.recipeCategoriesRepository.Delete(recipe);
                 }
@@ -141,11 +143,10 @@
 
         public async Task<IEnumerable<SelectListItem>> GetAllCategoriesSelectListAsync()
         {
-            var categoriesViewModel = await this.GetAllAsync<CategoryInRecipeViewModel>();
-
-            var categories = categoriesViewModel
+            var categories = await this.categoriesRepository.AllAsNoTracking()
+                    .OrderBy(x => x.Name)
                     .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                    .ToList();
+                    .ToListAsync();
 
             return categories;
         }

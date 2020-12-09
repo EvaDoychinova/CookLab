@@ -16,10 +16,13 @@
     public class NutritionsServiceTests
     {
         public const string TestNutritionId = "TestNutritionId";
+        public const string TestNutritionId2 = "TestNutritionId2";
         public const string TestIngredientId = "TestIngredientId";
+        public const string TestIngredientId2 = "TestIngredientId2";
+        public const string TestingredientName = "TestIngredientName";
+        public const string TestingredientName2 = "TestIngredientName2";
         public const string TestRecipeId = "TestRecipeId";
         public const string TestRecipeName = "TestRecipeName";
-        public const string TestingredientName = "TestIngredientName";
 
         [Fact]
         public async Task DoesAddNutritionToIngredientAsyncThrowsNullReferenceExceptionWhenNoSuchIngredient()
@@ -136,7 +139,7 @@
         }
 
         [Fact]
-        public async Task DoesCalculateNutritionForRecipeAsyncWorkCorrectly()
+        public async Task DoesCalculateNutritionForRecipeAsyncWorkCorrectlyWhenNutritionForRecipeDoesNotExist()
         {
             var nutritionList = new List<Nutrition>
             {
@@ -192,6 +195,84 @@
         }
 
         [Fact]
+        public async Task DoesCalculateNutritionForRecipeAsyncWorkCorrectlyWhenNutritionIsRecalculated()
+        {
+            var nutritionList = new List<Nutrition>
+            {
+                new Nutrition
+                {
+                    Id = TestNutritionId,
+                    Calories = 100,
+                    Carbohydrates = 100,
+                    Fats = 100,
+                    Proteins = 100,
+                    Fibres = 100,
+                    IngredientId = TestIngredientId,
+                },
+                new Nutrition
+                {
+                    Id = TestNutritionId2,
+                    Calories = 200,
+                    Carbohydrates = 200,
+                    Fats = 200,
+                    Proteins = 200,
+                    Fibres = 200,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var ingredientList = new List<Ingredient>
+            {
+                new Ingredient
+                {
+                    Id = TestIngredientId,
+                    Name = TestingredientName,
+                    VolumeInMlPer100Grams = 100,
+                },
+                new Ingredient
+                {
+                    Id = TestIngredientId2,
+                    Name = TestingredientName2,
+                    VolumeInMlPer100Grams = 100,
+                },
+            };
+
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    Ingredients = new HashSet<RecipeIngredient>
+                    {
+                        new RecipeIngredient
+                        {
+                            IngredientId = TestIngredientId,
+                            RecipeId = TestRecipeId,
+                            WeightInGrams = 100,
+                        },
+                        new RecipeIngredient
+                        {
+                            IngredientId = TestIngredientId2,
+                            RecipeId = TestRecipeId,
+                            WeightInGrams = 100,
+                        },
+                    },
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                nutritionList,
+                ingredientList,
+                new List<RecipeIngredient>(),
+                recipeList);
+
+            await service.CalculateNutritionForRecipeAsync(TestRecipeId);
+
+            Assert.Equal(2, nutritionList.Count());
+        }
+
+        [Fact]
         public async Task DoesCalculateNutritionForRecipeAsyncThrowNullReferenceExceptionWhenNoSuchRecipe()
         {
             var service = this.CreateMockAndConfigureService(
@@ -214,7 +295,8 @@
               .Returns(nutritionList.AsQueryable());
             mockNutritionsRepo.Setup(x => x.AddAsync(It.IsAny<Nutrition>()))
                 .Callback((Nutrition nutrition) => nutritionList.Add(nutrition));
-            //mockNutritionsRepo.Setup(x => x.Delete(It.IsAny<Nutrition>()))
+
+            // mockNutritionsRepo.Setup(x => x.Delete(It.IsAny<Nutrition>()))
             //    .Callback((Nutrition nutrition) => nutrition.IsDeleted = true);
             mockNutritionsRepo.Setup(x => x.Update(It.IsAny<Nutrition>()))
                 .Callback((Nutrition nutrition) =>
