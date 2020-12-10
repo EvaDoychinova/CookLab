@@ -11,6 +11,8 @@
     using CookLab.Data.Models.Enums;
     using CookLab.Models.InputModels.RecipeIngredients;
     using CookLab.Models.InputModels.Recipes;
+    using CookLab.Models.ViewModels.RecipeIngredients;
+    using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Data.Tests.AsyncClasses;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
@@ -21,18 +23,26 @@
     public class RecipesServiceTests
     {
         private const string TestRecipeId = "TestRecipeId";
+        private const string TestRecipeId2 = "TestRecipeId2";
         private const string TestRecipeName = "TestRecipeName";
+        private const string TestRecipeName2 = "TestRecipeName2";
         private const int TestPortionsCount = 20;
         private const int TestPreparationTime = 20;
         private const int TestCookingTime = 20;
         private const string TestPreparation = "TestPreparationForRecipe";
         private const string TestNotes = "TestNotesForRecipe";
         private const int TestCookingVesselId = 20;
+        private const int TestCookingVesselId2 = 22;
         private const string TestCookingVesselName = "TestCookingVesselName";
+        private const string TestCookingVesselName2 = "TestCookingVesselName2";
         private const double TestCookingVesselArea = 320;
+        private const double TestCookingVesselArea2 = 320;
         private const double TestCookingVesselHeight = 7;
+        private const double TestCookingVesselHeight2 = 7;
         private const double TestCookingVesselVolume = 1320;
+        private const double TestCookingVesselVolume2 = 1320;
         private const int TestCategoryId = 20;
+        private const int TestCategoryId2 = 22;
         private const string TestCategoryName = "TestCategoryName";
         private const string TestUserId = "TestUserId";
         private const string TestUserUsername = "TestUserUsername";
@@ -40,7 +50,8 @@
         private const string TestIngredientName = "TestIngredientName";
         private const double TestWeightIngredient = 20;
         private const IngredientPartOfRecipe TestPartOfRecipeIngredient = IngredientPartOfRecipe.All;
-
+        private const string TestNutritionId = "TestNutritionId";
+        private const string TestImageId = "TestImageId";
         private const string TestImageContentType = "image/jpg";
         private const string TestImageUrl = "assets/img/Recipes/test.jpg";
         private const string TestImageName = "Test.jpg";
@@ -81,6 +92,17 @@
                 },
             };
 
+            var recipeIngredientsList = new List<RecipeIngredient>
+            {
+                new RecipeIngredient
+                {
+                    RecipeId = TestRecipeId,
+                    IngredientId = TestIngredientId,
+                    PartOfRecipe = TestPartOfRecipeIngredient,
+                    WeightInGrams = TestWeightIngredient,
+                },
+            };
+
             var ingredientList = new List<Ingredient>
             {
                 new Ingredient
@@ -90,13 +112,27 @@
                 },
             };
 
+            var nutritionList = new List<Nutrition>
+            {
+                new Nutrition
+                {
+                    Id = TestNutritionId,
+                    Calories = 100,
+                    Carbohydrates = 100,
+                    Fats = 100,
+                    Proteins = 100,
+                    Fibres = 100,
+                    IngredientId = TestIngredientId,
+                },
+            };
+
             var service = this.CreateMockAndConfigureService(
                 recipesList,
                 categoryList,
                 new List<CategoryRecipe>(),
                 ingredientList,
-                new List<Nutrition>(),
-                new List<RecipeIngredient>(),
+                nutritionList,
+                recipeIngredientsList,
                 new List<RecipeImage>(),
                 cookingVesselList,
                 new List<UserRecipe>(),
@@ -358,49 +394,533 @@
         [Fact]
         public async Task DoesRecipeEditAsyncWorksCorrectly()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    CookingVesselId = TestCookingVesselId,
+                },
+            };
+
+            var cookingVesselList = new List<CookingVessel>
+            {
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId,
+                    Name = TestCookingVesselName,
+                    Height = TestCookingVesselHeight,
+                    Area = TestCookingVesselArea,
+                    Volume = TestCookingVesselVolume,
+                },
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId2,
+                    Name = TestCookingVesselName2,
+                    Height = TestCookingVesselHeight2,
+                    Area = TestCookingVesselArea2,
+                    Volume = TestCookingVesselVolume2,
+                },
+            };
+
+            var categoryRecipeList = new List<CategoryRecipe>
+            {
+                new CategoryRecipe
+                {
+                    CategoryId = TestCategoryId,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var categoryList = new List<Category>
+            {
+                new Category
+                {
+                    Id = TestCategoryId,
+                    Name = TestCategoryName,
+                },
+            };
+
+            var recipeIngredientList = new List<RecipeIngredient>
+            {
+                new RecipeIngredient
+                {
+                    RecipeId = TestRecipeId,
+                    IngredientId = TestIngredientId,
+                    PartOfRecipe = TestPartOfRecipeIngredient,
+                    WeightInGrams = TestWeightIngredient,
+                },
+            };
+
+            var ingredientList = new List<Ingredient>
+            {
+                new Ingredient
+                {
+                    Id = TestIngredientId,
+                    Name = TestIngredientName,
+                },
+            };
+
+            var imagesList = new List<RecipeImage>
+            {
+                new RecipeImage
+                {
+                    Id = TestImageId,
+                    ImageUrl = TestImageUrl,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var nutritionList = new List<Nutrition>
+            {
+                new Nutrition
+                {
+                    Id = TestNutritionId,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                categoryList,
+                categoryRecipeList,
+                ingredientList,
+                nutritionList,
+                recipeIngredientList,
+                imagesList,
+                cookingVesselList,
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            using FileStream stream = File.OpenRead(TestImageName);
+            var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = TestImageContentType,
+            };
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId,
+                Name = TestRecipeName2,
+                Portions = TestPortionsCount,
+                PreparationTime = TestPreparationTime,
+                CookingTime = TestCookingTime,
+                Preparation = TestPreparation,
+                Notes = TestNotes,
+                CookingVesselId = TestCookingVesselId2,
+                CategoriesCategoryId = new List<int>
+                {
+                    TestCategoryId,
+                },
+                Ingredients = new List<RecipeIngredientEditViewModel>
+                {
+                    new RecipeIngredientEditViewModel
+                    {
+                        IngredientId = TestIngredientId,
+                        PartOfRecipe = TestPartOfRecipeIngredient,
+                        WeightInGrams = TestWeightIngredient,
+                    },
+                },
+                ImagesToSelect = new List<IFormFile>
+                {
+                    file,
+                },
+            };
+
+            await service.EditAsync(recipeToEdit, TestRootPath);
+
+            Assert.Equal(TestRecipeName2, recipeList.First().Name);
         }
 
         [Fact]
         public async Task DoesRecipeEditAsyncThrowsNullReferenceExceptionWhenNoSuchRecipe()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>();
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                new List<Category>(),
+                new List<CategoryRecipe>(),
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                new List<RecipeIngredient>(),
+                new List<RecipeImage>(),
+                new List<CookingVessel>(),
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId,
+            };
+
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.EditAsync(recipeToEdit, string.Empty));
         }
 
         [Fact]
-        public async Task DoesRecipeEditAsyncThorwsArgumentExceptionWhenRecipeWithSuchNameAlreadyExists()
+        public async Task DoesRecipeEditAsyncThrowsArgumentExceptionWhenRecipeWithSuchNameAlreadyExists()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                },
+                new Recipe
+                {
+                    Id = TestRecipeId2,
+                    Name = TestRecipeName2,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                new List<Category>(),
+                new List<CategoryRecipe>(),
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                new List<RecipeIngredient>(),
+                new List<RecipeImage>(),
+                new List<CookingVessel>(),
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId2,
+                Name = TestRecipeName,
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await service.EditAsync(recipeToEdit, string.Empty));
         }
 
         [Fact]
         public async Task DoesRecipeEditAsyncThrowsNullReferenceExceptionWhenNoSuchCookingVessel()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    CookingVesselId = TestCookingVesselId,
+                },
+            };
+
+            var cookingVesselList = new List<CookingVessel>
+            {
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId,
+                    Name = TestCookingVesselName,
+                    Height = TestCookingVesselHeight,
+                    Area = TestCookingVesselArea,
+                    Volume = TestCookingVesselVolume,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                new List<Category>(),
+                new List<CategoryRecipe>(),
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                new List<RecipeIngredient>(),
+                new List<RecipeImage>(),
+                cookingVesselList,
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId,
+                Name = TestRecipeName,
+                Portions = TestPortionsCount,
+                PreparationTime = TestPreparationTime,
+                CookingTime = TestCookingTime,
+                Preparation = TestPreparation,
+                Notes = TestNotes,
+                CookingVesselId = TestCookingVesselId2,
+            };
+
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.EditAsync(recipeToEdit, string.Empty));
         }
 
         [Fact]
         public async Task DoesRecipeEditAsyncThrowsNullReferenceExceptionWhenNoSuchCategory()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    CookingVesselId = TestCookingVesselId,
+                    Categories = new List<CategoryRecipe>
+                    {
+                        new CategoryRecipe
+                        {
+                            CategoryId = TestCategoryId,
+                            RecipeId = TestRecipeId,
+                        },
+                    },
+                },
+            };
+
+            var cookingVesselList = new List<CookingVessel>
+            {
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId,
+                    Name = TestCookingVesselName,
+                    Height = TestCookingVesselHeight,
+                    Area = TestCookingVesselArea,
+                    Volume = TestCookingVesselVolume,
+                },
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId2,
+                    Name = TestCookingVesselName2,
+                    Height = TestCookingVesselHeight2,
+                    Area = TestCookingVesselArea2,
+                    Volume = TestCookingVesselVolume2,
+                },
+            };
+
+            var categoryRecipeList = new List<CategoryRecipe>
+            {
+                new CategoryRecipe
+                {
+                    CategoryId = TestCategoryId,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                new List<Category>(),
+                categoryRecipeList,
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                new List<RecipeIngredient>(),
+                new List<RecipeImage>(),
+                cookingVesselList,
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId,
+                Name = TestRecipeName,
+                Portions = TestPortionsCount,
+                PreparationTime = TestPreparationTime,
+                CookingTime = TestCookingTime,
+                Preparation = TestPreparation,
+                Notes = TestNotes,
+                CookingVesselId = TestCookingVesselId2,
+                CategoriesCategoryId = new List<int>
+                {
+                    TestCategoryId,
+                    TestCategoryId2,
+                },
+            };
+
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.EditAsync(recipeToEdit, string.Empty));
         }
 
         [Fact]
         public async Task DoesRecipeEditAsyncThrowsNullReferenceExceptionWhenNoSuchIngredient()
         {
-            Assert.True(false);
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    CookingVesselId = TestCookingVesselId,
+                },
+            };
+
+            var cookingVesselList = new List<CookingVessel>
+            {
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId,
+                    Name = TestCookingVesselName,
+                    Height = TestCookingVesselHeight,
+                    Area = TestCookingVesselArea,
+                    Volume = TestCookingVesselVolume,
+                },
+                new CookingVessel
+                {
+                    Id = TestCookingVesselId2,
+                    Name = TestCookingVesselName2,
+                    Height = TestCookingVesselHeight2,
+                    Area = TestCookingVesselArea2,
+                    Volume = TestCookingVesselVolume2,
+                },
+            };
+
+            var categoryRecipeList = new List<CategoryRecipe>
+            {
+                new CategoryRecipe
+                {
+                    CategoryId = TestCategoryId,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var categoryList = new List<Category>
+            {
+                new Category
+                {
+                    Id = TestCategoryId,
+                    Name = TestCategoryName,
+                },
+            };
+
+            var recipeIngredientList = new List<RecipeIngredient>
+            {
+                new RecipeIngredient
+                {
+                    RecipeId = TestRecipeId,
+                    IngredientId = TestIngredientId,
+                    PartOfRecipe = TestPartOfRecipeIngredient,
+                    WeightInGrams = TestWeightIngredient,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipeList,
+                categoryList,
+                categoryRecipeList,
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                recipeIngredientList,
+                new List<RecipeImage>(),
+                cookingVesselList,
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            var recipeToEdit = new RecipeEditViewModel
+            {
+                Id = TestRecipeId,
+                Name = TestRecipeName,
+                Portions = TestPortionsCount,
+                PreparationTime = TestPreparationTime,
+                CookingTime = TestCookingTime,
+                Preparation = TestPreparation,
+                Notes = TestNotes,
+                CookingVesselId = TestCookingVesselId2,
+                CategoriesCategoryId = new List<int>
+                {
+                    TestCategoryId,
+                },
+                Ingredients = new List<RecipeIngredientEditViewModel>
+                {
+                    new RecipeIngredientEditViewModel
+                    {
+                        IngredientId = TestIngredientId,
+                        PartOfRecipe = TestPartOfRecipeIngredient,
+                        WeightInGrams = TestWeightIngredient,
+                    },
+                },
+            };
+
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.EditAsync(recipeToEdit, string.Empty));
         }
 
         [Fact]
         public async Task DoesRecipeDeleteAsyncWorksCorrectly()
         {
-            Assert.True(false);
+            var recipesList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = TestRecipeId,
+                    Name = TestRecipeName,
+                    CookingVesselId = TestCookingVesselId,
+                },
+            };
+
+            var recipeIngredientList = new List<RecipeIngredient>
+            {
+                new RecipeIngredient
+                {
+                    RecipeId = TestRecipeId,
+                    IngredientId = TestIngredientId,
+                    PartOfRecipe = TestPartOfRecipeIngredient,
+                    WeightInGrams = TestWeightIngredient,
+                },
+            };
+
+            var recipeImageList = new List<RecipeImage>
+            {
+                new RecipeImage
+                {
+                    Id = TestImageId,
+                    ImageUrl = TestImageUrl,
+                    RecipeId = TestRecipeId,
+                },
+            };
+
+            var recipeCategoryList = new List<CategoryRecipe>
+            {
+                new CategoryRecipe
+                {
+                    RecipeId = TestRecipeId,
+                    CategoryId = TestCategoryId,
+                },
+            };
+
+            var recipeUserList = new List<UserRecipe>
+            {
+                new UserRecipe
+                {
+                    RecipeId = TestRecipeId,
+                    UserId = TestUserId,
+                },
+            };
+
+            var service = this.CreateMockAndConfigureService(
+                recipesList,
+                new List<Category>(),
+                recipeCategoryList,
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                recipeIngredientList,
+                recipeImageList,
+                new List<CookingVessel>(),
+                recipeUserList,
+                new List<ApplicationUser>());
+
+            await service.DeleteAsync(TestRecipeId);
+
+            Assert.True(recipesList.First().IsDeleted);
         }
 
         [Fact]
         public async Task DoesRecipeDeleteAsyncThrowsNullReferenceExceptionWhenNoSuchRecipe()
         {
-            Assert.True(false);
+            var recipesList = new List<Recipe>();
+
+            var service = this.CreateMockAndConfigureService(
+                recipesList,
+                new List<Category>(),
+                new List<CategoryRecipe>(),
+                new List<Ingredient>(),
+                new List<Nutrition>(),
+                new List<RecipeIngredient>(),
+                new List<RecipeImage>(),
+                new List<CookingVessel>(),
+                new List<UserRecipe>(),
+                new List<ApplicationUser>());
+
+            await Assert.ThrowsAsync<NullReferenceException>(async () =>
+                await service.DeleteAsync(TestRecipeId));
         }
 
         private IRecipesService CreateMockAndConfigureService(
