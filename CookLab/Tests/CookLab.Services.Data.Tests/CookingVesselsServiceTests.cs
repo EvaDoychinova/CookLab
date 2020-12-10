@@ -17,12 +17,11 @@
 
     public class CookingVesselsServiceTests
     {
-        public const string TestName = "Circle 20cm";
-        public const int TestId = 2;
-        public const double TestDiameter = 20;
-        public const double Height = 7;
-
-        public const string TestRecipeId = "TestRecipeId";
+        private const string TestName = "Circle 20cm";
+        private const int TestId = 2;
+        private const double TestDiameter = 20;
+        private const double TestHeight = 7;
+        private const string TestRecipeId = "TestRecipeId";
 
         [Theory]
         [InlineData(PanForm.Circle, 20, 0, 0, 7, null, 0)]
@@ -84,7 +83,7 @@
                     Id = TestId,
                     Name = TestName,
                     Form = PanForm.Circle,
-                    Height = 7,
+                    Height = TestHeight,
                     Area = 314.33,
                     Volume = 2200.33,
                 },
@@ -108,9 +107,9 @@
         }
 
         [Theory]
-        [InlineData(3, "New Name", PanForm.Circle, 7d, 314.25, 2199.3)]
-        [InlineData(3, "New Name", PanForm.Circle, 7d, 313.25, 2189.4)]
-        [InlineData(3, "New Name", PanForm.Circle, 7d, 300.25, 2250.4)]
+        [InlineData(3, "New Name", PanForm.Circle, TestHeight, 314.25, 2199.3)]
+        [InlineData(3, "New Name", PanForm.Circle, TestHeight, 313.25, 2189.4)]
+        [InlineData(3, "New Name", PanForm.Circle, TestHeight, 300.25, 2250.4)]
         public async Task DoesCookingVesselsDeleteAsyncReassingsCookingVesselCorrectly(
             int id, string name, PanForm form, double height, double area, double volume)
         {
@@ -121,7 +120,7 @@
                     Id = TestId,
                     Name = TestName,
                     Form = PanForm.Circle,
-                    Height = 7,
+                    Height = TestHeight,
                     Area = 314.33,
                     Volume = 2200.33,
                 },
@@ -163,8 +162,8 @@
                     Id = TestId,
                     Name = TestName,
                     Form = PanForm.Circle,
-                    Diameter = 20,
-                    Height = 7,
+                    Diameter = TestDiameter,
+                    Height = TestHeight,
                     Area = 314.33,
                     Volume = 2200.33,
                 },
@@ -192,8 +191,8 @@
                 {
                     Name = TestName,
                     Form = PanForm.Circle,
-                    Diameter = 20,
-                    Height = 7,
+                    Diameter = TestDiameter,
+                    Height = TestHeight,
                     Area = 314.33,
                     Volume = 2200.33,
                 },

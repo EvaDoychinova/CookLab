@@ -28,6 +28,7 @@
         private const string TestImageUrl = "assets/img/categories/test.jpg";
         private const string TestImageName = "Test.jpg";
         private const string TestImageContentType = "image/jpg";
+        private const string TestRootPath = @"D:/SoftUni/07.C# Web/02.ASP.NET Core/NEW/PROJECT/CookLab/CookLab/Tests/CookLab.Services.Data.Tests";
 
         [Fact]
         public async Task DoesCategoryCreateAsyncWorksCorrectly()
@@ -35,8 +36,6 @@
             var categoryList = new List<Category>();
 
             var service = this.CreateMockAndConfigureService(categoryList, new List<CategoryRecipe>());
-
-            var rootPath = @"D:/SoftUni/07.C# Web/02.ASP.NET Core/NEW/PROJECT/CookLab/CookLab/Tests/CookLab.Services.Data.Tests";
 
             using FileStream stream = File.OpenRead(TestImageName);
             var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
@@ -51,7 +50,7 @@
                 Image = file,
             };
 
-            await service.CreateAsync(categoryToAdd, rootPath);
+            await service.CreateAsync(categoryToAdd, TestRootPath);
             var count = categoryList.Count();
 
             Assert.Equal(1, count);
@@ -64,8 +63,6 @@
 
             var service = this.CreateMockAndConfigureService(categoryList, new List<CategoryRecipe>());
 
-            var rootPath = @"D:/SoftUni/07.C# Web/02.ASP.NET Core/NEW/PROJECT/CookLab/CookLab/Tests/CookLab.Services.Data.Tests";
-
             using FileStream stream = File.OpenRead(TestImageName);
             var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
             {
@@ -79,9 +76,9 @@
                 Image = file,
             };
 
-            await service.CreateAsync(categoryToAdd, rootPath);
+            await service.CreateAsync(categoryToAdd, TestRootPath);
 
-            await Assert.ThrowsAsync<ArgumentException>(async () => await service.CreateAsync(categoryToAdd, rootPath));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await service.CreateAsync(categoryToAdd, TestRootPath));
         }
 
         [Fact]
@@ -127,8 +124,6 @@
 
             var service = this.CreateMockAndConfigureService(categoryList, new List<CategoryRecipe>());
 
-            var rootPath = @"D:/SoftUni/07.C# Web/02.ASP.NET Core/NEW/PROJECT/CookLab/CookLab/Tests/CookLab.Services.Data.Tests";
-
             using FileStream stream = File.OpenRead(TestImageName);
             var file = new FormFile(stream, 0, stream.Length, null, stream.Name)
             {
@@ -143,7 +138,7 @@
                 Image = file,
             };
 
-            await service.EditAsync(categoryToEdit, rootPath);
+            await service.EditAsync(categoryToEdit, TestRootPath);
             var count = categoryList.Count();
 
             Assert.Equal("New name", categoryList.First().Name);
@@ -287,8 +282,9 @@
             var service = this.CreateMockAndConfigureService(categoryList, new List<CategoryRecipe>());
 
             var categories = await service.GetAllCategoriesSelectListAsync();
+            var count = categories.Count();
 
-            Assert.Equal(1, categories.Count());
+            Assert.Equal(1, count);
         }
 
         private ICategoriesService CreateMockAndConfigureService(IList<Category> categoryList, IList<CategoryRecipe> catgeoryRecipeList)

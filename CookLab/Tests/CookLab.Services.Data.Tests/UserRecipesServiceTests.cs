@@ -14,8 +14,8 @@
 
     public class UserRecipesServiceTests
     {
-        public const string TestUserId = "userId";
-        public const string TestRecipeId = "recipeId";
+        private const string TestUserId = "userId";
+        private const string TestRecipeId = "recipeId";
 
         [Fact]
         public async Task DoesAddRecipeToUserListAsyncWorkCorrectly()

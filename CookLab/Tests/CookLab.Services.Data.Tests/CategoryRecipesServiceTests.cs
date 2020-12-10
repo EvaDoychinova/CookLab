@@ -14,7 +14,7 @@
 
     public class CategoryRecipesServiceTests
     {
-        public const string TestRecipeId = "TestRecipeId";
+        private const string TestRecipeId = "TestRecipeId";
 
         [Fact]
         public async Task DoesGetAllCategoriesForRecipeAsyncWorkCorrectly()

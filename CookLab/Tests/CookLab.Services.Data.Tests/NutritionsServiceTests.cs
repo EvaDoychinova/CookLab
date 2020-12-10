@@ -15,14 +15,14 @@
 
     public class NutritionsServiceTests
     {
-        public const string TestNutritionId = "TestNutritionId";
-        public const string TestNutritionId2 = "TestNutritionId2";
-        public const string TestIngredientId = "TestIngredientId";
-        public const string TestIngredientId2 = "TestIngredientId2";
-        public const string TestingredientName = "TestIngredientName";
-        public const string TestingredientName2 = "TestIngredientName2";
-        public const string TestRecipeId = "TestRecipeId";
-        public const string TestRecipeName = "TestRecipeName";
+        private const string TestNutritionId = "TestNutritionId";
+        private const string TestNutritionId2 = "TestNutritionId2";
+        private const string TestIngredientId = "TestIngredientId";
+        private const string TestIngredientId2 = "TestIngredientId2";
+        private const string TestingredientName = "TestIngredientName";
+        private const string TestingredientName2 = "TestIngredientName2";
+        private const string TestRecipeId = "TestRecipeId";
+        private const string TestRecipeName = "TestRecipeName";
 
         [Fact]
         public async Task DoesAddNutritionToIngredientAsyncThrowsNullReferenceExceptionWhenNoSuchIngredient()
