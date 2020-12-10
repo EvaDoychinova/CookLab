@@ -13,7 +13,6 @@
     using CookLab.Models.ViewModels.Recipes;
     using CookLab.Services.Mapping;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class RecipesService : IRecipesService
@@ -162,19 +161,24 @@
                 .Where(x => x.Name == inputModel.Name)
                 .FirstOrDefault();
 
+            var recipeIngredients = await this.ingredientRecipeRepository.All()
+                .Where(x => x.RecipeId == recipeWithNutrition.Id)
+                .ToListAsync();
+
             if (recipeWithNutrition.Ingredients.Count > 0)
             {
                 var nutritions = this.nutritionRepository.All()
                     .ToList()
-                    .Where(x => recipeWithNutrition.Ingredients.Any(y => y.IngredientId == x.IngredientId));
+                    .Where(x => recipeIngredients.Any(y => y.IngredientId == x.IngredientId))
+                    .ToList();
 
-                if (nutritions.Any(x => x == null))
+                if (nutritions.All(x => x != null) && nutritions.Count() > 0)
                 {
-                    recipeWithNutrition.Nutrition = null;
+                    await this.nutritionsService.CalculateNutritionForRecipeAsync(recipeWithNutrition.Id);
                 }
                 else
                 {
-                    await this.nutritionsService.CalculateNutritionForRecipeAsync(recipeWithNutrition.Id);
+                    recipeWithNutrition.Nutrition = null;
                 }
             }
 
@@ -275,8 +279,9 @@
                 cookingVesselBeforeEdit.Recipes.Remove(recipe);
             }
 
-            var recipesCategoriesBeforeEdit = this.categoryRecipesRepository.All()
-                .Where(x => x.RecipeId == recipe.Id);
+            var recipesCategoriesBeforeEdit = await this.categoryRecipesRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
 
             foreach (var recipesCategory in recipesCategoriesBeforeEdit)
             {
@@ -305,8 +310,9 @@
                 category.Recipes.Add(categoryRecipe);
             }
 
-            var recipeIngredientsBeforeEdit = this.ingredientRecipeRepository.All()
-                .Where(x => x.RecipeId == recipe.Id);
+            var recipeIngredientsBeforeEdit = await this.ingredientRecipeRepository.All()
+                .Where(x => x.RecipeId == recipe.Id)
+                .ToListAsync();
 
             foreach (var recipeIngredient in recipeIngredientsBeforeEdit)
             {
@@ -340,8 +346,9 @@
 
             if (viewModel.ImagesToSelect != null)
             {
-                var imagesBeforeEdit = this.recipeImageRepository.All()
-                .Where(x => x.RecipeId == recipe.Id);
+                var imagesBeforeEdit = await this.recipeImageRepository.All()
+                    .Where(x => x.RecipeId == recipe.Id)
+                    .ToListAsync();
 
                 foreach (var image in imagesBeforeEdit)
                 {
@@ -390,8 +397,8 @@
 
         public async Task DeleteAsync(string id)
         {
-            var recipe = await this.recipesRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var recipe = this.recipesRepository.All()
+                .FirstOrDefault(x => x.Id == id);
 
             if (recipe == null)
             {
