@@ -19,7 +19,6 @@
     public class RecipesService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
-        private readonly IRepository<CookingVessel> cookingVesselRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientRepository;
         private readonly IDeletableEntityRepository<Category> categoryRepository;
         private readonly IDeletableEntityRepository<RecipeImage> recipeImageRepository;
@@ -27,12 +26,13 @@
         private readonly IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository;
         private readonly IDeletableEntityRepository<UserRecipe> userRecipeRepository;
         private readonly IDeletableEntityRepository<Nutrition> nutritionRepository;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IDeletableEntityRepository<CookingVessel> cookingVesselRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly INutritionsService nutritionsService;
+
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
-            IRepository<CookingVessel> cookingVesselRepository,
             IDeletableEntityRepository<Ingredient> ingredientRepository,
             IDeletableEntityRepository<Category> categoryRepository,
             IDeletableEntityRepository<RecipeImage> recipeImageRepository,
@@ -40,11 +40,11 @@
             IDeletableEntityRepository<RecipeIngredient> ingredientRecipeRepository,
             IDeletableEntityRepository<UserRecipe> userRecipeRepository,
             IDeletableEntityRepository<Nutrition> nutritionRepository,
-            UserManager<ApplicationUser> userManager,
+            IDeletableEntityRepository<CookingVessel> cookingVesselRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository,
             INutritionsService nutritionsService)
         {
             this.recipesRepository = recipesRepository;
-            this.cookingVesselRepository = cookingVesselRepository;
             this.ingredientRepository = ingredientRepository;
             this.categoryRepository = categoryRepository;
             this.recipeImageRepository = recipeImageRepository;
@@ -52,7 +52,8 @@
             this.ingredientRecipeRepository = ingredientRecipeRepository;
             this.userRecipeRepository = userRecipeRepository;
             this.nutritionRepository = nutritionRepository;
-            this.userManager = userManager;
+            this.cookingVesselRepository = cookingVesselRepository;
+            this.userRepository = userRepository;
             this.nutritionsService = nutritionsService;
         }
 
@@ -86,7 +87,8 @@
 
             cookingVessel.Recipes.Add(recipe);
 
-            var user = await this.userManager.FindByIdAsync(userId);
+            var user = this.userRepository.All()
+                .FirstOrDefault(x => x.Id == userId);
 
             user.CreatedRecipes.Add(recipe);
 
@@ -159,11 +161,6 @@
             var recipeWithNutrition = this.recipesRepository.All()
                 .Where(x => x.Name == inputModel.Name)
                 .FirstOrDefault();
-
-            if (recipeWithNutrition == null)
-            {
-                throw new ArgumentException(ExceptionMessages.RecipeIncorrect, recipeWithNutrition.Name);
-            }
 
             if (recipeWithNutrition.Ingredients.Count > 0)
             {
@@ -238,8 +235,8 @@
 
         public async Task EditAsync(RecipeEditViewModel viewModel, string rootPath)
         {
-            var recipe = await this.recipesRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            var recipe = this.recipesRepository.All()
+                .FirstOrDefault(x => x.Id == viewModel.Id);
 
             if (recipe == null)
             {
@@ -259,13 +256,13 @@
             recipe.Notes = viewModel.Notes;
             recipe.ModifiedOn = DateTime.UtcNow;
 
-            var cookingVesselBeforeEdit = await this.cookingVesselRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == recipe.CookingVesselId);
+            var cookingVesselBeforeEdit = this.cookingVesselRepository.All()
+                .FirstOrDefault(x => x.Id == recipe.CookingVesselId);
 
             if (cookingVesselBeforeEdit.Id != viewModel.CookingVesselId)
             {
-                var cookingVessel = await this.cookingVesselRepository.All()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.CookingVesselId);
+                var cookingVessel = this.cookingVesselRepository.All()
+                .FirstOrDefault(x => x.Id == viewModel.CookingVesselId);
 
                 if (cookingVessel == null)
                 {
@@ -290,13 +287,12 @@
 
             foreach (var categoryId in viewModel.CategoriesCategoryId)
             {
-                var category = await this.categoryRepository.All()
-                    .FirstOrDefaultAsync(x => x.Id == categoryId);
+                var category = this.categoryRepository.All()
+                    .FirstOrDefault(x => x.Id == categoryId);
 
                 if (category == null)
                 {
-                    throw new NullReferenceException(
-                    string.Format(ExceptionMessages.CategoryMissing, categoryId));
+                    throw new NullReferenceException(string.Format(ExceptionMessages.CategoryMissing, categoryId));
                 }
 
                 var categoryRecipe = new CategoryRecipe
@@ -381,8 +377,8 @@
             await this.ingredientRecipeRepository.SaveChangesAsync();
             await this.ingredientRepository.SaveChangesAsync();
 
-            var nutrition = await this.nutritionRepository.All()
-                .FirstOrDefaultAsync(x => x.RecipeId == recipe.Id);
+            var nutrition = this.nutritionRepository.All()
+                .FirstOrDefault(x => x.RecipeId == recipe.Id);
 
             if (nutrition != null)
             {

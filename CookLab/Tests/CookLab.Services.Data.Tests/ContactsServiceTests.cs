@@ -15,10 +15,10 @@
 
     public class ContactsServiceTests
     {
-        public const string TestContactName = "TestContactName";
-        public const string TestContactEmail = "TestContactEmail@email.com";
-        public const string TestContactTitle = "TestContactTitle";
-        public const string TestContactMessage = "TestContactMessage";
+        private const string TestContactName = "TestContactName";
+        private const string TestContactEmail = "TestContactEmail@email.com";
+        private const string TestContactTitle = "TestContactTitle";
+        private const string TestContactMessage = "TestContactMessage";
 
         [Fact]
         public async Task DoesSendEmailToAdminAsyncWorkCorrectly()

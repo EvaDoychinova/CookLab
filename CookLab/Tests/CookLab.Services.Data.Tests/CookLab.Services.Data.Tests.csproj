@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="assets\img\categories\" />
+    <Folder Include="assets\img\recipes\" />
   </ItemGroup>
 
 </Project>

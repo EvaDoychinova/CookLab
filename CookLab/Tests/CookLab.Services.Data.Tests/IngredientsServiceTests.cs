@@ -18,14 +18,13 @@
 
     public class IngredientsServiceTests
     {
-        public const string TestIngredientId = "TestIngredientId";
-        public const string TestIngredientId2 = "TestIngredientId2";
-        public const string TestIngredientName = "TestIngredientName";
-        public const string TestIngredientName2 = "TestIngredientName2";
-        public const double TestVolumeIngredient = 50.50;
-        public const double TestVolumeIngredient2 = 100.10;
-
-        public const string TestNutritionId = "TestNutritionId";
+        private const string TestIngredientId = "TestIngredientId";
+        private const string TestIngredientId2 = "TestIngredientId2";
+        private const string TestIngredientName = "TestIngredientName";
+        private const string TestIngredientName2 = "TestIngredientName2";
+        private const double TestVolumeIngredient = 50.50;
+        private const double TestVolumeIngredient2 = 100.10;
+        private const string TestNutritionId = "TestNutritionId";
 
         [Fact]
         public async Task DoesIngredientCreateAsyncWorkCorrectly()
