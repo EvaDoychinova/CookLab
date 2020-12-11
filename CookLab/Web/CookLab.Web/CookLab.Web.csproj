@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Categories\" />
+    <Folder Include="Areas\Administration\Views\Recipes\" />
   </ItemGroup>
 
   <ItemGroup>
