@@ -57,25 +57,41 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
                 <div class="col-sm-8 col-md-12 text-center mx-auto my-4 py-2 border-top border-bottom position-relative">
                     <span id="usersCount">@Model.Users.Count</span>
                     <span class="position-relative" id="addOrRemoveSpan">
-                        @if (Model.Users.Any(x => x.UserUserName == this.User.Identity.Name))
+                        @if (this.User.Identity.Name != null)
                         {
-                            <a class="bg-transparent text-white" id="removeRecipe">
-                                <i class="fas fa-heart-broken i-hoverable"></i>
-                            </a>
-                            <span>Remove from list</span>
+                            @if (Model.Users.Any(x => x.UserUserName == this.User.Identity.Name))
+                            {
+                                <a class="bg-transparent text-white" id="removeRecipe">
+                                    <i class="fas fa-heart-broken i-hoverable"></i>
+                                </a>
+                                <span>Remove from list</span>
+                            }
+                            else
+                            {
+                                <a class="bg-transparent text-white" id="addRecipe">
+                                    <i class="fas fa-heart i-hoverable"></i>
+                                </a>
+                                <span>Add to list</span>
+                            }
                         }
                         else
                         {
-                            <a class="bg-transparent text-white" id="addRecipe">
-                                <i class="fas fa-heart i-hoverable"></i>
-                            </a>
-                            <span>Add to list</span>
+                            if (Model.Users.Count == 1)
+                            {
+                                <span class="pl-2">User added it to his list</span>
+                            }
+                            else
+                            {
+                                <span class="pl-2">Users added it to their lists</span>
+                            }
                         }
                     </span>
                 </div>
+
             </div>
 
             <div class="mx-sm-auto mx-lg-0 col-sm-8 col-md-10 col-lg-6 col-xl-5 my-3">
@@ -146,13 +162,13 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                 .GroupBy(x => x.PartOfRecipe)
-                 .OrderBy(x => x.Key)
-                 .ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
-                 {
-                     IngredientName = y.Ingredient.Name,
-                     WeightInGrams = y.WeightInGrams,
-                 })))
+.GroupBy(x => x.PartOfRecipe)
+.OrderBy(x => x.Key)
+.ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
+{
+                IngredientName = y.Ingredient.Name,
+                WeightInGrams = y.WeightInGrams,
+})))
 
                         {
                             <li>
@@ -211,9 +227,12 @@
             </div>
         </div>
 
-        <div class="row flex-wrap flex-sm-nowrap col-md-9 col-lg-9 mx-auto justify-content-between p-0">
-            <a class="btn btn-primary col-5 col-sm-3 m-1 my-md-auto" asp-area="" asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-            <a class="btn btn-danger col-5 col-sm-3 m-1 my-md-auto" asp-area="" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        <div class="row flex-wrap flex-sm-nowrap col-md-9 col-lg-9 mx-auto justify-content-center p-0">
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.Identity.Name == Model.CreatorUserName)
+            {
+                <a class="btn btn-primary col-5 col-sm-3 m-1 my-md-auto" asp-area="Administration" asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger col-5 col-sm-3 m-1 my-md-auto" asp-area="Administration" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            }
             <a class="btn btn-secondary col-12 mt-3 mt-sm-1 col-sm-5 m-1 m-md-2" asp-area="" asp-controller="Recipes" asp-action="All">Back to Recipes</a>
         </div>
     </div>

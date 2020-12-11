@@ -7,6 +7,7 @@
     using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Services.Data;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class CookingVesselsController : BaseController
@@ -18,11 +19,13 @@
             this.cookingVesselsService = cookingVesselsService;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CookingVesselInputModel inputModel)
         {
@@ -64,25 +67,6 @@
             }
 
             return this.View(cookingVessel);
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var cookingVessel = await this.cookingVesselsService.GetByIdAsync<CookingVesselDeleteViewModel>(id);
-
-            if (cookingVessel == null)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(cookingVessel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(CookingVesselDeleteViewModel viewModel)
-        {
-            await this.cookingVesselsService.DeleteAsync(viewModel.Id);
-            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

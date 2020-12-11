@@ -4,11 +4,12 @@
 
     using CookLab.Models.InputModels.Nutritions;
     using CookLab.Models.ViewModels.Ingredients;
-    using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Services.Data;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class NutritionsController : BaseController
     {
         private readonly INutritionsService nutritionsService;
@@ -47,7 +48,7 @@
                 await this.nutritionsService.AddNutritionToIngredientAsync(inputModel);
             }
 
-            return this.RedirectToAction("Details", "Ingredients", new { id = id });
+            return this.RedirectToAction(nameof(IngredientsController.Details), new { id = id });
         }
     }
 }
