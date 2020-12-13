@@ -3,14 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Ingredients;
+    using CookLab.Models.ViewModels;
     using CookLab.Models.ViewModels.Ingredients;
     using CookLab.Models.ViewModels.Nutritions;
     using CookLab.Services.Data.Tests.AsyncClasses;
+    using CookLab.Services.Mapping;
 
     using Moq;
 
@@ -25,6 +28,11 @@
         private const double TestVolumeIngredient = 50.50;
         private const double TestVolumeIngredient2 = 100.10;
         private const string TestNutritionId = "TestNutritionId";
+
+        //public IngredientsServiceTests()
+        //{
+        //    AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+        //}
 
         [Fact]
         public async Task DoesIngredientCreateAsyncWorkCorrectly()
@@ -63,46 +71,21 @@
         //[Fact]
         //public async Task DoesIngredientsGetAllAsyncWorkCorrectly()
         //{
-        //    var list = new TestAsyncEnumerable<Ingredient>(new List<Ingredient>
+        //    var ingredientsList = new List<Ingredient>
         //    {
         //        new Ingredient
         //        {
         //            Name = TestIngredientName,
         //            VolumeInMlPer100Grams = TestVolumeIngredient,
         //        },
-        //    }).AsQueryable();
+        //    };
 
-        //    var mockIngredientRepo = new Mock<IDeletableEntityRepository<Ingredient>>(MockBehavior.Strict);
-        //    mockIngredientRepo.Setup(x => x.AllAsNoTracking())
-        //        .Returns(list);
+        //    var service = this.CreateMockAndConfigureService(
+        //        ingredientsList,
+        //        new List<Nutrition>(),
+        //        new List<Recipe>());
 
-        //    var mapperMock = new Mock<IMapper>();
-        //    mapperMock.Setup(x => QueryableMappingExtensions.To<IngredientViewModel>(It.IsAny<IQueryable<Ingredient>>()))
-        //        .Returns((Ingredient ingredient) => new TestAsyncEnumerable<IngredientViewModel>(
-        //            list
-        //            .Select(x => new IngredientViewModel
-        //            {
-        //                Name = ingredient.Name,
-        //                VolumeInMlPer100Grams = ingredient.VolumeInMlPer100Grams,
-        //            })));
-
-        //    var mockNutritionsRepo = new Mock<IDeletableEntityRepository<Nutrition>>();
-        //    var mockRecipeRepo = new Mock<IDeletableEntityRepository<Recipe>>();
-
-        //    var mockRecipeIngredientRepo = new Mock<IDeletableEntityRepository<RecipeIngredient>>();
-        //    var mockNutritionsService = new Mock<NutritionsService>(
-        //        mockNutritionsRepo.Object,
-        //        mockIngredientRepo.Object,
-        //        mockRecipeIngredientRepo.Object,
-        //        mockRecipeRepo.Object);
-
-        //    var service = new IngredientsService(
-        //        mockIngredientRepo.Object,
-        //        mockNutritionsRepo.Object,
-        //        mockRecipeRepo.Object,
-        //        mockNutritionsService.Object);
-
-        //    var ingredientsResult = await service.GetAllAsync<TestIngredientViewModel>();
+        //    var ingredientsResult = await service.GetAllAsync<IngredientViewModel>();
         //    var count = ingredientsResult.Count();
 
         //    Assert.Equal(1, count);

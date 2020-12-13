@@ -4,13 +4,17 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.Categories;
+    using CookLab.Models.ViewModels;
     using CookLab.Models.ViewModels.Categories;
     using CookLab.Services.Data.Tests.AsyncClasses;
+    using CookLab.Services.Mapping;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
 
@@ -29,6 +33,11 @@
         private const string TestImageName = "Test.jpg";
         private const string TestImageContentType = "image/jpg";
         private const string TestRootPath = @"D:/SoftUni/07.C# Web/02.ASP.NET Core/NEW/PROJECT/CookLab/CookLab/Tests/CookLab.Services.Data.Tests";
+
+        //public CategoriesServiceTests()
+        //{
+        //    AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+        //}
 
         [Fact]
         public async Task DoesCategoryCreateAsyncWorksCorrectly()
