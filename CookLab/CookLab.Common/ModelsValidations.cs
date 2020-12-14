@@ -86,7 +86,7 @@
             public const string MaxCookingTime = "48:00:00";
 
             public const int PortionsMinValue = 1;
-            public const int PortionsMaxValue = 50;
+            public const int PortionsMaxValue = 100;
 
             public const int PreparationMinLength = 20;
             public const int PreparationMaxLength = int.MaxValue;

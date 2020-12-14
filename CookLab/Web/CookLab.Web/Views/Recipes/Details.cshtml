@@ -113,10 +113,17 @@
                     <li class="border-top p-2 border-bottom mb-3">
                         <div class="d-inline-block">
                             <i class="fas fa-utensils"></i>
-                            <span class="pl-2 border-left ml-2">Portions:</span>
-                            <i class="fas fa-minus-circle i-hoverable" id="desiredPortions-reduce"></i>
-                            <input value="@Model.Portions" class="form-control d-inline text-center" id="desiredPortions" />
-                            <i class="fas fa-plus-circle i-hoverable" id="desiredPortions-add"></i>
+                            @if (this.User.Identity.Name != null)
+                            {
+                                <span class="pl-2 border-left ml-2">Portions:</span>
+                                <i class="fas fa-minus-circle i-hoverable" id="desiredPortions-reduce"></i>
+                                <input value="@Model.DesiredPortions" class="form-control d-inline text-center" id="desiredPortions" />
+                                <i class="fas fa-plus-circle i-hoverable" id="desiredPortions-add"></i>
+                            }
+                            else
+                            {
+                                <span class="pl-2 border-left ml-2">Portions: @Model.Portions</span>
+                            }
                         </div>
                     </li>
 
@@ -132,19 +139,24 @@
                         <li id="nutrition-info-list-item">
                             <ul class="list-unstyled">
                                 <li class="py-2 ml-5">
-                                    <span class="pl-2">Calories: @((Model.Nutrition.Calories / Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) kcal </span>
+                                    <span class="pl-2" id="nutrition-calories">Calories: @((Model.Nutrition.Calories / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) kcal</span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) grams </span>
+                                    <span class="pl-2" id="nutrition-carbohydrates">Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Proteins: @((Model.Nutrition.Proteins /Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) grams </span>
+                                    <span class="pl-2" id="nutrition-proteins">Proteins: @((Model.Nutrition.Proteins / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2">Fats: @((Model.Nutrition.Fats / Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) grams </span>
+                                    <span class="pl-2" id="nutrition-fats">Fats: @((Model.Nutrition.Fats / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
                                 </li>
                                 <li class="border-top py-2 border-bottom ml-5">
-                                    <span class="pl-2">Fibres: @((Model.Nutrition.Fibres /Model.Portions).ToString("F2", CultureInfo.InvariantCulture)) grams </span>
+                                    <span class="pl-2" id="nutrition-fibres">Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
                                 </li>
                             </ul>
                         </li>
@@ -162,14 +174,14 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-.GroupBy(x => x.PartOfRecipe)
-.OrderBy(x => x.Key)
-.ToDictionary(x => x.Key, x => x.Select(y => new IngredientWeightViewModel
-{
-                IngredientName = y.Ingredient.Name,
-                WeightInGrams = y.WeightInGrams,
-})))
-
+                                                .GroupBy(x => x.PartOfRecipe)
+                                                .OrderBy(x => x.Key)
+                                                .ToDictionary(x => x.Key, x => x
+                                                                            .Select(y => new IngredientWeightViewModel
+                                                                            {
+                                                                                IngredientName = y.Ingredient.Name,
+                                                                                WeightInGrams = y.WeightInGrams,
+                                                                            })))
                         {
                             <li>
                                 @if (part.Key.ToString() != "All")
@@ -241,6 +253,7 @@
 
 @section Scripts{
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/ajax.js" asp-append-version="true"></script>
+    <script src="~/js/ajax.min.js" asp-append-version="true"></script>
+    <script src="~/js/userRecipeAjax.js" asp-append-version="true"></script>
     <script>document.onload = addOrRemoveRecipeFromUserList("@Model.Id");</script>
 }

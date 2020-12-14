@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
 
     using CookLab.Data.Models;
@@ -14,6 +15,10 @@
     using CookLab.Services.Mapping;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
+
+    using static CookLab.Common.DisplayNames.RecipesDisplayNames;
+    using static CookLab.Common.ErrorMessages;
+    using static CookLab.Common.ModelsValidations.RecipesValidations;
 
     public class RecipeDetailsViewModel : IMapFrom<Recipe>
     {
@@ -30,6 +35,10 @@
         public int CookingTimeInMinutes => (int)Math.Ceiling(this.CookingTime.TotalMinutes);
 
         public int Portions { get; set; }
+
+        [Range(PortionsMinValue, PortionsMaxValue, ErrorMessage = InvalidRangeError)]
+        [Display(Name = PortionsDisplayName)]
+        public int DesiredPortions => this.Portions;
 
         public ICollection<ImageRecipeViewModel> Images { get; set; }
 
