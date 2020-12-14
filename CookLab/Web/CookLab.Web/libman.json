@@ -83,6 +83,14 @@
         "webfonts/fa-solid-900.woff2",
         "webfonts/fa-brands-400.woff2"
       ]
+    },
+    {
+      "library": "qrcodejs@1.0.0",
+      "destination": "wwwroot/lib/qrcodejs/",
+      "files": [
+        "qrcode.js",
+        "qrcode.min.js"
+      ]
     }
   ]
 }

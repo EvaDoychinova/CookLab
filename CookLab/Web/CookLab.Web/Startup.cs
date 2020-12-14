@@ -61,6 +61,20 @@
 
             services.AddRazorPages();
 
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = this.configuration["Authentication:Microsoft:ClientId"];
+                    microsoftOptions.ClientSecret = this.configuration["Authentication:Microsoft:ClientSecret"];
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    IConfigurationSection googleAuthNSection = this.configuration.GetSection("Authentication:Google");
+
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+
             services.AddSingleton(this.configuration);
 
             // Data repositories

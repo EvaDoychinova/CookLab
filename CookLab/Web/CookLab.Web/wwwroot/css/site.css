@@ -377,3 +377,26 @@ a.dropdown-item {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+p.text-info {
+    padding:5px;
+    border-radius:10px;
+    background-color: #ffffffcc;
+    color: #dc3545 !important;
+}
+
+td#login-provider-Google,
+td#login-provider-Microsoft {
+    color: #ffffff;
+}
+
+code.recovery-code {
+    padding:10px;
+    border-radius: 10px;
+    background-color: #e83e8c;
+    color:#ffffff;
+}
+
+.btn-default {
+    color:#ffffff !important;
+}
