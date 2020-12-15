@@ -91,7 +91,7 @@
         {
             await this.recipesService.DeleteAsync(viewModel.Id);
 
-            return this.RedirectToAction(nameof(Web.Controllers.RecipesController.All));
+            return this.RedirectToAction(nameof(Web.Controllers.RecipesController.All), new { area = string.Empty });
         }
     }
 }

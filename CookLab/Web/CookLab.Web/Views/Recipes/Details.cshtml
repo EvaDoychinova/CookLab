@@ -110,20 +110,26 @@
                         <span class="pl-2 border-left ml-2">Categories: @string.Join(", ", Model.Categories.Select(x => x.Category.Name))</span>
                     </li>
 
-                    <li class="border-top p-2 border-bottom mb-3">
-                        <i class="fas fa-glass-whiskey"></i>
-                        @if (this.User.Identity.Name != null)
-                        {
-                            <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
-                            <select asp-for="@Model.CookingVesselId" asp-items="@Model.CookingVessels"
-                                    class="form-control d-inline select-cookingVessel">
-                            </select>
-                        }
-                        else
-                        {
-                            <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
-                        }
-                    </li>
+                    @if (Model.CookingVessel != null)
+                    {
+                        <li class="border-top p-2 border-bottom mb-3">
+                            <i class="fas fa-glass-whiskey"></i>
+
+                            @if (this.User.Identity.Name != null)
+                            {
+                                <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
+
+                                <select asp-for="@Model.CookingVessel.Id" asp-items="@Model.CookingVessels"
+                                        class="form-control d-inline select-cookingVessel">
+                                </select>
+                            }
+                            else
+                            {
+                                <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
+                            }
+
+                        </li>
+                    }
 
                     <li class="border-top p-2 border-bottom mb-3">
                         <div class="d-inline-block">
@@ -154,24 +160,34 @@
                         <li id="nutrition-info-list-item">
                             <ul class="list-unstyled">
                                 <li class="py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-calories">Calories: @((Model.Nutrition.Calories / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) kcal</span>
+                                    <span class="pl-2" id="nutrition-calories">
+                                        Calories: @((Model.Nutrition.Calories / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) kcal
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-carbohydrates">Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-carbohydrates">
+                                        Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-proteins">Proteins: @((Model.Nutrition.Proteins / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-proteins">
+                                        Proteins: @((Model.Nutrition.Proteins / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-fats">Fats: @((Model.Nutrition.Fats / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-fats">
+                                        Fats: @((Model.Nutrition.Fats / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 border-bottom ml-5">
-                                    <span class="pl-2" id="nutrition-fibres">Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-fibres">
+                                        Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                             </ul>
                         </li>
@@ -189,14 +205,14 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                                                .GroupBy(x => x.PartOfRecipe)
-                                                .OrderBy(x => x.Key)
-                                                .ToDictionary(x => x.Key, x => x
-                                                                            .Select(y => new IngredientWeightViewModel
-                                                                            {
-                                                                                IngredientName = y.Ingredient.Name,
-                                                                                WeightInGrams = y.WeightInGrams,
-                                                                            })))
+                                            .GroupBy(x => x.PartOfRecipe)
+                                            .OrderBy(x => x.Key)
+                                            .ToDictionary(x => x.Key, x => x
+                                                                        .Select(y => new IngredientWeightViewModel
+                                                                        {
+                                                                            IngredientName = y.Ingredient.Name,
+                                                                            WeightInGrams = y.WeightInGrams,
+                                                                        })))
                         {
                             <li>
                                 @if (part.Key.ToString() != "All")
@@ -255,10 +271,12 @@
         </div>
 
         <div class="row flex-wrap flex-sm-nowrap col-md-9 col-lg-9 mx-auto justify-content-center p-0">
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.Identity.Name == Model.CreatorUserName)
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                <a class="btn btn-primary col-5 col-sm-3 m-1 my-md-auto" asp-area="Administration" asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                <a class="btn btn-danger col-5 col-sm-3 m-1 my-md-auto" asp-area="Administration" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a class="btn btn-primary col-5 col-sm-3 m-1 my-md-auto" asp-area="@GlobalConstants.AdministrationAreaName"
+                   asp-controller="Recipes" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger col-5 col-sm-3 m-1 my-md-auto" asp-area="@GlobalConstants.AdministrationAreaName"
+                   asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             }
             <a class="btn btn-secondary col-12 mt-3 mt-sm-1 col-sm-5 m-1 m-md-2" asp-area="" asp-controller="Recipes" asp-action="All">Back to Recipes</a>
         </div>

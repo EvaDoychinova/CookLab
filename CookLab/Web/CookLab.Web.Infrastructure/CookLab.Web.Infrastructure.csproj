@@ -22,11 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
-    <Folder Include="TagHelpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\CookLab.Common\CookLab.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookLab.Data.Models\CookLab.Data.Models.csproj" />
   </ItemGroup>

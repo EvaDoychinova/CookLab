@@ -73,8 +73,7 @@
         public async Task<IActionResult> Delete(CategoryDeleteViewModel viewModel)
         {
             await this.categoriesService.DeleteAsync(viewModel.Id);
-            return this.RedirectToAction(nameof(Web.Controllers.CategoriesController.All));
+            return this.RedirectToAction(nameof(Web.Controllers.CategoriesController.All), new { area = string.Empty });
         }
-
     }
 }

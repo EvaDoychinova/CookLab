@@ -41,7 +41,7 @@
 
         public async Task<IActionResult> All(int id = 1)
         {
-            int itemsPerPage = 15;
+            int itemsPerPage = 17;
             var cookingVessels = await this.cookingVesselsService.GetAllAsync<CookingVesselViewModel>();
 
             var viewModel = new CookingVesselsListViewModel
@@ -53,7 +53,7 @@
                 ItemsCount = cookingVessels.Count(),
                 ItemsPerPage = itemsPerPage,
             };
-
+            this.ViewData["Action"] = nameof(this.All);
             return this.View(viewModel);
         }
 

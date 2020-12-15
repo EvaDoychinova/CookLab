@@ -12,13 +12,13 @@
         <hr class="divider my-4" />
     </div>
     <div class="col-lg-8 align-self-baseline">
-        <form asp-area="Administration" asp-controller="CookingVessels" asp-action="Delete" method="post">
+        <form asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="CookingVessels" asp-action="Delete" method="post">
             <h4 class="text-danger bg-white-transparent rounded p-2 text-center font-weight-light mb-5">
                 Are you sure you want to delete cooking vessel @Model.Name?
             </h4>
             <div class="row justify-content-md-center">
                 <button type="submit" class="btn btn-danger col-md-3 m-3">Delete</button>
-                <a class="btn btn-secondary col-md-3 m-3" asp-controller="CookingVessels" asp-action="Details" asp-route-id="@Model.Id">Back</a>
+                <a class="btn btn-secondary col-md-3 m-3" asp-area="" asp-controller="CookingVessels" asp-action="Details" asp-route-id="@Model.Id">Back</a>
             </div>
         </form>
     </div>

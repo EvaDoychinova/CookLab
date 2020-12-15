@@ -44,8 +44,6 @@
 
         public ICollection<CategoryRecipeViewModel> Categories { get; set; }
 
-        public int CookingVesselId { get; set; }
-
         public CookingVesselViewModel CookingVessel { get; set; }
 
         public ICollection<RecipeIngredientViewModel> Ingredients { get; set; }

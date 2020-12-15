@@ -42,8 +42,8 @@
             string name = (int)inputModel.Form switch
             {
                 1 => $"{inputModel.Form} {inputModel.Diameter}cm/{inputModel.Height}cm",
-                2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA} cm\xB2/{inputModel.Height}cm",
-                3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB} cm\xB2/{inputModel.Height}cm",
+                2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA}cm\xB2/{inputModel.Height}cm",
+                3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB}cm\xB2/{inputModel.Height}cm",
                 4 => $"{inputModel.Name} {inputModel.Area}cm\xB2/{inputModel.Height}cm",
                 _ => null,
             };
@@ -116,15 +116,15 @@
 
             var alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                this.DoubleRound(x.Area, 0) == this.DoubleRound(cookingVessel.Area, 0) &&
+                Math.Round(x.Area, 0) == Math.Round(cookingVessel.Area, 0) &&
                 x.Height >= cookingVessel.Height &&
-                x.Id!=cookingVessel.Id);
+                x.Id != cookingVessel.Id);
 
             if (alternativeCookingVessel == null)
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                this.DoubleRound(x.Area, -1) == this.DoubleRound(cookingVessel.Area, -1) &&
+                Math.Round((x.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round((cookingVessel.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) &&
                 x.Height >= cookingVessel.Height &&
                 x.Id != cookingVessel.Id);
             }
@@ -133,7 +133,7 @@
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                this.DoubleRound(x.Area, -2) == this.DoubleRound(cookingVessel.Area, -2) &&
+                Math.Round((x.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round((cookingVessel.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) &&
                 x.Height >= cookingVessel.Height &&
                 x.Id != cookingVessel.Id);
             }

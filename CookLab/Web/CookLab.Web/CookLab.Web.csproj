@@ -54,7 +54,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Contacts\" />
-    <Folder Include="Areas\Administration\Views\Nutritions\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,11 +14,11 @@
     </div>
     <div class="col-lg-8 align-self-baseline">
         <div class="mb-5 overflow-hidden img-container mx-auto d-flex flex-grow-1">
-            <img src="~/@Model.ImageUrl" class="img-fluid img-category" />
+            <img src="@Model.ImageUrl" class="img-fluid img-category" />
         </div>
         <div class="row">
-            <a class="btn btn-primary col m-3 my-auto" asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-            <a class="btn btn-danger col m-3 my-auto" asp-area="Administration" asp-controller="Categories" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            <a class="btn btn-primary col m-3 my-auto" asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Categories" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <a class="btn btn-danger col m-3 my-auto" asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Categories" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             <a class="btn btn-secondary col m-3 " asp-area="" asp-controller="Categories" asp-action="All">Back to All</a>
         </div>
     </div>

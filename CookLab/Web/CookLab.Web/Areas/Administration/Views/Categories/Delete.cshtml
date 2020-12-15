@@ -11,14 +11,14 @@
         <h1 class="text-white font-weight-bold">@this.ViewData["Title"]</h1>
         <hr class="divider my-4" />
     </div>
-    <form asp-area="" asp-controller="Categories" asp-action="Delete" method="post">
+    <form asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Categories" asp-action="Delete" method="post">
         <div class="align-self-baseline">
             <h4 class="text-danger bg-white-transparent rounded p-2 text-center font-weight-light mb-5">
                 Are you sure you want to delete category @Model.Name?
             </h4>
             <div class="row justify-content-md-center">
                 <button type="submit" class="btn btn-danger col-md-3 m-3">Delete</button>
-                <a class="btn btn-secondary col-md-3 m-3" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Id">Back</a>
+                <a class="btn btn-secondary col-md-3 m-3" asp-area="" asp-controller="Categories" asp-action="Details" asp-route-id="@Model.Id">Back</a>
             </div>
         </div>
     </form>

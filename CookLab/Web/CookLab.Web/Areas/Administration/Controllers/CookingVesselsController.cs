@@ -32,7 +32,7 @@
         public async Task<IActionResult> Delete(CookingVesselDeleteViewModel viewModel)
         {
             await this.cookingVesselsService.DeleteAsync(viewModel.Id);
-            return this.RedirectToAction(nameof(Web.Controllers.CookingVesselsController.All));
+            return this.RedirectToAction(nameof(Web.Controllers.CookingVesselsController.All), new { area = string.Empty });
         }
     }
 }
