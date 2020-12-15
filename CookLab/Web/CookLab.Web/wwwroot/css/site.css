@@ -299,7 +299,7 @@ a.author-recipe {
 }
 
     a.author-recipe:hover {
-        color: #f4623a;
+        color: #ffd800;
         text-decoration: none;
         font-size: 1.1rem;
     }
@@ -368,6 +368,13 @@ a.dropdown-item {
 @media (min-width: 992px) {
     .img-container-httpError {
         min-height: 400px;
+    }
+}
+
+@media(min-width: 1400px) {
+    #recipe-details-side {
+        flex: 0 0 41.666666666666% !important;
+        max-width: 41.666666666666% !important;
     }
 }
 

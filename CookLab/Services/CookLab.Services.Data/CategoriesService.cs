@@ -37,14 +37,13 @@
             }
 
             var imageName = inputModel.Name.ToLower().Replace(" ", "-");
-            string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
+            var imageUrl = $"/assets/img/categories/{imageName}.jpg";
+            string imagePath = rootPath + imageUrl;
 
             using (FileStream stream = new FileStream(imagePath, FileMode.Create))
             {
                 await inputModel.Image.CopyToAsync(stream);
             }
-
-            var imageUrl = $"assets/img/categories/{imageName}.jpg";
 
             var category = new Category
             {
@@ -99,14 +98,13 @@
             if (viewModel.Image != null)
             {
                 var imageName = viewModel.Name.ToLower().Replace(" ", "-");
-                string imagePath = rootPath + $"/assets/img/categories/{imageName}.jpg";
+                imageUrl = $"/assets/img/categories/{imageName}.jpg";
+                string imagePath = rootPath + imageUrl;
 
                 using (FileStream stream = new FileStream(imagePath, FileMode.Create))
                 {
                     await viewModel.Image.CopyToAsync(stream);
                 }
-
-                imageUrl = $"assets/img/categories/{imageName}.jpg";
             }
 
             category.Name = viewModel.Name;

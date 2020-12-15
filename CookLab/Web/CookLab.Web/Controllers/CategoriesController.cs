@@ -60,7 +60,7 @@
                 ItemsCount = categories.Count(),
                 ItemsPerPage = itemsPerPage,
             };
-
+            this.ViewData["Action"] = nameof(this.All);
             return this.View(viewModel);
         }
     }

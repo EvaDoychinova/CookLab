@@ -94,7 +94,7 @@
 
             </div>
 
-            <div class="mx-sm-auto mx-lg-0 col-sm-8 col-md-10 col-lg-6 col-xl-5 my-3">
+            <div class="mx-sm-auto mx-lg-0 col-sm-8 col-md-10 col-lg-6 my-3" id="recipe-details-side">
                 <ul class="list-group list-unstyled align-items-stretch text-left list-inline">
                     <li class="border-top p-2 border-bottom mb-3">
                         <i class="fas fa-clock"></i>
@@ -108,6 +108,21 @@
                     <li class="border-top p-2 border-bottom mb-3">
                         <i class="fas fa-book"></i>
                         <span class="pl-2 border-left ml-2">Categories: @string.Join(", ", Model.Categories.Select(x => x.Category.Name))</span>
+                    </li>
+
+                    <li class="border-top p-2 border-bottom mb-3">
+                        <i class="fas fa-glass-whiskey"></i>
+                        @if (this.User.Identity.Name != null)
+                        {
+                            <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
+                            <select asp-for="@Model.CookingVesselId" asp-items="@Model.CookingVessels"
+                                    class="form-control d-inline select-cookingVessel">
+                            </select>
+                        }
+                        else
+                        {
+                            <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
+                        }
                     </li>
 
                     <li class="border-top p-2 border-bottom mb-3">

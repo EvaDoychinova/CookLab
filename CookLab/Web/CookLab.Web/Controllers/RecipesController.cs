@@ -92,7 +92,7 @@
             var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(categoryId);
             var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(categoryId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllByCategoryPageTitle, category.Name);
-
+            this.ViewData["Action"] = nameof(this.AllByCategory);
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
@@ -102,7 +102,7 @@
             var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
             var user = await this.userManager.FindByIdAsync(userId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
-
+            this.ViewData["Action"] = nameof(this.AllCreatedBy);
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
@@ -113,7 +113,7 @@
             var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
             var user = await this.userManager.FindByIdAsync(userId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
-
+            this.ViewData["Action"] = nameof(this.AllCreatedByMe);
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
