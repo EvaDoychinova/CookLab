@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Globalization;
-
+    using AutoMapper;
     using CookLab.Data.Models;
     using CookLab.Models.ViewModels.CategoryRecipes;
     using CookLab.Models.ViewModels.CookingVessels;
