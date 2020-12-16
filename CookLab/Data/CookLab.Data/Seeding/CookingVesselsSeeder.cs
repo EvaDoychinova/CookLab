@@ -14,6 +14,7 @@
         {
             new CookingVessel
             {
+                Id = 1,
                 Form = PanForm.Circle,
                 Diameter = 20,
                 Height = 7,
@@ -23,6 +24,7 @@
             },
             new CookingVessel
             {
+                Id = 2,
                 Form = PanForm.Circle,
                 Diameter = 22,
                 Height = 7,
@@ -32,6 +34,7 @@
             },
             new CookingVessel
             {
+                Id = 3,
                 Form = PanForm.Circle,
                 Diameter = 25,
                 Height = 7,
@@ -41,6 +44,7 @@
             },
             new CookingVessel
             {
+                Id = 4,
                 Form = PanForm.Circle,
                 Diameter = 26,
                 Height = 7,
@@ -50,6 +54,7 @@
             },
             new CookingVessel
             {
+                Id = 5,
                 Form = PanForm.Circle,
                 Diameter = 20,
                 Height = 20,
@@ -59,6 +64,7 @@
             },
             new CookingVessel
             {
+                Id = 6,
                 Form = PanForm.Circle,
                 Diameter = 25,
                 Height = 20,
@@ -68,6 +74,7 @@
             },
             new CookingVessel
             {
+                Id = 7,
                 Form = PanForm.Circle,
                 Diameter = 30,
                 Height = 20,
@@ -77,6 +84,7 @@
             },
             new CookingVessel
             {
+                Id = 8,
                 Form = PanForm.Circle,
                 Diameter = 25,
                 Height = 25,
@@ -86,6 +94,7 @@
             },
             new CookingVessel
             {
+                Id = 9,
                 Form = PanForm.Circle,
                 Diameter = 30,
                 Height = 30,
@@ -95,6 +104,7 @@
             },
             new CookingVessel
             {
+                Id = 10,
                 Form = PanForm.Square,
                 SideA = 18,
                 Height = 7,
@@ -104,6 +114,7 @@
             },
             new CookingVessel
             {
+                Id = 11,
                 Form = PanForm.Square,
                 SideA = 20,
                 Height = 7,
@@ -113,6 +124,7 @@
             },
             new CookingVessel
             {
+                Id = 12,
                 Form = PanForm.Square,
                 SideA = 25,
                 Height = 7,
@@ -122,6 +134,7 @@
             },
             new CookingVessel
             {
+                Id = 13,
                 Form = PanForm.Square,
                 SideA = 30,
                 Height = 7,
@@ -131,6 +144,7 @@
             },
             new CookingVessel
             {
+                Id = 14,
                 Form = PanForm.Rectangular,
                 SideA = 15,
                 SideB = 20,
@@ -141,6 +155,7 @@
             },
             new CookingVessel
             {
+                Id = 15,
                 Form = PanForm.Rectangular,
                 SideA = 15,
                 SideB = 25,
@@ -151,6 +166,7 @@
             },
             new CookingVessel
             {
+                Id = 16,
                 Form = PanForm.Rectangular,
                 SideA = 15,
                 SideB = 30,
@@ -161,6 +177,7 @@
             },
             new CookingVessel
             {
+                Id = 17,
                 Form = PanForm.Rectangular,
                 SideA = 18,
                 SideB = 20,
@@ -171,6 +188,7 @@
             },
             new CookingVessel
             {
+                Id = 18,
                 Form = PanForm.Rectangular,
                 SideA = 18,
                 SideB = 25,
@@ -181,6 +199,7 @@
             },
             new CookingVessel
             {
+                Id = 19,
                 Form = PanForm.Rectangular,
                 SideA = 18,
                 SideB = 30,
@@ -191,6 +210,7 @@
             },
             new CookingVessel
             {
+                Id = 20,
                 Form = PanForm.Rectangular,
                 SideA = 18,
                 SideB = 35,
@@ -201,6 +221,7 @@
             },
             new CookingVessel
             {
+                Id = 21,
                 Form = PanForm.Rectangular,
                 SideA = 20,
                 SideB = 25,
@@ -211,6 +232,7 @@
             },
             new CookingVessel
             {
+                Id = 22,
                 Form = PanForm.Rectangular,
                 SideA = 20,
                 SideB = 30,
@@ -221,6 +243,7 @@
             },
             new CookingVessel
             {
+                Id = 23,
                 Form = PanForm.Rectangular,
                 SideA = 25,
                 SideB = 30,
@@ -231,6 +254,7 @@
             },
             new CookingVessel
             {
+                Id = 24,
                 Form = PanForm.Rectangular,
                 SideA = 25,
                 SideB = 35,
@@ -241,6 +265,7 @@
             },
             new CookingVessel
             {
+                Id = 25,
                 Form = PanForm.Rectangular,
                 SideA = 25,
                 SideB = 40,
@@ -251,6 +276,7 @@
             },
             new CookingVessel
             {
+                Id = 26,
                 Form = PanForm.Custom,
                 Height = 7,
                 Area = 325,
@@ -259,6 +285,7 @@
             },
             new CookingVessel
             {
+                Id = 27,
                 Form = PanForm.Custom,
                 Height = 7,
                 Area = 325,
@@ -267,6 +294,7 @@
             },
             new CookingVessel
             {
+                Id = 28,
                 Form = PanForm.Custom,
                 Height = 7,
                 Area = 400,
@@ -275,6 +303,7 @@
             },
             new CookingVessel
             {
+                Id = 29,
                 Form = PanForm.Custom,
                 Height = 7,
                 Area = 350,
@@ -283,6 +312,7 @@
             },
             new CookingVessel
             {
+                Id = 30,
                 Form = PanForm.Custom,
                 Height = 7,
                 Area = 450,

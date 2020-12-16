@@ -25,6 +25,8 @@
     {
         public static void Main(string[] args)
         {
+            var id = Guid.NewGuid().ToString();
+            Console.WriteLine(id);
             //Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
             //var serviceCollection = new ServiceCollection();
             //ConfigureServices(serviceCollection);

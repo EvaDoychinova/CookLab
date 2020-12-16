@@ -15,6 +15,7 @@
     {
         private ApplicationUser administrator = new ApplicationUser
         {
+            Id = "7ec698b4-5f8d-4c54-b775-91e2b5d83215",
             UserName = GlobalConstants.AdministratorUsername,
             Email = GlobalConstants.AdinistratorEmail,
         };

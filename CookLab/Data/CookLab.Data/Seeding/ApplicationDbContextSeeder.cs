@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -23,13 +24,44 @@
 
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
 
+            var cookingVesselsSeeder = new CookingVesselsSeeder();
+            await cookingVesselsSeeder.SeedAsync(dbContext, serviceProvider);
+            await dbContext.Database.OpenConnectionAsync();
+            try
+            {
+                await dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.CookingVessels ON");
+                await dbContext.SaveChangesAsync();
+                await dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.CookingVessels OFF");
+            }
+            finally
+            {
+                await dbContext.Database.CloseConnectionAsync();
+            }
+
+            logger.LogInformation($"Seeder {cookingVesselsSeeder.GetType().Name} done.");
+
+            var categoriesSeeder = new CategoriesSeeder();
+            await categoriesSeeder.SeedAsync(dbContext, serviceProvider);
+            await dbContext.Database.OpenConnectionAsync();
+            try
+            {
+                await dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Categories ON");
+                await dbContext.SaveChangesAsync();
+                await dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Categories OFF");
+            }
+            finally
+            {
+                await dbContext.Database.CloseConnectionAsync();
+            }
+
+            logger.LogInformation($"Seeder {categoriesSeeder.GetType().Name} done.");
+
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
                               new UsersSeeder(),
-                              new CategoriesSeeder(),
-                              new CookingVesselsSeeder(),
                               new IngredientsSeeder(),
+                              new RecipesSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -92,7 +92,7 @@
                 .Where(x => x.RecipeId == recipe.Id)
                 .ToListAsync();
 
-            if (!recipeIngredients.Any(x => x.Ingredient.NutritionPer100Grams == null))
+            if (!recipeIngredients.Any(x => this.nutritionRepository.All().FirstOrDefault(y => y.IngredientId == x.IngredientId) == null))
             {
                 var initialNutrition = this.nutritionRepository.All()
                     .FirstOrDefault(x => x.RecipeId == recipeId);
@@ -134,9 +134,9 @@
         private double CalculateNutritionElementForWholeRecipe(ICollection<RecipeIngredient> ingredients, string nutritionPart)
         {
             var nutritionElement = ingredients
-                .Sum(x => x.WeightInGrams / 100 * (double)x.Ingredient.NutritionPer100Grams
+                .Sum(x => x.WeightInGrams / 100 * (double)this.nutritionRepository.All().First(y => y.IngredientId == x.IngredientId)
                                                         .GetType().GetProperty(nutritionPart)
-                                                        .GetValue(x.Ingredient.NutritionPer100Grams));
+                                                        .GetValue(this.nutritionRepository.All().First(y => y.IngredientId == x.IngredientId)));
 
             return nutritionElement;
         }

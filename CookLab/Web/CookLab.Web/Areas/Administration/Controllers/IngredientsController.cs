@@ -37,7 +37,7 @@
             }
 
             await this.ingredientsService.EditAsync(viewModel);
-            return this.RedirectToAction(nameof(Web.Controllers.IngredientsController.Details), new { id = viewModel.Id });
+            return this.RedirectToAction(nameof(Web.Controllers.IngredientsController.Details), new { id = viewModel.Id, area = string.Empty });
         }
 
         public async Task<IActionResult> Delete(string id)
@@ -56,7 +56,7 @@
         public async Task<IActionResult> Delete(IngredientDeleteViewModel viewModel)
         {
             await this.ingredientsService.DeleteAsync(viewModel.Id);
-            return this.RedirectToAction(nameof(Web.Controllers.IngredientsController.All));
+            return this.RedirectToAction(nameof(Web.Controllers.IngredientsController.All), new { area = string.Empty });
         }
     }
 }
