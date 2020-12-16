@@ -51,7 +51,7 @@
         {
             <a class="btn btn-outline-primary m-3" asp-area="" asp-controller="Nutritions" asp-action="Create" asp-route-id="@Model.Id">Add nutrition</a>
         }
-    <div class="row">
+    <div class="row col-lg-8 mx-auto">
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <a class="btn btn-primary col m-3 my-auto" asp-area="Administration" asp-controller="Ingredients" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

@@ -30,7 +30,6 @@
                               new CategoriesSeeder(),
                               new CookingVesselsSeeder(),
                               new IngredientsSeeder(),
-                              new NutritionsSeeder(),
                           };
 
             foreach (var seeder in seeders)

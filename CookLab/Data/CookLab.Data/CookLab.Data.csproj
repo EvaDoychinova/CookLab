@@ -8,6 +8,7 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    <AssemblyName>l</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

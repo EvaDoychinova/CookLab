@@ -34,7 +34,6 @@
                     {
                         new RecipeIngredient
                         {
-                            
                         },
                     },
                     Notes = "",
