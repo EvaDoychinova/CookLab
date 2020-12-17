@@ -9,7 +9,6 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.CookingVessel;
-    using CookLab.Models.ViewModels.CookingVessels;
     using CookLab.Services.Mapping;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -36,6 +35,7 @@
                 2 => inputModel.SideA * inputModel.SideA ?? 0,
                 3 => inputModel.SideA * inputModel.SideB ?? 0,
                 4 => inputModel.Area ?? 0,
+                5 => Math.PI * (inputModel.Diameter / 2) * (inputModel.Diameter / 2) * inputModel.FormsCount ?? 0,
                 _ => 0,
             };
 
@@ -45,6 +45,7 @@
                 2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA}cm\xB2/{inputModel.Height}cm",
                 3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB}cm\xB2/{inputModel.Height}cm",
                 4 => $"{inputModel.Name} {inputModel.Area}cm\xB2/{inputModel.Height}cm",
+                5 => $"{inputModel.FormsCount}*{inputModel.Form} {inputModel.Diameter}cm/{inputModel.Height}cm",
                 _ => null,
             };
 
@@ -57,6 +58,7 @@
             {
                 Name = name,
                 Form = inputModel.Form,
+                FormsCount = inputModel.FormsCount,
                 Diameter = (int)inputModel.Form switch
                 {
                     1 => inputModel.Diameter,
@@ -124,7 +126,7 @@
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                Math.Round((x.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round((cookingVessel.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) &&
+                Math.Round(x.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round(cookingVessel.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) &&
                 x.Height >= cookingVessel.Height &&
                 x.Id != cookingVessel.Id);
             }
@@ -133,7 +135,7 @@
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                Math.Round((x.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round((cookingVessel.Area / Math.Pow(10, Math.Abs(-1))), 0) * Math.Pow(10, Math.Abs(-1)) &&
+                Math.Round(x.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round(cookingVessel.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) &&
                 x.Height >= cookingVessel.Height &&
                 x.Id != cookingVessel.Id);
             }
@@ -166,21 +168,6 @@
                     .ToListAsync();
 
             return cookingVessels;
-        }
-
-        private double DoubleRound(double value, int digits)
-        {
-            if (digits >= 0)
-            {
-                return Math.Round(value, digits);
-            }
-            else
-            {
-                digits = Math.Abs(digits);
-                double temp = value / Math.Pow(10, digits);
-                temp = Math.Round(temp, 0);
-                return temp * Math.Pow(10, digits);
-            }
         }
     }
 }

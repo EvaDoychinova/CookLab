@@ -115,7 +115,7 @@
                         <li class="border-top p-2 border-bottom mb-3">
                             <i class="fas fa-glass-whiskey"></i>
 
-                            @if (this.User.Identity.Name != null)
+                            @*@if (this.User.Identity.Name != null)
                             {
                                 <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
 
@@ -124,9 +124,9 @@
                                 </select>
                             }
                             else
-                            {
+                            {*@
                                 <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
-                            }
+                            @*  *@}
 
                         </li>
                     }

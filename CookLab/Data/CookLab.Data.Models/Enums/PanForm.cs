@@ -6,5 +6,6 @@
         Square = 2,
         Rectangular = 3,
         Custom = 4,
+        Circles = 5,
     }
 }

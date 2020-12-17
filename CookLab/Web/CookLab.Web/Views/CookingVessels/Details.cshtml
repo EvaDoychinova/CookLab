@@ -26,6 +26,13 @@
                 @if (Model.Diameter != null)
                 {
                     <tr>
+                        <th scope="row">Count</th>
+                        <td class="text-primary">@Model.FormsCount</td>
+                    </tr>
+                }
+                @if (Model.Diameter != null)
+                {
+                    <tr>
                         <th scope="row">Diameter</th>
                         <td class="text-primary">@Model.DiameterToString</td>
                     </tr>

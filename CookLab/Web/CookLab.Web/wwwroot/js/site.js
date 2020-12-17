@@ -13,6 +13,8 @@
     if (document.getElementById("Form")) {
         const functionalSelect = document.getElementById("Form");
         const options = functionalSelect.children;
+        const formsCount = document.getElementById("FormsCount");
+        const formsCountParent = formsCount.parentNode;
         const name = document.getElementById("Name");
         const nameParent = name.parentNode;
         const diameter = document.getElementById("Diameter");
@@ -36,6 +38,9 @@
 
                 break;
             case '1':
+                formsCountParent.classList.add('d-none');
+                formsCount.setAttribute('disabled', 'disabled');
+
                 nameParent.classList.add('d-none');
                 name.setAttribute('disabled', "disabled");
 
@@ -50,6 +55,9 @@
 
                 break;
             case '2':
+                formsCountParent.classList.add('d-none');
+                formsCount.setAttribute('disabled', 'disabled');
+
                 nameParent.classList.add('d-none');
                 name.setAttribute('disabled', "disabled");
 
@@ -64,6 +72,9 @@
 
                 break;
             case '3':
+                formsCountParent.classList.add('d-none');
+                formsCount.setAttribute('disabled', 'disabled');
+
                 nameParent.classList.add('d-none');
                 name.setAttribute('disabled', "disabled");
 
@@ -75,6 +86,9 @@
 
                 break;
             case '4':
+                formsCountParent.classList.add('d-none');
+                formsCount.setAttribute('disabled', 'disabled');
+
                 sideAParent.classList.add('d-none');
                 sideA.setAttribute('disabled', "disabled");
 
@@ -83,6 +97,20 @@
 
                 sideBParent.classList.add('d-none');
                 sideB.setAttribute('disabled', "disabled");
+
+                break;
+            case '5':
+                nameParent.classList.add('d-none');
+                name.setAttribute('disabled', "disabled");
+
+                sideAParent.classList.add('d-none');
+                sideA.setAttribute('disabled', "disabled");
+
+                sideBParent.classList.add('d-none');
+                sideB.setAttribute('disabled', "disabled");
+
+                areaParent.classList.add('d-none');
+                area.setAttribute('disabled', "disabled");
 
                 break;
             default:
@@ -95,7 +123,6 @@
 
             let selectedOption = Array.from(options).filter(x => x.value == functionalSelect.value)[0];
             let value = selectedOption.value;
-            console.log(value);
             selectedOption.setAttribute('selected', 'selected');
             options[0].removeAttribute('selected');
             switch (value) {
@@ -135,6 +162,17 @@
 
                     areaParent.classList.remove('d-none');
                     area.removeAttribute('disabled');
+
+                    break;
+                case '5':
+                    formsCountParent.classList.remove('d-none');
+                    formsCount.removeAttribute('disabled',);
+
+                    diameterParent.classList.remove('d-none');
+                    diameter.removeAttribute('disabled');
+
+                    heightParent.classList.remove('d-none');
+                    height.removeAttribute('disabled');
 
                     break;
                 default:

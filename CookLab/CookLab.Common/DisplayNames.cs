@@ -37,6 +37,7 @@
         public static class CookingVesselDisplayName
         {
             public const string FormDisplayName = "Vessel form";
+            public const string FormsCountDisplayName = "Number of forms";
         }
 
         public static class RecipesDisplayNames

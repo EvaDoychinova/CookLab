@@ -22,6 +22,9 @@
         [Range(FormMinValue, FormMaxValue)]
         public PanForm Form { get; set; }
 
+        [Range(FormsCountMinValue, FormsCountMaxValue)]
+        public int? FormsCount { get; set; }
+
         [Range(DiameterMinValue, DiameterMaxValue)]
         public double? Diameter { get; set; }
 

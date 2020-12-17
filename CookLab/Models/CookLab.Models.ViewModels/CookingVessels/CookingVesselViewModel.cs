@@ -14,6 +14,8 @@
 
         public PanForm Form { get; set; }
 
+        public int? FormsCount { get; set; }
+
         public double? Diameter { get; set; }
 
         public string DiameterToString => this.Diameter?.ToString("F2", CultureInfo.InvariantCulture);

@@ -319,6 +319,16 @@
                 Volume = 450 * 7,
                 Name = "Triangle 450cm\xB2/7cm",
             },
+            new CookingVessel
+            {
+                Id = 31,
+                Form = PanForm.Circle,
+                Diameter = 20,
+                Height = 10,
+                Area = Math.PI * (20 / 2) * (20 / 2),
+                Volume = Math.PI * (20 / 2) * (20 / 2) * 10,
+                Name = "Circle 20cm/7cm",
+            },
         };
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)

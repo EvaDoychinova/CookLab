@@ -46,7 +46,10 @@
         public static class CookingVesselValidations
         {
             public const int FormMinValue = 1;
-            public const int FormMaxValue = 4;
+            public const int FormMaxValue = 5;
+
+            public const int FormsCountMinValue = 1;
+            public const int FormsCountMaxValue = 20;
 
             public const int NameMinValue = 3;
             public const int NameMaxValue = 20;

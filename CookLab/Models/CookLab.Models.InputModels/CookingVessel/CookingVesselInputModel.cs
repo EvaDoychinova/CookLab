@@ -20,7 +20,13 @@
         [Range(FormMinValue, FormMaxValue, ErrorMessage = InvalidEnumRangeError)]
         public PanForm Form { get; set; }
 
+        [RequiredForm(PanForm.Circles, "Form")]
+        [Display(Name = FormsCountDisplayName)]
+        [Range(FormsCountMinValue, FormsCountMaxValue)]
+        public int? FormsCount { get; set; }
+
         [RequiredForm(PanForm.Circle, "Form")]
+        [RequiredForm(PanForm.Circles, "Form")]
         [Range(DiameterMinValue, DiameterMaxValue)]
         public double? Diameter { get; set; }
 
