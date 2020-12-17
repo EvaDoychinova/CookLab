@@ -272,7 +272,7 @@ a {
     }
 
 .recipe-preparation {
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .bg-white-transparent {
@@ -386,8 +386,8 @@ a.dropdown-item {
 }
 
 p.text-info {
-    padding:5px;
-    border-radius:10px;
+    padding: 5px;
+    border-radius: 10px;
     background-color: #ffffffcc;
     color: #dc3545 !important;
 }
@@ -398,12 +398,19 @@ td#login-provider-Microsoft {
 }
 
 code.recovery-code {
-    padding:10px;
+    padding: 10px;
     border-radius: 10px;
     background-color: #e83e8c;
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .btn-default {
-    color:#ffffff !important;
+    color: #ffffff !important;
+}
+
+
+@media (min-width: 992px) {
+    .title-margin-top {
+        margin-top: 3rem !important;
+    }
 }

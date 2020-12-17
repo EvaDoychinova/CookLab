@@ -1,4 +1,40 @@
 ﻿$(document).ready(function () {
+    // Select2 library
+    $('.select-cookingVessel').select2({
+        placeholder: 'Choose a cooking vessel...',
+        allowClear: true
+    });
+
+    $('.select-multiple-categories').select2({
+        placeholder: 'Choose one or more categories...',
+    });
+
+    $('.select-ingredients').select2({
+        placeholder: 'Choose ingredient...'
+    });
+
+    $('.select-partOfRecipe').select2({
+        placeholder: 'Part of recipe...'
+    });
+
+    // Enable Popovers
+    $('[data-toggle="popover"]').popover();
+
+    // Enable Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Autosize textarea fields
+    const tx = document.getElementsByTagName('textarea');
+    for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+        tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    }
+
     // Show Uploaded file names
     if (document.querySelector(".custom-file-input")) {
         let fileInput = document.querySelector(".custom-file-input");

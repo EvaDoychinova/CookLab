@@ -22,23 +22,23 @@
                 }
             }
 
-            let caloriesPerPortion = calories.innerHTML.split(' ')[1];
+            let caloriesPerPortion = calories.innerHTML.replace('\n', '').trim().split(' ')[1];
             let newCaloriesPerPortion = parseFloat(caloriesPerPortion) * valueInput.value / currentValue;
             calories.innerHTML = calories.innerHTML.replace(caloriesPerPortion, newCaloriesPerPortion.toFixed(2).toString());
 
-            let carbohydratesPerPortion = carbohydrates.innerHTML.split(' ')[1];
+            let carbohydratesPerPortion = carbohydrates.innerHTML.replace('\n', '').trim().split(' ')[1];
             let newCarbohydratesPerPortion = parseFloat(carbohydratesPerPortion) * valueInput.value / currentValue;
             carbohydrates.innerHTML = carbohydrates.innerHTML.replace(carbohydratesPerPortion, newCarbohydratesPerPortion.toFixed(2).toString());
 
-            let proteinsPerPortion = proteins.innerHTML.split(' ')[1];
+            let proteinsPerPortion = proteins.innerHTML.replace('\n', '').trim().split(' ')[1];
             let newProteinsPerPortion = parseFloat(proteinsPerPortion) * valueInput.value / currentValue;
             proteins.innerHTML = proteins.innerHTML.replace(proteinsPerPortion, newProteinsPerPortion.toFixed(2).toString());
 
-            let fatsPerPortion = fats.innerHTML.split(' ')[1];
+            let fatsPerPortion = fats.innerHTML.replace('\n', '').trim().split(' ')[1];
             let newFatsPerPortion = parseFloat(fatsPerPortion) * valueInput.value / currentValue;
             fats.innerHTML = fats.innerHTML.replace(fatsPerPortion, newFatsPerPortion.toFixed(2).toString());
 
-            let fibresPerPortion = fibres.innerHTML.split(' ')[1];
+            let fibresPerPortion = fibres.innerHTML.replace('\n', '').trim().split(' ')[1];
             let newFibresPerPortion = parseFloat(fibresPerPortion) * valueInput.value / currentValue;
             fibres.innerHTML = fibres.innerHTML.replace(fibresPerPortion, newFibresPerPortion.toFixed(2).toString());
 
@@ -50,23 +50,23 @@
             console.log(e.target.value);
 
             if (e.target.value > 0 && e.target.value < 100) {
-                let caloriesPerPortion = calories.innerHTML.split(' ')[1];
+                let caloriesPerPortion = calories.innerHTML.replace('\n', '').trim().split(' ')[1];
                 let newCaloriesPerPortion = parseFloat(caloriesPerPortion) * currentValue / e.target.value;
                 calories.innerHTML = calories.innerHTML.replace(caloriesPerPortion, newCaloriesPerPortion.toFixed(2).toString());
 
-                let carbohydratesPerPortion = carbohydrates.innerHTML.split(' ')[1];
+                let carbohydratesPerPortion = carbohydrates.innerHTML.replace('\n', '').trim().split(' ')[1];
                 let newCarbohydratesPerPortion = parseFloat(carbohydratesPerPortion) * currentValue / e.target.value;
                 carbohydrates.innerHTML = carbohydrates.innerHTML.replace(carbohydratesPerPortion, newCarbohydratesPerPortion.toFixed(2).toString());
 
-                let proteinsPerPortion = proteins.innerHTML.split(' ')[1];
+                let proteinsPerPortion = proteins.innerHTML.replace('\n', '').trim().split(' ')[1];
                 let newProteinsPerPortion = parseFloat(proteinsPerPortion) * currentValue / e.target.value;
                 proteins.innerHTML = proteins.innerHTML.replace(proteinsPerPortion, newProteinsPerPortion.toFixed(2).toString());
 
-                let fatsPerPortion = fats.innerHTML.split(' ')[1];
+                let fatsPerPortion = fats.innerHTML.replace('\n', '').trim().split(' ')[1];
                 let newFatsPerPortion = parseFloat(fatsPerPortion) * currentValue / e.target.value;
                 fats.innerHTML = fats.innerHTML.replace(fatsPerPortion, newFatsPerPortion.toFixed(2).toString());
 
-                let fibresPerPortion = fibres.innerHTML.split(' ')[1];
+                let fibresPerPortion = fibres.innerHTML.replace('\n', '').trim().split(' ')[1];
                 let newFibresPerPortion = parseFloat(fibresPerPortion) * currentValue / e.target.value;
                 fibres.innerHTML = fibres.innerHTML.replace(fibresPerPortion, newFibresPerPortion.toFixed(2).toString());
 

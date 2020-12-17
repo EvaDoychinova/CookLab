@@ -322,12 +322,55 @@
             new CookingVessel
             {
                 Id = 31,
-                Form = PanForm.Circle,
-                Diameter = 20,
+                Form = PanForm.Circles,
+                FormsCount = 4,
+                Diameter = 8,
                 Height = 10,
-                Area = Math.PI * (20 / 2) * (20 / 2),
-                Volume = Math.PI * (20 / 2) * (20 / 2) * 10,
-                Name = "Circle 20cm/7cm",
+                Area = Math.PI * (8 / 2) * (8 / 2) * 4,
+                Volume = Math.PI * (8 / 2) * (8 / 2) * 4 * 10,
+                Name = "4xCircles 8cm/10cm",
+            },
+            new CookingVessel
+            {
+                Id = 32,
+                Form = PanForm.Circles,
+                FormsCount = 8,
+                Diameter = 8,
+                Height = 10,
+                Area = Math.PI * (8 / 2) * (8 / 2) * 8,
+                Volume = Math.PI * (8 / 2) * (8 / 2) * 8 * 10,
+                Name = "8xCircles 8cm/10cm",
+            },
+            new CookingVessel
+            {
+                Id = 33,
+                Form = PanForm.Circles,
+                FormsCount = 12,
+                Diameter = 8,
+                Height = 10,
+                Area = Math.PI * (8 / 2) * (8 / 2) * 12,
+                Volume = Math.PI * (8 / 2) * (8 / 2) * 12 * 10,
+                Name = "12xCircles 8cm/10cm",
+            },
+            new CookingVessel
+            {
+                Id = 34,
+                Form = PanForm.Square,
+                SideA = 13,
+                Height = 7,
+                Area = 13 * 13,
+                Volume = 13 * 13 * 7,
+                Name = "Square 13x13cm\xB2/7cm",
+            },
+            new CookingVessel
+            {
+                Id = 35,
+                Form = PanForm.Square,
+                SideA = 15,
+                Height = 7,
+                Area = 15 * 15,
+                Volume = 15 * 15 * 7,
+                Name = "Square 15x15cm\xB2/7cm",
             },
         };
 

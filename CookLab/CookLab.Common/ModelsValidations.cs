@@ -22,7 +22,7 @@
             public const int NameMaxValue = 30;
 
             public const double VolumeMinValue = 10;
-            public const double VolumeMaxValue = 200;
+            public const double VolumeMaxValue = 500;
         }
 
         public static class NutritionsValidations

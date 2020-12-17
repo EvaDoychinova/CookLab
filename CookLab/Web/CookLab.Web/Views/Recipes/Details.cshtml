@@ -116,17 +116,17 @@
                             <i class="fas fa-glass-whiskey"></i>
 
                             @*@if (this.User.Identity.Name != null)
-                            {
-                                <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
+                                {
+                                    <span class="pl-2 border-left ml-2 mb-2 d-inline-block">Cooking vessel:</span>
 
-                                <select asp-for="@Model.CookingVessel.Id" asp-items="@Model.CookingVessels"
-                                        class="form-control d-inline select-cookingVessel">
-                                </select>
-                            }
-                            else
-                            {*@
-                                <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
-                            @*  *@}
+                                    <select asp-for="@Model.CookingVessel.Id" asp-items="@Model.CookingVessels"
+                                            class="form-control d-inline select-cookingVessel">
+                                    </select>
+                                }
+                                else
+                                {*@
+                            <span class="pl-2 border-left ml-2">Cooking vessel: @Model.CookingVessel.Name</span>
+                            @* } *@
 
                         </li>
                     }
@@ -160,8 +160,10 @@
                         <li id="nutrition-info-list-item">
                             <ul class="list-unstyled">
                                 <li class="py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-calories">Calories: @((Model.Nutrition.Calories / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) kcal</span>
+                                    <span class="pl-2" id="nutrition-calories">
+                                        Calories: @((Model.Nutrition.Calories / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) kcal
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
                                     <span class="pl-2" id="nutrition-carbohydrates">Carbohydrates: @((Model.Nutrition.Carbohydrates / Model.DesiredPortions)
@@ -172,12 +174,16 @@
                                             .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
                                 </li>
                                 <li class="border-top py-2 ml-5">
-                                    <span class="pl-2" id="nutrition-fats">Fats: @((Model.Nutrition.Fats / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-fats">
+                                        Fats: @((Model.Nutrition.Fats / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                                 <li class="border-top py-2 border-bottom ml-5">
-                                    <span class="pl-2" id="nutrition-fibres">Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions)
-                                            .ToString("F2", CultureInfo.InvariantCulture)) grams</span>
+                                    <span class="pl-2" id="nutrition-fibres">
+                                        Fibres: @((Model.Nutrition.Fibres / Model.DesiredPortions)
+                                            .ToString("F2", CultureInfo.InvariantCulture)) grams
+                                    </span>
                                 </li>
                             </ul>
                         </li>
@@ -195,14 +201,14 @@
                 <div>
                     <ul class="list-group list-unstyled">
                         @foreach (var part in Model.Ingredients
-                                            .GroupBy(x => x.PartOfRecipe)
-                                            .OrderBy(x => x.Key)
-                                            .ToDictionary(x => x.Key, x => x
-                                                                        .Select(y => new IngredientWeightViewModel
-                                                                        {
-                                                                            IngredientName = y.Ingredient.Name,
-                                                                            WeightInGrams = y.WeightInGrams,
-                                                                        })))
+                                           .GroupBy(x => x.PartOfRecipe)
+                                           .OrderBy(x => x.Key)
+                                           .ToDictionary(x => x.Key, x => x
+                                                                       .Select(y => new IngredientWeightViewModel
+                                                                       {
+                                                                           IngredientName = y.Ingredient.Name,
+                                                                           WeightInGrams = y.WeightInGrams,
+                                                                       })))
                         {
                             <li>
                                 @if (part.Key.ToString() != "All")
@@ -229,7 +235,7 @@
                 </div>
             </div>
 
-            <div class=" col-sm-8 col-md col-lg-10 col-xl-8 mx-sm-auto my-3 p-0">
+            <div class=" col-sm-8 col-md col-xl-10 mx-sm-auto my-3 p-0">
                 <div class="mx-auto my-3 p-0">
                     <h4 class="py-2">
                         <i class="fas fa-mortar-pestle"></i>
@@ -252,9 +258,15 @@
                             <i class="fas fa-lightbulb"></i>
                             <span class="pl-3 border-bottom pb-2">Additional information</span>
                         </h4>
-                        <div class="text-wrap">
+                        <ol>
+                            @foreach (var step in Model.Notes.Split("\r\n", StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li class="recipe-preparation text-left">@step</li>
+                            }
+                        </ol>
+                        @*<div class="text-wrap">
                             <p class="recipe-preparation">@Model.Notes</p>
-                        </div>
+                        </div>*@
                     </div>
                 }
             </div>

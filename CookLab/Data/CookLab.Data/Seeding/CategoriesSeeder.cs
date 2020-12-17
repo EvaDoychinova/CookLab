@@ -107,6 +107,18 @@
                 Name = "Bread",
                 ImageUrl = "/assets/img/categories/bread.jpg",
             },
+            new Category
+            {
+                Id = 17,
+                Name = "Chocolates",
+                ImageUrl = "/assets/img/categories/chocolates.jpg",
+            },
+            new Category
+            {
+                Id = 18,
+                Name = "Breakfasts",
+                ImageUrl = "/assets/img/categories/breakfasts.jpg",
+            },
         };
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)

@@ -45,7 +45,7 @@
                 2 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideA}cm\xB2/{inputModel.Height}cm",
                 3 => $"{inputModel.Form} {inputModel.SideA}x{inputModel.SideB}cm\xB2/{inputModel.Height}cm",
                 4 => $"{inputModel.Name} {inputModel.Area}cm\xB2/{inputModel.Height}cm",
-                5 => $"{inputModel.FormsCount}*{inputModel.Form} {inputModel.Diameter}cm/{inputModel.Height}cm",
+                5 => $"{inputModel.FormsCount}x{inputModel.Form} {inputModel.Diameter}cm/{inputModel.Height}cm",
                 _ => null,
             };
 
