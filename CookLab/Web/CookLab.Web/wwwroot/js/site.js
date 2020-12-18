@@ -5,6 +5,11 @@
         allowClear: true
     });
 
+    $('.select-contacts').select2({
+        placeholder: 'Choose a contact to answer...',
+        allowClear: true
+    });
+
     $('.select-multiple-categories').select2({
         placeholder: 'Choose one or more categories...',
     });

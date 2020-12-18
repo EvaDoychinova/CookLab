@@ -4,14 +4,16 @@ using CookLab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookLab.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201218123434_AddContactsRepliesEntityNameInDbContext")]
+    partial class AddContactsRepliesEntityNameInDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,12 +215,13 @@ namespace CookLab.Data.Migrations
 
             modelBuilder.Entity("CookLab.Data.Models.ContactForm", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -227,6 +230,9 @@ namespace CookLab.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
@@ -249,21 +255,27 @@ namespace CookLab.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("CookLab.Data.Models.ContactFormReply", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ContactFormId")
-                        .HasColumnType("int");
+                    b.Property<string>("ContactFormId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -276,6 +288,8 @@ namespace CookLab.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContactFormId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("ContactsReplies");
                 });
@@ -717,9 +731,7 @@ namespace CookLab.Data.Migrations
                 {
                     b.HasOne("CookLab.Data.Models.ContactForm", "ContactForm")
                         .WithMany()
-                        .HasForeignKey("ContactFormId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ContactFormId");
 
                     b.Navigation("ContactForm");
                 });

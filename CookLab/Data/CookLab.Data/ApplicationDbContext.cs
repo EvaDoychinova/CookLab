@@ -30,6 +30,8 @@
 
         public DbSet<ContactForm> Contacts { get; set; }
 
+        public DbSet<ContactFormReply> ContactsReplies { get; set; }
+
         public DbSet<CookingVessel> CookingVessels { get; set; }
 
         public DbSet<Ingredient> Ingredients { get; set; }

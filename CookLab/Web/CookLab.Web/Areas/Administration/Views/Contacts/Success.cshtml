@@ -1,0 +1,13 @@
+﻿@{
+    this.ViewData["Title"] = PageTitles.SuccessfullySendPageTitle;
+}
+
+<div class="container m-auto">
+    <div>
+        <h1 class="text-center">@this.ViewData["Title"]</h1>
+        <h4 class="text-center">You have one less contacts to answer!</h4>
+    </div>
+    <div class="m-5 text-center">
+        <a class="btn btn-xl btn-primary" asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Contacts" asp-action="All">Back to all contacts</a>
+    </div>
+</div>

@@ -415,3 +415,7 @@ code.recovery-code {
         margin-top: 3rem !important;
     }
 }
+
+.list-group-item.contact-reply {
+    padding: 2px !important;
+}

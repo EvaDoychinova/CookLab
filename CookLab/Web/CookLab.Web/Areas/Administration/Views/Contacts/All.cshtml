@@ -1,0 +1,47 @@
+﻿@using CookLab.Models.ViewModels.ContactForms
+
+@model ContactFormsListViewModel
+
+@{
+    this.ViewData["Title"] = PageTitles.ContactsAllPageTitle;
+}
+
+<div class="container-fluid p-0 text-center pb-3">
+    <div class="text-center my-lg-5 mb-5">
+        <h2 class="section-heading">@ViewData["Title"]</h2>
+    </div>
+    <table class="table table-striped table-light table-hover text-center col-md-6 mx-auto mb-0">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Email</th>
+                <th scope="col">Title</th>
+                <th scope="col">Created on</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contacts in Model.ContactForms)
+            {
+                <tr>
+                    <th scope="row" class="py-2">
+                        <a class="btn btn-sm btn-outline-secondary" asp-area="@GlobalConstants.AdministrationAreaName"
+                           asp-controller="Contacts" asp-action="Reply" asp-route-id="@contacts.Id">
+                            @contacts.Id
+                        </a>
+                    </th>
+                    <td class="text-primary">
+                        @contacts.Email
+                    </td>
+                    <td class="text-primary">
+                        @contacts.Title
+                    </td>
+                    <td class="text-primary">
+                        @contacts.CreatedOn.ToShortDateString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<partial name="_PaginationPartial" model="@Model" />

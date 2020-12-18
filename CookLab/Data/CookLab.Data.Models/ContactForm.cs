@@ -1,17 +1,16 @@
 ﻿namespace CookLab.Data.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     using CookLab.Data.Common.Models;
 
     using static CookLab.Common.ModelsValidations.ContactsValidations;
 
-    public class ContactForm : BaseDeletableModel<string>
+    public class ContactForm : BaseModel<int>
     {
         public ContactForm()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.IsAnswered = false;
         }
 
         [Required]
@@ -29,5 +28,7 @@
         [Required]
         [MaxLength(MessageMaxLength)]
         public string Message { get; set; }
+
+        public bool IsAnswered { get; set; }
     }
 }

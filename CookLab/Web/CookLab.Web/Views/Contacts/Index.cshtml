@@ -8,7 +8,7 @@
 }
 
 <div class="col-md-8 col-lg-6 col-xl-5 m-auto">
-    <h2>@this.ViewData["Title"]</h2>
+    <h2 class="text-center title-margin-top mb-3">@this.ViewData["Title"]</h2>
 
     <form method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -38,7 +38,10 @@
             and agree with it.
         </p>
         <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
-        <input type="submit" class="btn btn-primary" value="Send us a message" />
+        <div class="row justify-content-center">
+            <input type="submit" class="btn btn-primary col m-3" value="Send us a message" />
+            <a class="btn btn-secondary col m-3" asp-area="" asp-controller="Home" asp-action="Index">Back to Home</a>
+        </div>
     </form>
 </div>
 

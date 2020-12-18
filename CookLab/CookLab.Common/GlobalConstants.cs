@@ -11,5 +11,6 @@
         public const string AdministratorPassword = "Admin123";
 
         public const string RedirectedFromContactForm = "RedirectedFromContactForm";
+        public const string RedirectedFromContactsReplyForm = "RedirectedFromContactsReplyForm";
     }
 }

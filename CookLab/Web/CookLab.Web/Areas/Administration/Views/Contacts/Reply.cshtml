@@ -1,0 +1,32 @@
+﻿@using CookLab.Models.InputModels.ContactForms
+
+@model ContactFormReplyInputModel
+
+@{
+    this.ViewData["Title"] = PageTitles.ContactsRepliesPageTitle;
+}
+
+<div class="col-md-8 col-lg-6 col-xl-5 m-auto">
+    <h2 class="text-center title-margin-top mb-3">@this.ViewData["Title"]</h2>
+
+    <ul class="list-group col-lg-10 text-dark mx-auto">
+        <li class="list-group-item contact-reply">Sender name: @Model.ContactForm.Name</li>
+        <li class="list-group-item contact-reply">Sender email: @Model.ContactForm.Email</li>
+        <li class="list-group-item contact-reply">Title: @Model.ContactForm.Title</li>
+        <li class="list-group-item contact-reply">Message: @Model.ContactForm.Message</li>
+    </ul>
+
+    <form asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Contacts" asp-action="Reply" mespanod="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="ReplyMessage"></label>
+            <textarea asp-for="ReplyMessage" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="ReplyMessage" class="text-danger"></span>
+        </div>
+        <div class="row justify-content-center">
+            <input type="submit" class="btn btn-primary col m-3" value="Reply to message" />
+            <a class="btn btn-secondary col m-3" asp-area="@GlobalConstants.AdministrationAreaName" asp-controller="Contacts" asp-action="All">Back to All</a>
+        </div>
+    </form>
+</div>

@@ -4,14 +4,16 @@ using CookLab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookLab.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201218140811_DeleteContactsFromDatabase")]
+    partial class DeleteContactsFromDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,75 +211,6 @@ namespace CookLab.Data.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("CategoryRecipes");
-                });
-
-            modelBuilder.Entity("CookLab.Data.Models.ContactForm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsAnswered")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("CookLab.Data.Models.ContactFormReply", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("ContactFormId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReplyMessage")
-                        .IsRequired()
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContactFormId");
-
-                    b.ToTable("ContactsReplies");
                 });
 
             modelBuilder.Entity("CookLab.Data.Models.CookingVessel", b =>
@@ -711,17 +644,6 @@ namespace CookLab.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Recipe");
-                });
-
-            modelBuilder.Entity("CookLab.Data.Models.ContactFormReply", b =>
-                {
-                    b.HasOne("CookLab.Data.Models.ContactForm", "ContactForm")
-                        .WithMany()
-                        .HasForeignKey("ContactFormId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ContactForm");
                 });
 
             modelBuilder.Entity("CookLab.Data.Models.Nutrition", b =>

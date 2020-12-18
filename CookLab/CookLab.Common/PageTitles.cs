@@ -38,7 +38,10 @@
         public const string RecipeDeletePageTitle = "Delete Recipe {0}";
 
         // Contacts Page Titles
+        public const string ContactsAllPageTitle = "All unanswered contacts";
         public const string ContactsIndexPageTitle = "Contact us";
+        public const string ContactsRepliesPageTitle = "Reply to contact";
         public const string ThankYouPageTitle = "Thank you for contacting us!";
+        public const string SuccessfullySendPageTitle = "Successfully send reply!";
     }
 }

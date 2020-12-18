@@ -29,7 +29,6 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly INutritionsService nutritionsService;
 
-
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
             IDeletableEntityRepository<Ingredient> ingredientRepository,

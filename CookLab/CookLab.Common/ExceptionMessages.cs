@@ -16,5 +16,7 @@
         public const string RecipeIncorrect = "Recipe with name {0} was not created correctly";
 
         public const string ContactFormAlreadyExists = "Contact form with this information already exists";
+        public const string ContactFormMissing = "Contact form with id {0} does not exist or has already been answered.";
+        public const string ContactFormReplyAlreadyExists = "Contact form with this information has already been replied";
     }
 }

@@ -1528,7 +1528,6 @@ Bake for 7-8 minutes or until they start to get a little red.",
                             Id = "4d834c0e-e0d7-4338-b192-d574837d4f20",
                             ImageUrl = "/assets/img/recipes/4d834c0e-e0d7-4338-b192-d574837d4f20.jpg",
                             RecipeId = "8f9b2607-3f77-41f6-b8be-4fb2a910fd9f",
-
                         },
                     },
                     Ingredients = new List<RecipeIngredient>
