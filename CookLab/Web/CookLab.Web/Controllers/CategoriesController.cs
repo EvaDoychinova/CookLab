@@ -41,7 +41,6 @@
             }
 
             var rootPath = this.webHostEnvironment.WebRootPath;
-            Console.WriteLine(rootPath);
             await this.categoriesService.CreateAsync(inputModel, rootPath);
             return this.RedirectToAction(nameof(this.All));
         }

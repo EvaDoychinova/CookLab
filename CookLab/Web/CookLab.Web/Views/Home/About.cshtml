@@ -2,7 +2,28 @@
     this.Layout = "_LayoutWithSideBar";
     this.ViewData["Title"] = PageTitles.AboutPageTitle;
 }
+<div class="col-md-10 mx-auto">
+    <h1 class="text-center title-margin-top mb-3">@this.ViewData["Title"]</h1>
 
-<h1>@this.ViewData["Title"]</h1>
-
-<p>Here is the place where we tell you a lot of often boring and unnecessary information about us!</p>
+    <p>I could share the most detailed information here, fully describe the passion and the whole story behind this project but I don't want to bore you to death.</p>
+    <p>Instead you just have to know that cooking and especially desserts are my passion.</p>
+    <p>For a long time I have been struggling with a couple of problems using even my most favourite sites for recipes.</p>
+    <ul>
+        Problems such as:
+        <li>not knowing what cooking vessel I have to use and changing it in the process of cooking which sadly leads to an even bigger pile of dirty dishes in the end</li>
+        <li>
+            not having the cooking vessel from the recipe and starting to calculate the new amounts of the products necessary for the cooking vessel
+            that I actually have in my house
+        </li>
+        <li>not knowing the nutritional details of the whole recipe so as to better decide how big my portions need to be</li>
+        <li>having toooooo much thoughts and random information in the blog and finding it hard to focus to the actual stuff</li>
+        <li>and a couple of less important ones...</li>
+    </ul>
+    <p>Here I am trying to solve as much of them as I could.</p>
+    <p>Of course, I have not managed to do so yet but, hopefully, with your help, I will get closer every day.</p>
+    <p>That said, I will be very gratefull for your feedback regarding misleading or unclear information and especially a friendly suggestion.</p>
+    <p>
+        If you want to help my mission and share your struggles in this area don't hasitate to contact us at <a class="text-primary">CookLabWebApp@outlook.com</a> or use our
+        <a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts page</a>
+    </p>
+</div>

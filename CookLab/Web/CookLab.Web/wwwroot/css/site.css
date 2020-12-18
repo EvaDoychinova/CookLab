@@ -70,12 +70,13 @@ footer {
 }
 
 .footer-link {
-    color: #ffffffb3;
+    color: #ffffff;
+    transition: all 0.3s ease-out;
 }
 
     .footer-link:hover {
-        color: #fff;
-        text-decoration: underline;
+        color: #f4623a;
+        text-decoration:underline;
     }
 
 body {

@@ -4,8 +4,8 @@
     {
         // Home Page Titles
         public const string HomePageTitle = "Home";
-        public const string AboutPageTitle = "About";
-        public const string PrivacyPageTitle = "Privacy Policy";
+        public const string AboutPageTitle = "About CookLab";
+        public const string PrivacyPageTitle = "Privacy Policy for CookLab";
         public const string HttpErrorPageTitle = "Page not found";
 
         // Categories Page Titles
