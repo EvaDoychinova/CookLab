@@ -25,10 +25,14 @@
 - xUnit
 - Moq
 - SendGrid (e-mail sender notification)
+- GoogleReCaptcha
 - JavaScript
 - jQuery
 - select2
 - Bootstrap
+
+## Link
+https://cooklab.azurewebsites.net
 
 ## DB Diagram
 ![](https://github.com/EvaDoychinova/CookLab/blob/master/DatabaseDiagram.jpg)
