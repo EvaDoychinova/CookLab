@@ -24,12 +24,13 @@
         private const string TestRecipeId = "TestRecipeId";
 
         [Theory]
-        [InlineData(PanForm.Circle, 20, 0, 0, 7, null, 0)]
-        [InlineData(PanForm.Custom, 0, 0, 0, 7, "Butterfly", 250)]
-        [InlineData(PanForm.Rectangular, 0, 20, 25, 7, null, 0)]
-        [InlineData(PanForm.Square, 0, 20, 0, 7, null, 0)]
+        [InlineData(PanForm.Circle, 0, 20, 0, 0, 7, null, 0)]
+        [InlineData(PanForm.Circles, 4, 8, 0, 0, 7, null, 0)]
+        [InlineData(PanForm.Custom, 0, 0, 0, 0, 7, "Butterfly", 250)]
+        [InlineData(PanForm.Rectangular, 0, 0, 20, 25, 7, null, 0)]
+        [InlineData(PanForm.Square, 0, 0, 20, 0, 7, null, 0)]
         public async Task DoesCookingVesselsCreateAsyncWorkCorrectly(
-            PanForm form, double diameter, double sideA, double sideB, double height, string name, double area)
+            PanForm form, int formCount, double diameter, double sideA, double sideB, double height, string name, double area)
         {
             var list = new List<CookingVessel>();
 
@@ -38,6 +39,7 @@
             var newCookingVessel = new CookingVesselInputModel
             {
                 Form = form,
+                FormsCount = formCount,
                 Diameter = diameter,
                 SideA = sideA,
                 SideB = sideB,

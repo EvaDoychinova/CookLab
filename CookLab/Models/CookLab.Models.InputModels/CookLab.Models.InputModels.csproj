@@ -28,8 +28,4 @@
     <ProjectReference Include="..\CookLab.Models.ViewModels\CookLab.Models.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Administration\" />
-  </ItemGroup>
-
 </Project>

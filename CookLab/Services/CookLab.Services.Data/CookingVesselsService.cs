@@ -135,7 +135,7 @@
             {
                 alternativeCookingVessel = this.cookingVesselRepository.All()
                 .FirstOrDefault(x =>
-                Math.Round(x.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) == Math.Round(cookingVessel.Area / Math.Pow(10, Math.Abs(-1)), 0) * Math.Pow(10, Math.Abs(-1)) &&
+                Math.Round(x.Area / Math.Pow(10, Math.Abs(-2)), 0) * Math.Pow(10, Math.Abs(-2)) == Math.Round(cookingVessel.Area / Math.Pow(10, Math.Abs(-2)), 0) * Math.Pow(10, Math.Abs(-2)) &&
                 x.Height >= cookingVessel.Height &&
                 x.Id != cookingVessel.Id);
             }

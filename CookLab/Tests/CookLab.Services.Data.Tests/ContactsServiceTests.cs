@@ -8,7 +8,7 @@
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
     using CookLab.Models.InputModels.ContactForms;
-
+    using CookLab.Services.Messaging;
     using Moq;
 
     using Xunit;
@@ -25,7 +25,7 @@
         {
             var list = new List<ContactForm>();
 
-            var service = this.CreateMockAndConfigureService(list);
+            var service = this.CreateMockAndConfigureService(list, new List<ContactFormReply>());
 
             var contactFormEntity = new ContactFormInputModel
             {
@@ -45,7 +45,7 @@
         {
             var list = new List<ContactForm>();
 
-            var service = this.CreateMockAndConfigureService(list);
+            var service = this.CreateMockAndConfigureService(list, new List<ContactFormReply>());
 
             var contactFormEntity = new ContactFormInputModel
             {
@@ -60,15 +60,24 @@
             await Assert.ThrowsAsync<ArgumentException>(async () => await service.SendEmailToAdminAsync(contactFormEntity));
         }
 
-        private IContactsService CreateMockAndConfigureService(IList<ContactForm> list)
+        private IContactsService CreateMockAndConfigureService(
+            IList<ContactForm> list,
+            IList<ContactFormReply> contactReplyList)
         {
-            var mockContactFormRepo = new Mock<IDeletableEntityRepository<ContactForm>>();
+            var mockContactFormRepo = new Mock<IRepository<ContactForm>>();
             mockContactFormRepo.Setup(x => x.All())
                 .Returns(list.AsQueryable());
             mockContactFormRepo.Setup(x => x.AddAsync(It.IsAny<ContactForm>()))
                 .Callback((ContactForm contactForm) => list.Add(contactForm));
 
-            var service = new ContactsService(mockContactFormRepo.Object);
+            var mockContactReplyRepo = new Mock<IRepository<ContactFormReply>>();
+
+            var mockSender = new Mock<IEmailSender>();
+
+            var service = new ContactsService(
+                mockContactFormRepo.Object,
+                mockContactReplyRepo.Object,
+                mockSender.Object);
 
             return service;
         }
