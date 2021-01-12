@@ -1,7 +1,6 @@
 ﻿namespace CookLab.Web.ViewComponents
 {
     using System.Linq;
-    using System.Threading.Tasks;
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;

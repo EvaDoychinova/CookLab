@@ -1,7 +1,6 @@
 ﻿namespace CookLab.Web.ViewComponents
 {
     using System.Linq;
-    using System.Threading.Tasks;
 
     using CookLab.Data.Common.Repositories;
     using CookLab.Data.Models;
@@ -9,7 +8,6 @@
     using CookLab.Services.Mapping;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     public class MostPopularRecipesViewComponent : ViewComponent
     {

@@ -7,18 +7,18 @@
         @if (1 < Model.CurrentPage - 3)
         {
             <li class="page-item">
-        <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="1">1</a>
+        <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="1">1</a>
             </li>
         }
         <li class="page-item @if (!Model.HasPreviousPage) {<text>disabled</text>} ">
-            <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.PreviousPage">Prev</a>
+            <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.PreviousPage">Prev</a>
         </li>
         @for (int i = Model.CurrentPage - 2; i < Model.CurrentPage; i++)
         {
             @if (i > 0)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@i">@i</a>
+                    <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="@i">@i</a>
                 </li>
             }
         }
@@ -30,17 +30,17 @@
             @if (i <= Model.TotalPagesCount)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@i">@i</a>
+                    <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="@i">@i</a>
                 </li>
             }
         }
         <li class="page-item @if (!Model.HasNextPage) {<text>disabled</text>}">
-            <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.NextPage">Next</a>
+            <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.NextPage">Next</a>
         </li>
         @if (Model.TotalPagesCount > Model.CurrentPage + 3)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.TotalPagesCount">@Model.TotalPagesCount</a>
+                <a class="page-link" asp-area="" asp-action="@this.ViewData["Action"]" asp-route-id="@Model.TotalPagesCount">@Model.TotalPagesCount</a>
             </li>
         }
     </ul>

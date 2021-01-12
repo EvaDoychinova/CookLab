@@ -3,7 +3,7 @@
     public static class PageTitles
     {
         // Home Page Titles
-        public const string HomePageTitle = "Home";
+        public const string HomePageTitle = "Home - CookLab";
         public const string AboutPageTitle = "About CookLab";
         public const string PrivacyPageTitle = "Privacy Policy for CookLab";
         public const string HttpErrorPageTitle = "Page not found";

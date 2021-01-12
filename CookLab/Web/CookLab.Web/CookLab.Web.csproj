@@ -12,11 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\CookingVessels\Details.cshtml" />
-    <Content Remove="Views\Ingredients\Details.cshtml" />
-    <Content Remove="Views\Shared\Components\LatestRecipes\Default.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
@@ -54,11 +49,5 @@
     <ProjectReference Include="..\..\Services\CookLab.Services.Messaging\CookLab.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\CookLab.Services\CookLab.Services.csproj" />
     <ProjectReference Include="..\CookLab.Web.Infrastructure\CookLab.Web.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\CookingVessels\Details.cshtml" />
-    <None Include="Views\Ingredients\Details.cshtml" />
-    <None Include="Views\Shared\Components\LatestRecipes\Default.cshtml" />
   </ItemGroup>
 </Project>

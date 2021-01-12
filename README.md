@@ -7,8 +7,8 @@
 - **Administrator:**
     - authorized to create, edit and delete all types of entities
 - **Authorized User:**
-    - can create all types of entities, but cannot delete ot edit them
-    - can add recipies to his own list
+    - can create all types of entities, but cannot delete or edit them
+    - can add recipes to his own list
     - can change their portion count preference and see the corresponding nutrition for it
 - **Unauthorized users:**
     - can see all the information but can not create anything
