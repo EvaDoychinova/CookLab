@@ -13,7 +13,7 @@
     <div class="col-md-10 col-lg-10 mt-lg-5 mx-auto">
         <h2 class="text-white font-weight-bold">@this.ViewData["Title"]</h2>
         <div class=" row justify-content-between col-lg-10 mx-auto">
-            <a class="bg-transparent author-recipe" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-userId="@Model.CreatorId">
+            <a class="bg-transparent author-recipe" asp-area="" asp-controller="Recipes" asp-action="AllCreatedBy" asp-route-filterId="@Model.CreatorId">
                 <i class="fas fa-pen-fancy"></i>
                 <span class="pl-2">Author: @Model.CreatorUserName</span>
             </a>

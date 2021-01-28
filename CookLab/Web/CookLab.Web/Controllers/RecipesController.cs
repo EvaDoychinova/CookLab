@@ -86,23 +86,25 @@
             return this.View(this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
-        public async Task<IActionResult> AllByCategory([FromQuery] int categoryId, int id = 1)
+        public async Task<IActionResult> AllByCategory([FromQuery] int filterId, int id = 1)
         {
             int itemsPerPage = 9;
-            var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(categoryId);
-            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(categoryId);
+            var recipes = await this.recipesService.GetAllByCategoryAsync<RecipeViewModel>(filterId);
+            var category = await this.categoriesService.GetByIdAsync<CategoryViewModel>(filterId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllByCategoryPageTitle, category.Name);
             this.ViewData["Action"] = nameof(this.AllByCategory);
+            this.ViewData["FromQuery"] = filterId;
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
-        public async Task<IActionResult> AllCreatedBy([FromQuery] string userId, int id = 1)
+        public async Task<IActionResult> AllCreatedBy([FromQuery] string filterId, int id = 1)
         {
             int itemsPerPage = 9;
-            var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(userId);
-            var user = await this.userManager.FindByIdAsync(userId);
+            var recipes = await this.recipesService.GetAllByCreatorAsync<RecipeViewModel>(filterId);
+            var user = await this.userManager.FindByIdAsync(filterId);
             this.ViewData["Title"] = string.Format(PageTitles.RecipeAllCreatedByPageTitle, user.UserName);
             this.ViewData["Action"] = nameof(this.AllCreatedBy);
+            this.ViewData["FromQuery"] = filterId;
             return this.View(nameof(this.All), this.CreateListViewModel(recipes, id, itemsPerPage));
         }
 
